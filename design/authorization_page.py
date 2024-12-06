@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import os
 
 
 class Application(tk.Tk):
@@ -7,6 +8,10 @@ class Application(tk.Tk):
         super().__init__()
         self.title("Authorization")
         self.geometry("400x300")
+        current_dir = os.path.dirname(__file__)
+        icon_path = os.path.join(current_dir, '..', 'src', 'img', 'people.ico')
+        icon_path = os.path.abspath(icon_path)
+        self.iconbitmap(icon_path)
 
         # Ініціалізація сторінок
         self.pages = {}
@@ -92,6 +97,4 @@ class AdminPage(tk.Frame):
         messagebox.showinfo("Forgot Password", "Admin password recovery link sent to your email!")
 
 
-if __name__ == "__main__":
-    app = Application()
-    app.mainloop()
+

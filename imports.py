@@ -1,0 +1,1 @@
+from design.authorization_page import *
