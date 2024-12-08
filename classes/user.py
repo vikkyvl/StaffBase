@@ -12,3 +12,12 @@ class User:
 
     def get_password(self):
         return self._password
+
+    def set_ID(self, ID):
+        self._ID = ID
+
+    def set_login(self, login):
+        self._login = login
+
+    def set_password(self, password):
+        self._password = password

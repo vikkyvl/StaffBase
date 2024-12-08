@@ -1,100 +1,473 @@
 import tkinter as tk
-from tkinter import messagebox
+import customtkinter as ctk
 import os
+from PIL import Image, ImageTk
 
+class MainPage:
+    def __init__(self, root):
+        self.root = root
+        self.root.geometry("800x600")
+        self.root.title("StaffBase")
+        self.root.resizable(False, False)
+        self.root.configure(bg="#FFFFFF")
+        icon = tk.PhotoImage(file="icon.png")
+        self.root.iconphoto(False, icon)
 
-class Application(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("Authorization")
-        self.geometry("400x300")
-        current_dir = os.path.dirname(__file__)
-        icon_path = os.path.join(current_dir, '..', 'src', 'img', 'people.ico')
-        icon_path = os.path.abspath(icon_path)
-        self.iconbitmap(icon_path)
-
-        # Ініціалізація сторінок
         self.pages = {}
-        for PageClass in (MainPage, UserPage, AdminPage):
-            page = PageClass(self)
-            self.pages[PageClass] = page
-            page.grid(row=0, column=0, sticky="nsew")
 
-        # Відображення головної сторінки
-        self.show_page(MainPage)
+        # Створення головної сторінки
+        self.main_frame = ctk.CTkFrame(self.root, width=800, height=600, fg_color="#FFFFFF")
+        self.main_frame.place(x=0, y=0)
 
-    def show_page(self, page_class):
-        page = self.pages[page_class]
-        page.tkraise()
+        label_title = ctk.CTkLabel(
+            master=self.main_frame,
+            text="Welcome to StaffBase",
+            font=ctk.CTkFont(family="Cooper Black", size=40),
+            text_color="black",
+            bg_color="transparent"
+        )
+        label_title.place(relx=0.5, rely=0.3, anchor="center")
 
+        label_subtitle = ctk.CTkLabel(
+            master=self.main_frame,
+            text="Please select your role",
+            font=ctk.CTkFont(family="Montserrat Regular", size=24),
+            text_color="black"
+        )
+        label_subtitle.place(relx=0.5, rely=0.4, anchor="center")
 
-# Головна сторінка
-class MainPage(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        tk.Label(self, text="Welcome! Choose your role:", font=("Arial", 16)).pack(pady=20)
+        admin_button = ctk.CTkButton(
+            master=self.main_frame,
+            text="Admin",
+            width=200,
+            height=60,
+            corner_radius=30,
+            font=ctk.CTkFont(family="Montserrat Medium", size=16),
+            fg_color="#C6DBFE",
+            hover_color="#A5C4E7",
+            text_color="black",
+            border_width=0,
+            command=lambda: self.show_page("admin")
+        )
+        admin_button.place(relx=0.3, rely=0.6, anchor="center")
 
-        tk.Button(self, text="User", command=lambda: parent.show_page(UserPage), width=15).pack(pady=10)
-        tk.Button(self, text="Admin", command=lambda: parent.show_page(AdminPage), width=15).pack(pady=10)
+        employee_button = ctk.CTkButton(
+            master=self.main_frame,
+            text="Employee",
+            width=200,
+            height=60,
+            corner_radius=30,
+            font=ctk.CTkFont(family="Montserrat Medium", size=16),
+            fg_color="#C6DBFE",
+            hover_color="#A5C4E7",
+            text_color="black",
+            border_width=0,
+            command=lambda: self.show_page("employee")
+        )
+        employee_button.place(relx=0.7, rely=0.6, anchor="center")
 
+        self.pages["admin"] = AdminPage(self.root, self)
+        self.pages["employee"] = EmployeePage(self.root, self)
 
-# Сторінка для User
-class UserPage(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
+    def show_page(self, page_name):
+        self.main_frame.place_forget()
+        self.pages[page_name].show()
 
-        tk.Label(self, text="User Login", font=("Arial", 14)).pack(pady=10)
+    def show_main(self):
+        for page in self.pages.values():
+            page.hide()
+        self.main_frame.place(x=0, y=0)
 
-        tk.Label(self, text="Login:").pack()
-        self.login_entry = tk.Entry(self)
-        self.login_entry.pack(pady=5)
+class AdminPage:
+    def __init__(self, root, main_page):
+        self.main_page = main_page
+        self.frame = ctk.CTkFrame(root, width=800, height=600, fg_color="#FFFFFF")
 
-        tk.Label(self, text="Password:").pack()
-        self.password_entry = tk.Entry(self, show="*")
-        self.password_entry.pack(pady=5)
+        self.create_login_screen()
 
-        tk.Button(self, text="Login", command=self.login_user).pack(pady=10)
-        tk.Button(self, text="Forgot Password", command=self.forgot_password).pack()
+    def create_login_screen(self):
+        self.clear_frame()
 
-        tk.Button(self, text="Back", command=lambda: parent.show_page(MainPage)).pack(pady=10)
+        label = ctk.CTkLabel(
+            master=self.frame,
+            text="Admin Login",
+            font=ctk.CTkFont(family="Montserrat Medium", size=30),
+            text_color="black"
+        )
+        label.place(relx=0.5, rely=0.2, anchor="center")
 
-    def login_user(self):
-        login = self.login_entry.get()
-        password = self.password_entry.get()
-        if login == "user" and password == "password":  # Тимчасова перевірка
-            messagebox.showinfo("Success", "User logged in!")
+        password_label = ctk.CTkLabel(master=self.frame, text="Password:", font=ctk.CTkFont(size=16))
+        password_label.place(relx=0.3, rely=0.4, anchor="center")
+
+        self.password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+        self.password_entry.place(relx=0.5, rely=0.4, anchor="center")
+
+        forgot_password = ctk.CTkButton(
+            master=self.frame,
+            text="Forgot Password?",
+            fg_color="transparent",
+            text_color="#1C73E8",
+            command=self.create_verification_screen
+        )
+        forgot_password.place(relx=0.5, rely=0.5, anchor="center")
+
+        login_button = ctk.CTkButton(
+            master=self.frame,
+            text="Log In",
+            width=200,
+            height=40,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=lambda: print("Admin logged in")
+        )
+        login_button.place(relx=0.5, rely=0.6, anchor="center")
+
+        back_button = ctk.CTkButton(
+            master=self.frame,
+            text="Back",
+            width=80,
+            height=30,
+            corner_radius=10,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.main_page.show_main
+        )
+        back_button.place(x=10, y=10)
+
+    def create_verification_screen(self):
+        self.clear_frame()
+
+        label = ctk.CTkLabel(
+            master=self.frame,
+            text="Verification Code Sent",
+            font=ctk.CTkFont(family="Montserrat Medium", size=24),
+            text_color="black"
+        )
+        label.place(relx=0.5, rely=0.2, anchor="center")
+
+        instruction = ctk.CTkLabel(
+            master=self.frame,
+            text="Please enter the 6-digit code sent to staff-base@ukr.net.",
+            font=ctk.CTkFont(size=14),
+            text_color="black"
+        )
+        instruction.place(relx=0.5, rely=0.3, anchor="center")
+
+        # Code entry fields
+        self.code_entries = []
+        for i in range(6):
+            entry = ctk.CTkEntry(master=self.frame, width=40, font=ctk.CTkFont(size=18))
+            entry.place(relx=0.4 + (i * 0.05), rely=0.4, anchor="center")
+            self.code_entries.append(entry)
+
+        submit_button = ctk.CTkButton(
+            master=self.frame,
+            text="Confirm",
+            width=150,
+            height=40,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.create_new_password_screen
+        )
+        submit_button.place(relx=0.5, rely=0.6, anchor="center")
+
+        back_button = ctk.CTkButton(
+            master=self.frame,
+            text="Back",
+            width=80,
+            height=30,
+            corner_radius=10,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.create_login_screen
+        )
+        back_button.place(x=10, y=10)
+
+    def create_new_password_screen(self):
+        entered_code = "".join(entry.get() for entry in self.code_entries)
+        if entered_code == "123456":  # Replace with actual validation logic
+            self.clear_frame()
+
+            label = ctk.CTkLabel(
+                master=self.frame,
+                text="Set New Password",
+                font=ctk.CTkFont(family="Montserrat Medium", size=24),
+                text_color="black"
+            )
+            label.place(relx=0.5, rely=0.2, anchor="center")
+
+            new_password_label = ctk.CTkLabel(master=self.frame, text="New Password:", font=ctk.CTkFont(size=16))
+            new_password_label.place(relx=0.3, rely=0.4, anchor="center")
+
+            self.new_password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+            self.new_password_entry.place(relx=0.5, rely=0.4, anchor="center")
+
+            confirm_password_label = ctk.CTkLabel(master=self.frame, text="Confirm Password:", font=ctk.CTkFont(size=16))
+            confirm_password_label.place(relx=0.3, rely=0.5, anchor="center")
+
+            self.confirm_password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+            self.confirm_password_entry.place(relx=0.5, rely=0.5, anchor="center")
+
+            submit_button = ctk.CTkButton(
+                master=self.frame,
+                text="Submit",
+                width=150,
+                height=40,
+                fg_color="#C6DBFE",
+                text_color="black",
+                command=self.submit_new_password
+            )
+            submit_button.place(relx=0.5, rely=0.7, anchor="center")
+
         else:
-            messagebox.showerror("Error", "Invalid login or password.")
+            print("Invalid code!")  # You can display an error message instead.
 
-    def forgot_password(self):
-        messagebox.showinfo("Forgot Password", "Password recovery link sent to your email!")
+    def submit_new_password(self):
+        new_password = self.new_password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
 
-
-# Сторінка для Admin
-class AdminPage(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
-
-        tk.Label(self, text="Admin Login", font=("Arial", 14)).pack(pady=10)
-
-        tk.Label(self, text="Password:").pack()
-        self.password_entry = tk.Entry(self, show="*")
-        self.password_entry.pack(pady=5)
-
-        tk.Button(self, text="Login", command=self.login_admin).pack(pady=10)
-        tk.Button(self, text="Forgot Password", command=self.forgot_password).pack()
-
-        tk.Button(self, text="Back", command=lambda: parent.show_page(MainPage)).pack(pady=10)
-
-    def login_admin(self):
-        password = self.password_entry.get()
-        if password == "admin":  # Тимчасова перевірка
-            messagebox.showinfo("Success", "Admin logged in!")
+        if new_password == confirm_password and new_password:
+            print("Password updated successfully!")
+            self.create_login_screen()
         else:
-            messagebox.showerror("Error", "Invalid password.")
+            print("Passwords do not match or are empty!")  # You can display an error message instead.
 
-    def forgot_password(self):
-        messagebox.showinfo("Forgot Password", "Admin password recovery link sent to your email!")
+    def clear_frame(self):
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
+    def show(self):
+        self.frame.place(x=0, y=0)
+
+    def hide(self):
+        self.frame.place_forget()
+
+class EmployeePage:
+    def __init__(self, root, main_page):
+        self.main_page = main_page
+        self.frame = ctk.CTkFrame(root, width=800, height=600, fg_color="#FFFFFF")
+
+        self.create_login_screen()
+
+    def create_login_screen(self):
+        self.clear_frame()
+
+        label = ctk.CTkLabel(
+            master=self.frame,
+            text="Employee Login",
+            font=ctk.CTkFont(family="Montserrat Medium", size=30),
+            text_color="black"
+        )
+        label.place(relx=0.5, rely=0.2, anchor="center")
+
+        username_label = ctk.CTkLabel(master=self.frame, text="Username:", font=ctk.CTkFont(size=16))
+        username_label.place(relx=0.3, rely=0.4, anchor="center")
+
+        self.username_entry = ctk.CTkEntry(master=self.frame, width=250, font=ctk.CTkFont(size=14))
+        self.username_entry.place(relx=0.5, rely=0.4, anchor="center")
+
+        password_label = ctk.CTkLabel(master=self.frame, text="Password:", font=ctk.CTkFont(size=16))
+        password_label.place(relx=0.3, rely=0.5, anchor="center")
+
+        self.password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+        self.password_entry.place(relx=0.5, rely=0.5, anchor="center")
+
+        forgot_password = ctk.CTkButton(
+            master=self.frame,
+            text="Forgot Password?",
+            fg_color="transparent",
+            text_color="#1C73E8",
+            command=self.create_forgot_password_screen
+        )
+        forgot_password.place(relx=0.5, rely=0.6, anchor="center")
+
+        login_button = ctk.CTkButton(
+            master=self.frame,
+            text="Log In",
+            width=200,
+            height=40,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.login_employee
+        )
+        login_button.place(relx=0.5, rely=0.7, anchor="center")
+
+        back_button = ctk.CTkButton(
+            master=self.frame,
+            text="Back",
+            width=80,
+            height=30,
+            corner_radius=10,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.main_page.show_main
+        )
+        back_button.place(x=10, y=10)
+
+    def create_forgot_password_screen(self):
+        self.clear_frame()
+
+        label = ctk.CTkLabel(
+            master=self.frame,
+            text="Enter your login",
+            font=ctk.CTkFont(family="Montserrat Medium", size=24),
+            text_color="black"
+        )
+        label.place(relx=0.5, rely=0.2, anchor="center")
+
+        login_label = ctk.CTkLabel(master=self.frame, text="Login:", font=ctk.CTkFont(size=16))
+        login_label.place(relx=0.3, rely=0.4, anchor="center")
+
+        self.forgot_username_entry = ctk.CTkEntry(master=self.frame, width=250, font=ctk.CTkFont(size=14))
+        self.forgot_username_entry.place(relx=0.5, rely=0.4, anchor="center")
+
+        send_code_button = ctk.CTkButton(
+            master=self.frame,
+            text="Send Verification Code",
+            width=200,
+            height=40,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.send_verification_code
+        )
+        send_code_button.place(relx=0.5, rely=0.6, anchor="center")
+
+        back_button = ctk.CTkButton(
+            master=self.frame,
+            text="Back",
+            width=80,
+            height=30,
+            corner_radius=10,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.create_login_screen
+        )
+        back_button.place(x=10, y=10)
+
+    def send_verification_code(self):
+        # Placeholder for sending verification code logic.
+        print("Verification code sent to the email associated with", self.forgot_username_entry.get())
+        self.create_verification_code_screen()
+
+    def create_verification_code_screen(self):
+        self.clear_frame()
+
+        label = ctk.CTkLabel(
+            master=self.frame,
+            text="Verification Code Sent",
+            font=ctk.CTkFont(family="Montserrat Medium", size=24),
+            text_color="black"
+        )
+        label.place(relx=0.5, rely=0.2, anchor="center")
+
+        instruction = ctk.CTkLabel(
+            master=self.frame,
+            text="Please enter the 6-digit code sent to your email.",
+            font=ctk.CTkFont(size=14),
+            text_color="black"
+        )
+        instruction.place(relx=0.5, rely=0.3, anchor="center")
+
+        # Code entry fields
+        self.code_entries = []
+        for i in range(6):
+            entry = ctk.CTkEntry(master=self.frame, width=40, font=ctk.CTkFont(size=18))
+            entry.place(relx=0.4 + (i * 0.05), rely=0.4, anchor="center")
+            self.code_entries.append(entry)
+
+        submit_button = ctk.CTkButton(
+            master=self.frame,
+            text="Confirm",
+            width=150,
+            height=40,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.create_new_password_screen
+        )
+        submit_button.place(relx=0.5, rely=0.6, anchor="center")
+
+        back_button = ctk.CTkButton(
+            master=self.frame,
+            text="Back",
+            width=80,
+            height=30,
+            corner_radius=10,
+            fg_color="#C6DBFE",
+            text_color="black",
+            command=self.create_forgot_password_screen
+        )
+        back_button.place(x=10, y=10)
+
+    def create_new_password_screen(self):
+        entered_code = "".join(entry.get() for entry in self.code_entries)
+        if entered_code == "123456":  # Replace with actual validation logic
+            self.clear_frame()
+
+            label = ctk.CTkLabel(
+                master=self.frame,
+                text="Set New Password",
+                font=ctk.CTkFont(family="Montserrat Medium", size=24),
+                text_color="black"
+            )
+            label.place(relx=0.5, rely=0.2, anchor="center")
+
+            new_password_label = ctk.CTkLabel(master=self.frame, text="New Password:", font=ctk.CTkFont(size=16))
+            new_password_label.place(relx=0.3, rely=0.4, anchor="center")
+
+            self.new_password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+            self.new_password_entry.place(relx=0.5, rely=0.4, anchor="center")
+
+            confirm_password_label = ctk.CTkLabel(master=self.frame, text="Confirm Password:", font=ctk.CTkFont(size=16))
+            confirm_password_label.place(relx=0.3, rely=0.5, anchor="center")
+
+            self.confirm_password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
+            self.confirm_password_entry.place(relx=0.5, rely=0.5, anchor="center")
+
+            submit_button = ctk.CTkButton(
+                master=self.frame,
+                text="Submit",
+                width=150,
+                height=40,
+                fg_color="#C6DBFE",
+                text_color="black",
+                command=self.submit_new_password
+            )
+            submit_button.place(relx=0.5, rely=0.7, anchor="center")
+
+        else:
+            print("Invalid code!")  # You can display an error message instead.
+
+    def submit_new_password(self):
+        new_password = self.new_password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+
+        if new_password == confirm_password and new_password:
+            print("Password updated successfully!")
+            self.create_login_screen()
+        else:
+            print("Passwords do not match or are empty!")  # Display error message here.
+
+    def login_employee(self):
+        # Replace this placeholder with actual login validation logic
+        print("Employee logged in with username:", self.username_entry.get())
+        self.main_page.show_user_page()
+
+    def clear_frame(self):
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
+    def show(self):
+        self.frame.place(x=0, y=0)
+
+    def hide(self):
+        self.frame.place_forget()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MainPage(root)
+    root.mainloop()
+
+
 
 
 
