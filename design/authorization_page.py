@@ -25,8 +25,15 @@ class MainPage:
         label_subtitle = ctk.CTkLabel(master=self.main_frame, text="Please select your role", font=ctk.CTkFont(family="Montserrat Regular", size=24), text_color="black")
         label_subtitle.place(relx=0.5, rely=0.4, anchor="center")
 
-        image_icon = PhotoImage(file="img/admin.png")
-        admin_button = ctk.CTkButton(master=self.main_frame, text="Admin", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family="Montserrat Medium", size=16), fg_color="#C6DBFE", hover_color="#A5C4E7", text_color="black", border_width=0, image=PhotoImage(file="path_to_icon.png"), compound="left", command=lambda: self.show_page("admin")).place(relx=0.3, rely=0.6, anchor="center")
+        # image_icon = PhotoImage(file="img/admin.png")
+
+        icon_path = "img/admin.png"
+        icon_image = Image.open(icon_path)
+        icon_photo = ImageTk.PhotoImage(icon_image)
+
+        admin_button = ctk.CTkButton(
+            master=self.main_frame, text="Admin", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family="Montserrat Medium", size=16), fg_color="#C6DBFE", hover_color="#A5C4E7", text_color="black", border_width=0, image=icon_photo, compound="left", command=lambda: self.show_page("admin"))
+
         admin_button.place(relx=0.3, rely=0.6, anchor="center")
 
         employee_button = ctk.CTkButton(master=self.main_frame, text="Employee", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family="Montserrat Medium", size=16), fg_color="#C6DBFE", hover_color="#A5C4E7", text_color="black", border_width=0, command=lambda: self.show_page("employee"))
