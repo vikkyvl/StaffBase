@@ -1,3 +1,4 @@
+import design.variables as var
 import tkinter as tk
 from tkinter import *
 import customtkinter as ctk
@@ -19,24 +20,18 @@ class MainPage:
         self.main_frame = ctk.CTkFrame(self.root, width=800, height=600, fg_color="#FFFFFF")
         self.main_frame.place(x=0, y=0)
 
-        label_title = ctk.CTkLabel(master=self.main_frame, text="Welcome to StaffBase", font=ctk.CTkFont(family="Cooper Black", size=40), text_color="black", bg_color="transparent")
-        label_title.place(relx=0.5, rely=0.3, anchor="center")
+        label_title = ctk.CTkLabel(master=self.main_frame, text="Welcome to StaffBase", font=ctk.CTkFont(family=var.font_primary, size=40), text_color="black", bg_color="transparent")
+        label_title.place(relx=0.5, rely=0.35, anchor="center")
 
-        label_subtitle = ctk.CTkLabel(master=self.main_frame, text="Please select your role", font=ctk.CTkFont(family="Montserrat Regular", size=24), text_color="black")
-        label_subtitle.place(relx=0.5, rely=0.4, anchor="center")
+        label_subtitle = ctk.CTkLabel(master=self.main_frame, text="Please select your role", font=ctk.CTkFont(family=var.font_secondary, size=24), text_color="black")
+        label_subtitle.place(relx=0.5, rely=0.45, anchor="center")
 
-        # image_icon = PhotoImage(file="img/admin.png")
-
-        icon_path = "img/admin.png"
-        icon_image = Image.open(icon_path)
-        icon_photo = ImageTk.PhotoImage(icon_image)
-
-        admin_button = ctk.CTkButton(
-            master=self.main_frame, text="Admin", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family="Montserrat Medium", size=16), fg_color="#C6DBFE", hover_color="#A5C4E7", text_color="black", border_width=0, image=icon_photo, compound="left", command=lambda: self.show_page("admin"))
-
+        img_admin = PhotoImage(file="img/admin.png")
+        admin_button = ctk.CTkButton(master=self.main_frame, text="Admin", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family=var.font_secondary, size=16), fg_color=var.color_black, hover_color=var.color_grey, text_color=var.color_white, border_width=0, image=img_admin, compound="left", command=lambda: self.show_page("admin"))
         admin_button.place(relx=0.3, rely=0.6, anchor="center")
 
-        employee_button = ctk.CTkButton(master=self.main_frame, text="Employee", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family="Montserrat Medium", size=16), fg_color="#C6DBFE", hover_color="#A5C4E7", text_color="black", border_width=0, command=lambda: self.show_page("employee"))
+        img_user = PhotoImage(file="img/user.png")
+        employee_button = ctk.CTkButton(master=self.main_frame, text="Employee", width=200, height=60, corner_radius=30, font=ctk.CTkFont(family=var.font_secondary, size=16), fg_color=var.color_black, hover_color=var.color_grey, text_color=var.color_white, border_width=0, image=img_user, compound="left", command=lambda: self.show_page("employee"))
         employee_button.place(relx=0.7, rely=0.6, anchor="center")
 
         self.pages["admin"] = AdminPage(self.root, self)
@@ -56,17 +51,19 @@ class AdminPage:
     def __init__(self, root, main_page):
         self.main_page = main_page
         self.frame = ctk.CTkFrame(root, width=800, height=600, fg_color="#FFFFFF")
-
         self.create_login_screen()
 
     def create_login_screen(self):
         self.clear_frame()
 
-        label = ctk.CTkLabel(master=self.frame, text="Admin Login", font=ctk.CTkFont(family="Montserrat Medium", size=30), text_color="black")
+        self.center_frame = ctk.CTkFrame(master=self.frame, width=360, height=450, fg_color="#66AEEB", corner_radius=30)
+        self.center_frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        label = ctk.CTkLabel(master=self.frame, text="Log in to your account", font=ctk.CTkFont(family="Montserrat Medium", size=30), text_color="black")
         label.place(relx=0.5, rely=0.2, anchor="center")
 
         password_label = ctk.CTkLabel(master=self.frame, text="Password:", font=ctk.CTkFont(size=16))
-        password_label.place(relx=0.3, rely=0.4, anchor="center")
+        password_label.place(relx=0.4, rely=0.35, anchor="center")
 
         self.password_entry = ctk.CTkEntry(master=self.frame, width=250, show="*", font=ctk.CTkFont(size=14))
         self.password_entry.place(relx=0.5, rely=0.4, anchor="center")
@@ -77,7 +74,8 @@ class AdminPage:
         login_button = ctk.CTkButton(master=self.frame, text="Log In", width=200, height=40, fg_color="#C6DBFE", text_color="black", command=lambda: print("Admin logged in"))
         login_button.place(relx=0.5, rely=0.6, anchor="center")
 
-        back_button = ctk.CTkButton(master=self.frame, text="Back", width=80, height=30, corner_radius=10, fg_color="#C6DBFE", text_color="black", command=self.main_page.show_main)
+        back_image = PhotoImage(file="img/back.png")
+        back_button = ctk.CTkButton(master=self.frame, image=back_image, text="", width=80, height=30, corner_radius=10, fg_color=var.color_black, command=self.main_page.show_main)
         back_button.place(x=10, y=10)
 
     def create_verification_screen(self):
@@ -89,7 +87,6 @@ class AdminPage:
         instruction = ctk.CTkLabel(master=self.frame, text="Please enter the 6-digit code sent to staff-base@ukr.net.", font=ctk.CTkFont(size=14), text_color="black")
         instruction.place(relx=0.5, rely=0.3, anchor="center")
 
-        # Code entry fields
         self.code_entries = []
         for i in range(6):
             entry = ctk.CTkEntry(master=self.frame, width=40, font=ctk.CTkFont(size=18))

@@ -1,8 +1,35 @@
+import random
+import string
+import os
+import json
+
 class User:
-    def __init__(self, ID=None, login=None, password=None):
-        self._ID = ID
+    def __init__(self, login=None, password=None):
+        self._ID = self.generate_unique_id()
         self._login = login
         self._password = password
+
+    @staticmethod
+    def generate_unique_id():
+        used_ids = User.load_used_ids()
+        while True:
+            new_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            if new_id not in used_ids:
+                used_ids.add(new_id)
+                User.save_used_ids(used_ids)  # Зберігаємо використані ідентифікатори
+                return new_id
+
+    @staticmethod
+    def load_used_ids():
+        if os.path.exists('used_ids.json'):
+            with open('used_ids.json', 'r') as file:
+                return set(json.load(file))
+        return set()
+
+    @staticmethod
+    def save_used_ids(used_ids):
+        with open('used_ids.json', 'w') as file:
+            json.dump(list(used_ids), file)
 
     def get_ID(self):
         return self._ID
@@ -21,3 +48,4 @@ class User:
 
     def set_password(self, password):
         self._password = password
+
