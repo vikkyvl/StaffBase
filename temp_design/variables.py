@@ -1,0 +1,5 @@
+# font_primary = "Cooper Black"
+# font_secondary = "Caros Light"
+# color_black = "black"
+# color_white = "white"
+# color_grey = "#3C3D37"
