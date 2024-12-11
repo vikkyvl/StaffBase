@@ -17,6 +17,7 @@ def run():
     # run_application()
     user = User("ann_smith", "6789r")
     ID_user = user.get_ID()
+    print(ID_user)
     redis_connection.add_employee(user)
     employee_info = Employee(ID_user)
     employee_info.set_full_name("Ann Smith")
