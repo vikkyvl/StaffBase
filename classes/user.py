@@ -3,6 +3,7 @@ import string
 import os
 import json
 
+
 class User:
     def __init__(self, login=None, password=None):
         self._ID = self.generate_unique_id()
@@ -16,7 +17,7 @@ class User:
             new_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
             if new_id not in used_ids:
                 used_ids.add(new_id)
-                User.save_used_ids(used_ids)  # Зберігаємо використані ідентифікатори
+                User.save_used_ids(used_ids)
                 return new_id
 
     @staticmethod
