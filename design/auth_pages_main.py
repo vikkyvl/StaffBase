@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow
-from auth_pages import Ui_MainWindow
+from design.auth_pages import Ui_MainWindow
+import sys
 
 
 class AuthorizationPage(QMainWindow):
@@ -10,8 +11,7 @@ class AuthorizationPage(QMainWindow):
         self.ui.setupUi(self)
 
 
-if __name__ == "__main__":
-    import sys
+def run_application():
     app = QtWidgets.QApplication(sys.argv)
     main_window = AuthorizationPage()
     main_window.show()
