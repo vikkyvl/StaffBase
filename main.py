@@ -1,11 +1,11 @@
-from design.auth_pages_main import run_application
 from imports import *
+
 
 def run():
     # app = Application()
     # app.mainloop()
-    # redis_connection = Redis()
-    # mysql_connection = MySQL()
+    redis_connection = Redis()
+    mysql_connection = MySQL()
     #
     # print(redis_connection)
     # print(mysql_connection)
@@ -14,7 +14,13 @@ def run():
     # print(redis_connection.update_employee_password("vlada_petryk", "1234f"))
     # print(redis_connection.get_id_by_login("vika_thebest"))
     # print(redis_connection.delete_employee("vika_thebest"))
-    run_application()
+    # run_application()
+    user = User("ann_smith", "6789r")
+    ID_user = user.get_ID()
+    redis_connection.add_employee(user)
+    employee_info = Employee(ID_user)
+    employee_info.set_full_name("Ann Smith")
+    mysql_connection.add_employee(employee_info)
 
 
 if __name__ == "__main__":
