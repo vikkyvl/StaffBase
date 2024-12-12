@@ -13,6 +13,48 @@ class MySQL:
                 database=database,
                 use_pure=use_pure
             )
+    def create_tables(self):
+        tables = {
+            "Employee": """
+                CREATE TABLE IF NOT EXISTS Employee (
+                    employee_id VARCHAR(36) PRIMARY KEY,
+                    full_name VARCHAR(255)
+                )
+            """,
+            "GeneralInfo": """
+                CREATE TABLE IF NOT EXISTS GeneralInfo (
+                    employee_id VARCHAR(36),
+                    department_id VARCHAR(36),
+                    position_id VARCHAR(36),
+                    hire_date DATE,
+                    experience INT,
+                    PRIMARY KEY (employee_id),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+                )
+            """,
+            "PersonalInfo": """
+                CREATE TABLE IF NOT EXISTS PersonalInfo (
+                    employee_id VARCHAR(36),
+                    birth_date DATE,
+                    sex VARCHAR(10),
+                    number_of_children INT,
+                    phone_number VARCHAR(15),
+                    marital_status VARCHAR(20),
+                    email VARCHAR(255),
+                    PRIMARY KEY (employee_id),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+                )
+            """
+        }
+
+        for table_name, table_query in tables.items():
+            try:
+                self.cursor.execute(table_query)
+                print(f"Таблиця '{table_name}' створена успішно.")
+            except mysql.connector.Error as e:
+                print(f"Помилка під час створення таблиці '{table_name}':", e)
+
+        self.mydb.commit()
 
     def add_employee(self, employee: Employee):
         cursor = self.mydb.cursor()
