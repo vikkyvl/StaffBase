@@ -3,7 +3,7 @@ from employee import Employee
 
 class GeneralInfo:
     def __init__(self, employee: Employee, department_id: int, position_id: int, hire_date: date, experience: int):
-        self._employee = employee  # Композиція з класом Employee
+        self._employee = employee
         self._department_ID = department_id
         self._position_ID = position_id
         self._hire_date = hire_date
