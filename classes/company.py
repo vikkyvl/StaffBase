@@ -1,4 +1,4 @@
-from department import Department
+from classes.department import Department
 
 class Company:
     def __init__(self, company_name: str, num_of_departments: int):

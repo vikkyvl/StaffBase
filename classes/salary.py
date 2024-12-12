@@ -1,4 +1,4 @@
-from employee import Employee
+from classes.employee import Employee
 
 class Salary:
     def __init__(self, employee: Employee, month: str, salary: float):

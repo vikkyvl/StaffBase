@@ -258,18 +258,18 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
-        self.forgot_user_pushBotton = QtWidgets.QPushButton(self.frame_2)
-        self.forgot_user_pushBotton.setGeometry(QtCore.QRect(150, 340, 191, 30))
+        self.forgot_user_pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.forgot_user_pushButton.setGeometry(QtCore.QRect(150, 340, 191, 30))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
-        self.forgot_user_pushBotton.setFont(font)
-        self.forgot_user_pushBotton.setStyleSheet("QPushButton:hover {\n"
+        self.forgot_user_pushButton.setFont(font)
+        self.forgot_user_pushButton.setStyleSheet("QPushButton:hover {\n"
 "color: rgb(0, 0, 255);\n"
 "}")
-        self.forgot_user_pushBotton.setObjectName("forgot_user_pushBotton")
+        self.forgot_user_pushButton.setObjectName("forgot_user_pushBotton")
         self.user_back_pushButton = QtWidgets.QPushButton(self.user_auth_page)
         self.user_back_pushButton.setGeometry(QtCore.QRect(10, 10, 75, 51))
         self.user_back_pushButton.setStyleSheet("QPushButton {\n"
@@ -582,7 +582,7 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "Enter your password"))
         self.login_admin_pushButton_2.setText(_translate("MainWindow", "LOGIN"))
         self.label_8.setText(_translate("MainWindow", "Enter your username"))
-        self.forgot_user_pushBotton.setText(_translate("MainWindow", "Forgot your password?"))
+        self.forgot_user_pushButton.setText(_translate("MainWindow", "Forgot your password?"))
         self.label_9.setText(_translate("MainWindow", "A code has been sent to"))
         self.email_textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

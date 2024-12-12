@@ -1,5 +1,5 @@
 from datetime import date
-from employee import Employee
+from classes.employee import Employee
 
 class PersonalInfo:
     def __init__(self, employee: Employee, birth_date: date, sex: str, number_of_children: int, phone_number: int, marital_status: str, email: str):

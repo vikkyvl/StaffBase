@@ -23,7 +23,7 @@ class Redis(Admin, User):
         return 1 if self.r.hexists(f"user:{login}", "password") else 0
 
     def add_employee(self, user_info):
-        self.r.hset(f"user:{user_info._login}", mapping={"id": user_info._ID, "password": user_info._password})
+        self.r.hset(f"user:{user_info.get_login()}", mapping={"id": user_info.get_ID(), "password": user_info.get_password()})
 
     def update_employee_password(self, login, new_password):
         if self.is_exist_user(login):

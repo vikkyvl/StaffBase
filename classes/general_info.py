@@ -1,5 +1,5 @@
 from datetime import date
-from employee import Employee
+from classes.employee import Employee
 
 class GeneralInfo:
     def __init__(self, employee: Employee, department_id: int, position_id: int, hire_date: date, experience: int):

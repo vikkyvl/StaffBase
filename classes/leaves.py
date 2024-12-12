@@ -1,5 +1,5 @@
 from datetime import date
-from employee import Employee
+from classes.employee import Employee
 
 class Leaves:
     def __init__(self, employee: Employee, leave_type: str, start_date: date, end_date: date, duration: int):
