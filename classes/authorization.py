@@ -9,7 +9,7 @@ class Authorization:
         self.sender_email = sender_email
         self.sender_password = sender_password
 
-    def generate_verification_code(length=4):
+    def generate_verification_code(self, length=6):
         return ''.join(random.choices('0123456789', k=length))
 
     def send_email(self, receiver_email, verification_code):

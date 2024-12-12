@@ -128,6 +128,7 @@ class Ui_MainWindow(object):
 "    font-size: 14pt;\n"
 "}")
         self.admin_password_lineEdit.setMaxLength(20)
+        self.admin_password_lineEdit.setEchoMode(QtWidgets.QLineEdit.PasswordEchoOnEdit)
         self.admin_password_lineEdit.setObjectName("admin_password_lineEdit")
         self.label_4 = QtWidgets.QLabel(self.frame)
         self.label_4.setGeometry(QtCore.QRect(50, 130, 201, 31))
@@ -296,7 +297,7 @@ class Ui_MainWindow(object):
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.email_textEdit = QtWidgets.QTextEdit(self.code_page)
-        self.email_textEdit.setGeometry(QtCore.QRect(200, 175, 401, 51))
+        self.email_textEdit.setGeometry(QtCore.QRect(10, 175, 781, 51))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(24)
