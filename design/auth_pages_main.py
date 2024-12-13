@@ -21,10 +21,14 @@ class MainPage(QMainWindow):
             self.ui.forgot_user_pushButton: 5,
             self.ui.login_back_pushButton: 2,
             self.ui.login_admin_pushButton: 6,
+            self.ui.code_continue_pushButton: 8,
         }
 
         self.redis_connection = Redis()
         self.auth_process = Authorization()
+
+        self.verification_code = None
+        self.combined_code = None
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
@@ -44,6 +48,8 @@ class MainPage(QMainWindow):
                 self.admin_auth_page()
             case 7:
                 self.admin_send_code_page()
+            case 8:
+                self.check_code()
 
     def admin_auth_page(self):
         correct_password = self.redis_connection.get_admin_password()
@@ -63,13 +69,28 @@ class MainPage(QMainWindow):
             QMessageBox.Yes | QMessageBox.No
         )
         if reply == QMessageBox.Yes:
-            self.ui.stackedWidget.setCurrentIndex(3)
             admin_email = self.redis_connection.get_email()
-            self.auth_process.change_password(admin_email)
+            self.verification_code = self.auth_process.send_code(admin_email)
             self.ui.email_textEdit.setHtml(f"<div style='text-align: center;'><b>{admin_email}</b>.</div>")
-            print("Password reset confirmed. Navigating to page 3.")
+            self.ui.stackedWidget.setCurrentIndex(3)
         else:
             print("Password reset cancelled.")
+
+    def check_code(self):
+        line_edits = [
+            self.ui.first_n_lineEdit,
+            self.ui.second_n_lineEdit,
+            self.ui.third_n_lineEdit,
+            self.ui.fourth_n_lineEdit,
+            self.ui.fifth_n_lineEdit,
+            self.ui.sixth_n_lineEdit
+        ]
+        self.combined_code = "".join([line_edit.text().strip() for line_edit in line_edits])
+
+        if self.verification_code == self.combined_code:
+            self.ui.stackedWidget.setCurrentIndex(4)
+        else:
+            QMessageBox.warning(self, "Помилка", "Неправильний пароль!")
 
 
 def run_application():

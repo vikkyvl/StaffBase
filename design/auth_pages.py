@@ -356,21 +356,21 @@ class Ui_MainWindow(object):
         self.third_n_lineEdit.setMaxLength(1)
         self.third_n_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.third_n_lineEdit.setObjectName("third_n_lineEdit")
-        self.forth_n_lineEdit = QtWidgets.QLineEdit(self.code_page)
-        self.forth_n_lineEdit.setGeometry(QtCore.QRect(410, 300, 70, 70))
+        self.fourth_n_lineEdit = QtWidgets.QLineEdit(self.code_page)
+        self.fourth_n_lineEdit.setGeometry(QtCore.QRect(410, 300, 70, 70))
         font = QtGui.QFont()
         font.setPointSize(24)
-        self.forth_n_lineEdit.setFont(font)
-        self.forth_n_lineEdit.setStyleSheet("QLineEdit {\n"
+        self.fourth_n_lineEdit.setFont(font)
+        self.fourth_n_lineEdit.setStyleSheet("QLineEdit {\n"
 "    border: 1px solid rgb(0, 0, 0); \n"
 "    border-radius: 20px; \n"
 "    padding: 5px; \n"
 "    background-color: rgb(255, 255, 255);\n"
 "    color: rgb(0, 0, 0);\n"
 "}")
-        self.forth_n_lineEdit.setMaxLength(1)
-        self.forth_n_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
-        self.forth_n_lineEdit.setObjectName("forth_n_lineEdit")
+        self.fourth_n_lineEdit.setMaxLength(1)
+        self.fourth_n_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.fourth_n_lineEdit.setObjectName("fourth_n_lineEdit")
         self.fifth_n_lineEdit = QtWidgets.QLineEdit(self.code_page)
         self.fifth_n_lineEdit.setGeometry(QtCore.QRect(490, 300, 70, 70))
         font = QtGui.QFont()

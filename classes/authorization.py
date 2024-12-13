@@ -31,6 +31,8 @@ class Authorization:
         except Exception as e:
             print(f"Error sending: {e}")
 
-    def change_password(self, email):
+    def send_code(self, email):
         verification_code = self.generate_verification_code()
         self.send_email(email, verification_code)
+        return verification_code
+
