@@ -36,6 +36,11 @@ class Redis(Admin, User):
             return self.r.hget(f"user:{login}", "id")
         return 0
 
+    def get_password_by_login(self, login):
+        if self.is_exist_user(login):
+            return self.r.hget(f"user:{login}", "password")
+        return 0
+
     def delete_employee(self, login):
         if self.is_exist_user(login):
             self.r.delete(f"user:{login}")

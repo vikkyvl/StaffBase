@@ -1,0 +1,44 @@
+<RCC>
+  <qresource prefix="img">
+    <file>src/image/Right.png</file>
+    <file>src/image/Left.png</file>
+    <file>src/image/Right.png</file>
+    <file>src/image/chevron_down.png</file>
+    <file>src/image/drop_down.png</file>
+    <file>src/image/add_user.png</file>
+    <file>src/image/admin.png</file>
+    <file>src/image/arrow_back.png</file>
+    <file>src/image/arrow_back_24dp_5985E1_FILL0_wght400_GRAD0_opsz24.png</file>
+    <file>src/image/arrow_back_hover.png</file>
+    <file>src/image/back.png</file>
+    <file>src/image/denied.png</file>
+    <file>src/image/document.png</file>
+    <file>src/image/edit_row.png</file>
+    <file>src/image/employee.png</file>
+    <file>src/image/employee_hover.png</file>
+    <file>src/image/exit.png</file>
+    <file>src/image/exit_hover.png</file>
+    <file>src/image/icon.png</file>
+    <file>src/image/icon_1.png</file>
+    <file>src/image/icon_2 (1).png</file>
+    <file>src/image/icon_3.png</file>
+    <file>src/image/investment-data-amico.png</file>
+    <file>src/image/missing_days.png</file>
+    <file>src/image/office-amico.png</file>
+    <file>src/image/salary.png</file>
+    <file>src/image/salary_view.png</file>
+    <file>src/image/sending.png</file>
+    <file>src/image/staff.png</file>
+    <file>src/image/user.png</file>
+    <file>src/image/worker.png</file>
+    <file>src/image/add_user.png</file>
+    <file>src/image/icon.png</file>
+    <file>src/image/arrow_back_24dp_5985E1_FILL0_wght400_GRAD0_opsz24.png</file>
+    <file>src/image/arrow_back_hover.png</file>
+    <file>src/image/admin.png</file>
+    <file>src/image/arrow_back.png</file>
+    <file>src/image/back.png</file>
+    <file>src/image/staff.png</file>
+    <file>src/image/user.png</file>
+  </qresource>
+</RCC>
