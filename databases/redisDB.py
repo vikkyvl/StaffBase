@@ -47,6 +47,23 @@ class Redis(Admin, User):
             return 1
         return 0
 
+    def get_all_users(self):
+        user_keys = self.r.scan_iter("user:*")
+        users = []
+
+        for key in user_keys:
+            user_data = self.r.hgetall(key)
+            login = key.split("user:")[-1]
+            user_id = user_data.get("id")
+            users.append({
+                "id": user_id,
+                "login": login,
+                "data": user_data
+            })
+
+        return users
+
+
 
 
 
