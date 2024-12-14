@@ -105,14 +105,14 @@ class MySQL:
 
     def add_employee(self, employee: Employee):
         cursor = self.mydb.cursor()
-        query = "INSERT INTO Employee (ID, full_name) VALUES (%s, %s)"
+        query = "INSERT INTO Employee (employee_id, full_name) VALUES (%s, %s)"
         cursor.execute(query, (employee.get_employee_ID(), employee.get_full_name()))
         self.mydb.commit()
         cursor.close()
 
     def add_general_info(self, general_info: GeneralInfo):
         cursor = self.mydb.cursor()
-        query = """INSERT INTO GeneralInfo (ID, ID_Department, ID_Position, hire_date, experience)
+        query = """INSERT INTO GeneralInfo (employee_id, ID_Department, ID_Position, hire_date, experience)
                    VALUES (%s, %s, %s, %s, %s)"""
         cursor.execute(
             query,(general_info.get_employee_id(), general_info.get_department_id(), general_info.get_position_id(), general_info.get_hire_date(),general_info.get_experience())
@@ -122,7 +122,7 @@ class MySQL:
 
     def add_personal_info(self, personal_info: PersonalInfo):
         cursor = self.mydb.cursor()
-        query = """INSERT INTO PersonalInfo (ID, birth_date, sex, number_of_children, phone_number, marital_status, email)
+        query = """INSERT INTO PersonalInfo (employee_id, birth_date, sex, number_of_children, phone_number, marital_status, email)
                    VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(
             query,( personal_info.get_employee_id(), personal_info.get_birth_date(), personal_info.get_sex(), personal_info.get_number_of_children(), personal_info.get_phone_number(), personal_info.get_marital_status(), personal_info.get_email())
