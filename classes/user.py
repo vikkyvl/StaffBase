@@ -21,14 +21,17 @@ class User:
 
     @staticmethod
     def load_used_ids():
-        if os.path.exists('used_ids.json'):
-            with open('used_ids.json', 'r') as file:
+        file_path = os.path.join('classes', 'used_ids.json')
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as file:
                 return set(json.load(file))
         return set()
 
     @staticmethod
     def save_used_ids(used_ids):
-        with open('used_ids.json', 'w') as file:
+        file_path = os.path.join('classes', 'used_ids.json')
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, 'w') as file:
             json.dump(list(used_ids), file)
 
     def get_ID(self):

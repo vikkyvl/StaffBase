@@ -30,22 +30,36 @@ class AddPage:
         employee_experience = self.ui.experience_lineEdit.text()
         employee_birth_date = self.ui.birth_date_dateEdit.date().toString("yyyy-MM-dd")
 
-
-
         new_user = User(employee_login, employee_password)
         new_user_id = new_user.get_ID()
         employee = Employee(new_user_id, employee_full_name)
         employee_personal_info = PersonalInfo(new_user_id, employee_birth_date, employee_sex)
-        employee_general_info = GeneralInfo(new_user_id, department_id, position_id, employee_hire_day, employee_experience)
+        employee_general_info = GeneralInfo(new_user_id, department_id, position_id, employee_hire_day,
+                                            employee_experience)
 
         try:
             self.redis_connection.add_employee(new_user)
             self.mysql_connection.add_employee(employee)
             self.mysql_connection.add_personal_info(employee_personal_info)
             self.mysql_connection.add_general_info(employee_general_info)
+
             QtWidgets.QMessageBox.information(self.add_page, "Success", "Employee added successfully!")
+
+            self.clear_fields()
+            self.add_page.accept()
         except Exception as e:
             QtWidgets.QMessageBox.critical(self.add_page, "Error", f"Failed to save employee data: {e}")
+
+    def clear_fields(self):
+        self.ui.login_lineEdit.clear()
+        self.ui.password_lineEdit.clear()
+        self.ui.full_name_lineEdit.clear()
+        self.ui.sex_comboBox.setCurrentIndex(0)
+        self.ui.department_comboBox.setCurrentIndex(0)
+        self.ui.position_comboBox.clear()
+        self.ui.hire_date_dateEdit.setDate(QtCore.QDate.currentDate())
+        self.ui.experience_lineEdit.clear()
+        self.ui.birth_date_dateEdit.setDate(QtCore.QDate.currentDate())
 
     def load_departments(self):
         departments = self.mysql_connection.get_departments()
