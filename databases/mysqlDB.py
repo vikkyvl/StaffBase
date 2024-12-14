@@ -168,3 +168,24 @@ class MySQL:
         else:
             print("Tables already contain data. No insertion required.")
 
+    def get_departments(self):
+        connection = self.connect()
+        cursor = connection.cursor()
+        cursor.execute("SELECT department_id, department_name FROM Departments")
+        departments = cursor.fetchall()
+        connection.close()
+        return departments
+
+    def get_positions(self, department_id):
+        connection = self.connect()
+        cursor = connection.cursor()
+        cursor.execute("""
+                SELECT position_id, position_name
+                FROM Positions
+                WHERE department_id = %s
+            """, (department_id,))
+        positions = cursor.fetchall()
+        connection.close()
+        return positions
+
+
