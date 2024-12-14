@@ -13,3 +13,5 @@ class AddPage:
         employee_login = self.ui.login_lineEdit.text()
         employee_password = self.ui.password_lineEdit.text()
         employee_full_name = self.ui.full_name_lineEdit.text()
+        employee_sex = self.ui.sex_comboBox.currentText()
+
