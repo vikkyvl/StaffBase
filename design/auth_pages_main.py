@@ -19,7 +19,7 @@ class MainPage(QMainWindow):
             self.ui.admin_back_pushButton: 0,
             self.ui.user_back_pushButton: 0,
             self.ui.forgot_admin_pushButton: 7,
-            self.ui.forgot_user_pushButton: 5,
+            self.ui.forgot_user_pushButton: 10,
             self.ui.login_back_pushButton: 2,
             self.ui.login_admin_pushButton: 6,
             self.ui.code_continue_pushButton: 8,
@@ -55,6 +55,8 @@ class MainPage(QMainWindow):
                 self.check_code()
             case 9:
                 self.user_auth_page()
+            case 10:
+                self.open_user_login()
 
     def open_admin_page(self):
         self.close()
@@ -104,11 +106,9 @@ class MainPage(QMainWindow):
             self.verification_code = self.auth_process.send_code(admin_email)
             self.ui.email_textEdit.setHtml(f"<div style='text-align: center;'><b>{admin_email}</b>.</div>")
             self.ui.stackedWidget.setCurrentIndex(3)
-            self.ui.reset_password_pushButton.clicked.connect(self.reset_password)
-        else:
-            print("Password reset cancelled.")
+            self.ui.reset_password_pushButton.clicked.connect(self.admin_reset_password)
 
-    def reset_password(self):
+    def admin_reset_password(self):
         entered_new_password = self.ui.new_password_lineEdit.text()
         entered_confirmation_new_password = self.ui.confirm_new_password_lineEdit.text()
 
@@ -150,6 +150,61 @@ class MainPage(QMainWindow):
     def clear_line_edits(self, line_edits):
         for line_edit in line_edits:
             line_edit.clear()
+
+    def open_user_login(self):
+        reply = QMessageBox.question(
+            self,
+            "Confirm Action",
+            "Are you sure you want to reset the password?",
+            QMessageBox.Yes | QMessageBox.No
+        )
+        if reply == QMessageBox.Yes:
+            self.ui.stackedWidget.setCurrentIndex(5)
+            self.ui.continue_rec_pushButton.clicked.connect(self.handle_continue_rec)
+
+    def handle_continue_rec(self):
+        user_login = self.ui.login_for_pass_lineEdit.text()
+        existing_user = self.redis_connection.is_exist_user(user_login)
+        if existing_user:
+            user_id = self.redis_connection.get_id_by_login(user_login)
+            user_email = self.mysql_connection.get_email_by_id(user_id)
+            if user_email:
+                self.ui.stackedWidget.setCurrentIndex(3)
+                self.user_send_code_page(user_login, user_email)
+            else:
+                QMessageBox.warning(
+                    self,
+                    "No Email Found",
+                    "Sorry, you do not have an email associated with your account to reset the password. Please contact the administrator."
+                )
+                self.ui.login_for_pass_lineEdit.clear()
+                self.ui.stackedWidget.setCurrentIndex(0)
+        else:
+            self.ui.login_for_pass_lineEdit.clear()
+            QMessageBox.warning(
+                self,
+                "User Not Found",
+                "The user does not exist, or you have entered an incorrect login. Please try again."
+            )
+
+    def user_send_code_page(self, user_login, user_email):
+        self.verification_code = self.auth_process.send_code(user_email)
+        self.ui.email_textEdit.setHtml(f"<div style='text-align: center;'><b>{user_email}</b>.</div>")
+        self.ui.stackedWidget.setCurrentIndex(3)
+        self.ui.reset_password_pushButton.clicked.connect(lambda: self.user_reset_password(user_login))
+
+    def user_reset_password(self, user_login):
+        entered_new_password = self.ui.new_password_lineEdit.text()
+        entered_confirmation_new_password = self.ui.confirm_new_password_lineEdit.text()
+
+        if entered_new_password == entered_confirmation_new_password:
+            self.redis_connection.update_employee_password(user_login, entered_new_password)
+            QMessageBox.information(self, "Success", "Password has been successfully reset.")
+            self.ui.stackedWidget.setCurrentIndex(2)
+        else:
+            QMessageBox.warning(self, "Error", "Passwords do not match. Please try again.")
+            self.ui.new_password_lineEdit.clear()
+            self.ui.confirm_new_password_lineEdit.clear()
 
 def run_application():
     app = QtWidgets.QApplication(sys.argv)

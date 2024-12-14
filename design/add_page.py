@@ -15,14 +15,14 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.NonModal)
-        Dialog.resize(400, 500)
+        Dialog.resize(400, 550)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
         Dialog.setSizePolicy(sizePolicy)
-        Dialog.setMinimumSize(QtCore.QSize(400, 500))
-        Dialog.setMaximumSize(QtCore.QSize(400, 500))
+        Dialog.setMinimumSize(QtCore.QSize(400, 550))
+        Dialog.setMaximumSize(QtCore.QSize(400, 550))
         Dialog.setSizeIncrement(QtCore.QSize(0, 0))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/src/image/icon_1.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
@@ -30,12 +30,12 @@ class Ui_Dialog(object):
         Dialog.setStyleSheet("background-color: rgb(179, 200, 207);")
         Dialog.setModal(False)
         self.frame = QtWidgets.QFrame(Dialog)
-        self.frame.setGeometry(QtCore.QRect(20, 20, 361, 391))
+        self.frame.setGeometry(QtCore.QRect(20, 20, 361, 451))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.position_comboBox = QtWidgets.QComboBox(self.frame)
-        self.position_comboBox.setGeometry(QtCore.QRect(110, 200, 241, 35))
+        self.position_comboBox.setGeometry(QtCore.QRect(110, 250, 241, 35))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(14)
@@ -60,7 +60,7 @@ class Ui_Dialog(object):
 "            }")
         self.position_comboBox.setObjectName("position_comboBox")
         self.hire_date_dateEdit = QtWidgets.QDateEdit(self.frame)
-        self.hire_date_dateEdit.setGeometry(QtCore.QRect(111, 250, 241, 35))
+        self.hire_date_dateEdit.setGeometry(QtCore.QRect(111, 300, 241, 35))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(14)
@@ -157,7 +157,7 @@ class Ui_Dialog(object):
         self.label_3.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.frame)
-        self.label_4.setGeometry(QtCore.QRect(1, 160, 103, 19))
+        self.label_4.setGeometry(QtCore.QRect(1, 210, 103, 19))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(12)
@@ -167,7 +167,7 @@ class Ui_Dialog(object):
         self.label_4.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.frame)
-        self.label_5.setGeometry(QtCore.QRect(1, 210, 78, 19))
+        self.label_5.setGeometry(QtCore.QRect(1, 260, 78, 19))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(12)
@@ -177,7 +177,7 @@ class Ui_Dialog(object):
         self.label_5.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(self.frame)
-        self.label_6.setGeometry(QtCore.QRect(1, 260, 81, 19))
+        self.label_6.setGeometry(QtCore.QRect(1, 310, 81, 19))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(12)
@@ -187,7 +187,7 @@ class Ui_Dialog(object):
         self.label_6.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_6.setObjectName("label_6")
         self.label_7 = QtWidgets.QLabel(self.frame)
-        self.label_7.setGeometry(QtCore.QRect(1, 310, 96, 19))
+        self.label_7.setGeometry(QtCore.QRect(1, 360, 96, 19))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(12)
@@ -197,7 +197,7 @@ class Ui_Dialog(object):
         self.label_7.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.frame)
-        self.label_8.setGeometry(QtCore.QRect(1, 360, 91, 19))
+        self.label_8.setGeometry(QtCore.QRect(1, 410, 91, 19))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(12)
@@ -207,7 +207,7 @@ class Ui_Dialog(object):
         self.label_8.setStyleSheet("color:  rgb(0, 31, 63);")
         self.label_8.setObjectName("label_8")
         self.birth_date_dateEdit = QtWidgets.QDateEdit(self.frame)
-        self.birth_date_dateEdit.setGeometry(QtCore.QRect(110, 350, 241, 35))
+        self.birth_date_dateEdit.setGeometry(QtCore.QRect(110, 400, 241, 35))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(14)
@@ -274,7 +274,7 @@ class Ui_Dialog(object):
         self.birth_date_dateEdit.setCalendarPopup(True)
         self.birth_date_dateEdit.setObjectName("birth_date_dateEdit")
         self.experience_lineEdit = QtWidgets.QLineEdit(self.frame)
-        self.experience_lineEdit.setGeometry(QtCore.QRect(110, 300, 241, 35))
+        self.experience_lineEdit.setGeometry(QtCore.QRect(110, 350, 241, 35))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(14)
@@ -301,7 +301,9 @@ class Ui_Dialog(object):
 "    padding: 5px; \n"
 "    font-size: 14pt;\n"
 "}")
+        self.full_name_lineEdit.setText("")
         self.full_name_lineEdit.setMaxLength(100)
+        self.full_name_lineEdit.setPlaceholderText("")
         self.full_name_lineEdit.setObjectName("full_name_lineEdit")
         self.password_lineEdit = QtWidgets.QLineEdit(self.frame)
         self.password_lineEdit.setGeometry(QtCore.QRect(110, 50, 241, 35))
@@ -334,7 +336,7 @@ class Ui_Dialog(object):
         self.login_lineEdit.setMaxLength(100)
         self.login_lineEdit.setObjectName("login_lineEdit")
         self.department_comboBox = QtWidgets.QComboBox(self.frame)
-        self.department_comboBox.setGeometry(QtCore.QRect(110, 150, 241, 35))
+        self.department_comboBox.setGeometry(QtCore.QRect(110, 200, 241, 35))
         font = QtGui.QFont()
         font.setFamily("Caros Light")
         font.setPointSize(14)
@@ -357,9 +359,47 @@ class Ui_Dialog(object):
 "                width: 12px;\n"
 "                height: 12px;\n"
 "            }")
+        self.department_comboBox.setCurrentText("")
         self.department_comboBox.setObjectName("department_comboBox")
+        self.sex_comboBox = QtWidgets.QComboBox(self.frame)
+        self.sex_comboBox.setGeometry(QtCore.QRect(110, 150, 241, 35))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.sex_comboBox.setFont(font)
+        self.sex_comboBox.setStyleSheet("QComboBox {\n"
+"                background-color: rgb(255, 255, 255);\n"
+"                border: 2px solid  rgb(0, 31, 63);\n"
+"                border-radius: 8px;\n"
+"                padding: 5px;\n"
+"                font-size: 14pt;\n"
+"                color: rgb(50, 50, 50);\n"
+"            }\n"
+"            QComboBox::drop-down {\n"
+"                background-color: rgb(0, 31, 63);\n"
+"                border: none;\n"
+"                width: 25px;\n"
+"            }\n"
+"            QComboBox::down-arrow {\n"
+"                image: url(:/img/src/image/chevron_down.png); \n"
+"                width: 12px;\n"
+"                height: 12px;\n"
+"            }")
+        self.sex_comboBox.setEditable(False)
+        self.sex_comboBox.setCurrentText("")
+        self.sex_comboBox.setObjectName("sex_comboBox")
+        self.label_9 = QtWidgets.QLabel(self.frame)
+        self.label_9.setGeometry(QtCore.QRect(0, 160, 47, 13))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_9.setFont(font)
+        self.label_9.setStyleSheet("color:  rgb(0, 31, 63);")
+        self.label_9.setObjectName("label_9")
         self.save_pushButton = QtWidgets.QPushButton(Dialog)
-        self.save_pushButton.setGeometry(QtCore.QRect(50, 430, 301, 51))
+        self.save_pushButton.setGeometry(QtCore.QRect(50, 480, 301, 51))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(16)
@@ -391,6 +431,6 @@ class Ui_Dialog(object):
         self.label_6.setText(_translate("Dialog", "HIRE DATE"))
         self.label_7.setText(_translate("Dialog", "EXPERIENCE"))
         self.label_8.setText(_translate("Dialog", "BIRTH DATE"))
+        self.label_9.setText(_translate("Dialog", "SEX"))
         self.save_pushButton.setText(_translate("Dialog", "SAVE"))
-
 

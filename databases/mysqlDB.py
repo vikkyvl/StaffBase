@@ -123,3 +123,17 @@ class MySQL:
         cursor.execute(query, (personal_info._employee_id, personal_info._birth_date, personal_info._sex, personal_info._number_of_children, personal_info._phone_number, personal_info._marital_status, personal_info._email))
         self.mydb.commit()
         cursor.close()
+
+    def get_email_by_id(self, employee_id):
+        query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
+        self.cursor.execute(query, (employee_id,))
+        result = self.cursor.fetchone()
+
+        if result:
+            email = result[0]
+            if email.endswith("@gmail.com"):
+                return email
+            else:
+                return 0
+        else:
+            return 0
