@@ -388,6 +388,7 @@ class Ui_Dialog(object):
         self.sex_comboBox.setEditable(False)
         self.sex_comboBox.setCurrentText("")
         self.sex_comboBox.setObjectName("sex_comboBox")
+        self.sex_comboBox.addItems(["Male", "Female"])
         self.label_9 = QtWidgets.QLabel(self.frame)
         self.label_9.setGeometry(QtCore.QRect(0, 160, 47, 13))
         font = QtGui.QFont()

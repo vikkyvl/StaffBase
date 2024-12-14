@@ -129,11 +129,4 @@ class MySQL:
         self.cursor.execute(query, (employee_id,))
         result = self.cursor.fetchone()
 
-        if result:
-            email = result[0]
-            if email.endswith("@gmail.com"):
-                return email
-            else:
-                return 0
-        else:
-            return 0
+        return result[0] if result and "@" in result[0] else 0
