@@ -1,5 +1,3 @@
-from classes.department import Department
-
 class Company:
     def __init__(self, company_name: str, num_of_departments: int):
         self._company_name = company_name
