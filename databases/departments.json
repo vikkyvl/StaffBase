@@ -1,0 +1,49 @@
+{
+    "departments": [
+        {
+            "name": "Software Development",
+            "positions": [
+                { "name": "Frontend Developer", "salary": 2000 },
+                { "name": "Backend Developer", "salary": 2500 },
+                { "name": "Full-stack Developer", "salary": 2700 },
+                { "name": "Mobile Developer", "salary": 2200 },
+                { "name": "DevOps Engineer", "salary": 3000 }
+            ]
+        },
+        {
+            "name": "Quality Assurance",
+            "positions": [
+                { "name": "Manual QA Engineer", "salary": 1200 },
+                { "name": "Automation QA Engineer", "salary": 1800 },
+                { "name": "QA Lead", "salary": 2500 }
+            ]
+        },
+        {
+            "name": "Project Management",
+            "positions": [
+                { "name": "Project Manager", "salary": 2700 },
+                { "name": "Product Manager", "salary": 3000 },
+                { "name": "Scrum Master", "salary": 2500 },
+                { "name": "Business Analyst", "salary": 2000 }
+            ]
+        },
+        {
+            "name": "UI/UX Design",
+            "positions": [
+                { "name": "UI/UX Designer", "salary": 1800 },
+                { "name": "Graphic Designer", "salary": 1500 },
+                { "name": "Motion Designer", "salary": 2000 },
+                { "name": "Product Designer", "salary": 2200 }
+            ]
+        },
+        {
+            "name": "Data Science & Analytics",
+            "positions": [
+                { "name": "Data Analyst", "salary": 2000 },
+                { "name": "Data Scientist", "salary": 4000 },
+                { "name": "Machine Learning Engineer", "salary": 4500 },
+                { "name": "AI Specialist", "salary": 5000 }
+            ]
+        }
+    ]
+}
