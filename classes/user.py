@@ -3,7 +3,6 @@ import string
 import os
 import json
 
-
 class User:
     def __init__(self, login=None, password=None):
         self._ID = self.generate_unique_id()
