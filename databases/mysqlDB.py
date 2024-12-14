@@ -21,53 +21,16 @@ class MySQL:
             "Employee": """
                 CREATE TABLE IF NOT EXISTS Employee (
                     employee_id VARCHAR(36) PRIMARY KEY,
-                    full_name VARCHAR(255)
+                    full_name VARCHAR(255) NOT NULL
                 )
             """,
-            "GeneralInfo": """
-                CREATE TABLE IF NOT EXISTS GeneralInfo (
-                    employee_id VARCHAR(36),
-                    department_id VARCHAR(36),
-                    position_id VARCHAR(36),
-                    hire_date DATE,
-                    experience INT,
-                    PRIMARY KEY (employee_id),
-                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+            "Departments": """
+                CREATE TABLE IF NOT EXISTS Departments (
+                    department_id INT PRIMARY KEY AUTO_INCREMENT,
+                    department_name VARCHAR(255) NOT NULL,
+                    department_positions INT DEFAULT 0
                 )
             """,
-            "PersonalInfo": """
-                CREATE TABLE IF NOT EXISTS PersonalInfo (
-                    employee_id VARCHAR(36),
-                    birth_date DATE,
-                    sex VARCHAR(10),
-                    number_of_children INT,
-                    phone_number VARCHAR(15),
-                    marital_status VARCHAR(20),
-                    email VARCHAR(255),
-                    PRIMARY KEY (employee_id),
-                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
-                )
-            """,
-            "Salary": """
-                CREATE TABLE IF NOT EXISTS Salary (
-                    employee_id VARCHAR(36),
-                    month VARCHAR(20),
-                    salary FLOAT,
-                    PRIMARY KEY (employee_id, month),
-                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
-                )
-            """,
-            "Leaves": """
-                CREATE TABLE IF NOT EXISTS Leaves (
-                    employee_id VARCHAR(36),
-                    leave_type VARCHAR(50),
-                    start_date DATE,
-                    end_date DATE,
-                    duration INT,
-                    PRIMARY KEY (employee_id, start_date),
-                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
-                )
-                """,
             "Positions": """
                 CREATE TABLE IF NOT EXISTS Positions (
                     position_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -77,17 +40,54 @@ class MySQL:
                     FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE CASCADE
                 )
             """,
-            "Departments": """
-                CREATE TABLE IF NOT EXISTS Departments (
-                    department_id INT PRIMARY KEY,
-                    department_name VARCHAR(255),
-                    department_positions VARCHAR(255)
-                )
-            """,
             "Company": """
                 CREATE TABLE IF NOT EXISTS Company (
                     company_name VARCHAR(255) PRIMARY KEY,
-                    num_of_departments INT
+                    num_of_departments INT DEFAULT 0
+                )
+            """,
+            "GeneralInfo": """
+                CREATE TABLE IF NOT EXISTS GeneralInfo (
+                    employee_id VARCHAR(36) PRIMARY KEY,
+                    department_id INT NOT NULL,
+                    position_id INT NOT NULL,
+                    hire_date DATE NOT NULL,
+                    experience INT,
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE,
+                    FOREIGN KEY (department_id) REFERENCES Departments(department_id),
+                    FOREIGN KEY (position_id) REFERENCES Positions(position_id)
+                )
+            """,
+            "PersonalInfo": """
+                CREATE TABLE IF NOT EXISTS PersonalInfo (
+                    employee_id VARCHAR(36) PRIMARY KEY,
+                    birth_date DATE NOT NULL,
+                    sex ENUM('Male', 'Female'),
+                    number_of_children INT DEFAULT 0,
+                    phone_number VARCHAR(15),
+                    marital_status ENUM('Single', 'Married'),
+                    email VARCHAR(255) UNIQUE,
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
+                )
+            """,
+            "Salary": """
+                CREATE TABLE IF NOT EXISTS Salary (
+                    employee_id VARCHAR(36),
+                    salary_month DATE NOT NULL,
+                    salary_amount DECIMAL(10, 2) NOT NULL,
+                    PRIMARY KEY (employee_id, salary_month),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
+                )
+            """,
+            "Leaves": """
+                CREATE TABLE IF NOT EXISTS Leaves (
+                    leave_id INT AUTO_INCREMENT PRIMARY KEY,
+                    employee_id VARCHAR(36) NOT NULL,
+                    leave_type ENUM('Sick', 'Vacation', 'Time Off') NOT NULL,
+                    start_date DATE NOT NULL,
+                    end_date DATE NOT NULL,
+                    duration INT GENERATED ALWAYS AS (DATEDIFF(end_date, start_date) + 1),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
                 )
             """
         }
