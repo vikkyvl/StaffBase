@@ -112,7 +112,7 @@ class MySQL:
 
     def add_general_info(self, general_info: GeneralInfo):
         cursor = self.mydb.cursor()
-        query = """INSERT INTO GeneralInfo (employee_id, ID_Department, ID_Position, hire_date, experience)
+        query = """INSERT INTO GeneralInfo (employee_id, department_id, position_id, hire_date, experience)
                    VALUES (%s, %s, %s, %s, %s)"""
         cursor.execute(
             query,(general_info.get_employee_id(), general_info.get_department_id(), general_info.get_position_id(), general_info.get_hire_date(),general_info.get_experience())
