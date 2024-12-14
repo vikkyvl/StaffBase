@@ -284,7 +284,7 @@ class Ui_Dialog(object):
 "    border: 2px solid  rgb(0, 31, 63);\n"
 "    border-radius: 8px; \n"
 "    padding: 5px; \n"
-"    font-size: 14pt;\n"
+"    font-size: 10pt;\n"
 "}")
         self.experience_lineEdit.setMaxLength(100)
         self.experience_lineEdit.setObjectName("experience_lineEdit")
@@ -299,7 +299,7 @@ class Ui_Dialog(object):
 "    border: 2px solid  rgb(0, 31, 63);\n"
 "    border-radius: 8px; \n"
 "    padding: 5px; \n"
-"    font-size: 14pt;\n"
+"    font-size: 10pt;\n"
 "}")
         self.full_name_lineEdit.setText("")
         self.full_name_lineEdit.setMaxLength(100)
@@ -316,7 +316,7 @@ class Ui_Dialog(object):
 "    border: 2px solid  rgb(0, 31, 63);\n"
 "    border-radius: 8px; \n"
 "    padding: 5px; \n"
-"    font-size: 14pt;\n"
+"    font-size: 10pt;\n"
 "}")
         self.password_lineEdit.setMaxLength(100)
         self.password_lineEdit.setObjectName("password_lineEdit")
@@ -331,7 +331,7 @@ class Ui_Dialog(object):
 "    border: 2px solid  rgb(0, 31, 63);\n"
 "    border-radius: 8px; \n"
 "    padding: 5px; \n"
-"    font-size: 14pt;\n"
+"    font-size: 10pt;\n"
 "}")
         self.login_lineEdit.setMaxLength(100)
         self.login_lineEdit.setObjectName("login_lineEdit")
