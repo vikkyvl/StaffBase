@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 from design.admin_page import Ui_Form
 from design.add_page_main import *
@@ -20,6 +21,8 @@ class AdminPage(QtWidgets.QWidget):
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
+
+        self.setup_worker_table()
 
 
     def create_switch_page_handler(self, page):
@@ -54,3 +57,18 @@ class AdminPage(QtWidgets.QWidget):
             QApplication.instance().quit()
         else:
             pass
+
+    def setup_worker_table(self):
+        model = QStandardItemModel()
+
+        model.setHorizontalHeaderLabels([
+            "ID", "Login", "Password", "Full Name", "Sex",
+            "Department", "Position", "Hire Date", "Experience", "Birth Date"
+        ])
+
+        self.ui.worker_tableView.setModel(model)
+        self.ui.worker_tableView.horizontalHeader().setStretchLastSection(True)
+        self.ui.worker_tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+
+        self.ui.worker_tableView.resizeColumnsToContents()
+        self.ui.worker_tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Interactive)
