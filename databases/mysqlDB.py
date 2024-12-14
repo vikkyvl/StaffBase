@@ -44,6 +44,39 @@ class MySQL:
                     PRIMARY KEY (employee_id),
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
                 )
+            """,
+            "Salary": """
+                CREATE TABLE IF NOT EXISTS Salary (
+                    employee_id VARCHAR(36),
+                    month VARCHAR(20),
+                    salary FLOAT,
+                    PRIMARY KEY (employee_id, month),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+                )
+            """,
+            "Leaves": """
+                CREATE TABLE IF NOT EXISTS Leaves (
+                    employee_id VARCHAR(36),
+                    leave_type VARCHAR(50),
+                    start_date DATE,
+                    end_date DATE,
+                    duration INT,
+                    PRIMARY KEY (employee_id, start_date),
+                    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+                )
+                """,
+            "Departments": """
+                CREATE TABLE IF NOT EXISTS Departments (
+                    department_id INT PRIMARY KEY,
+                    department_name VARCHAR(255),
+                    department_positions VARCHAR(255)
+                )
+            """,
+            "Company": """
+                CREATE TABLE IF NOT EXISTS Company (
+                    company_name VARCHAR(255) PRIMARY KEY,
+                    num_of_departments INT
+                )
             """
         }
 
