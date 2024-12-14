@@ -1,16 +1,7 @@
 from datetime import date
 
 class PersonalInfo:
-    def __init__(
-        self,
-        employee_id: str,
-        birth_date: date,
-        sex: str,
-        number_of_children: int = 0,
-        phone_number: str = None,
-        marital_status: str = None,
-        email: str = None
-    ):
+    def __init__(self, employee_id: str, birth_date: date, sex: str, number_of_children: int = 0, phone_number: str = None, marital_status: str = None, email: str = None):
         self._employee_id = employee_id
         self._birth_date = birth_date
         self._sex = sex
