@@ -1,4 +1,6 @@
+import json
 import mysql.connector
+from classes.department import Department
 from classes.employee import Employee
 from classes.general_info import GeneralInfo
 from classes.personal_info import PersonalInfo
@@ -134,3 +136,35 @@ class MySQL:
         result = self.cursor.fetchone()
 
         return result[0] if result and "@" in result[0] else 0
+
+    def check_and_insert_departments(self, json_path='departments.json'):
+        with open(json_path, 'r') as file:
+            data = json.load(file)
+
+        self.cursor.execute("SELECT COUNT(*) FROM Departments")
+        departments_count = self.cursor.fetchone()[0]
+
+        if departments_count == 0:
+            for department_data in data['departments']:
+                department = Department(
+                    department_name=department_data['name'],
+                    department_positions=len(department_data['positions'])
+                )
+
+                self.cursor.execute(
+                    "INSERT INTO Departments (department_name, department_positions) VALUES (%s, %s)",
+                    (department.get_department_name(), department.get_department_positions())
+                )
+                department_id = self.cursor.lastrowid
+
+                for position in department_data['positions']:
+                    self.cursor.execute(
+                        "INSERT INTO Positions (department_id, position_name, salary_amount) VALUES (%s, %s, %s)",
+                        (department_id, position['name'], position['salary'])
+                    )
+
+            self.mydb.commit()
+            print("Data inserted successfully!")
+        else:
+            print("Tables already contain data. No insertion required.")
+
