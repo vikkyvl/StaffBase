@@ -2,17 +2,13 @@ from datetime import date
 from classes.employee import Employee
 
 class PersonalInfo:
-    def __init__(self, employee: Employee, birth_date: date, sex: str, number_of_children: int, phone_number: int, marital_status: str, email: str):
-        self._employee = employee
+    def __init__(self, birth_date: date, sex: str, number_of_children: int, phone_number: int, marital_status: str, email: str):
         self._birth_date = birth_date
         self._sex = sex
         self._number_of_children = number_of_children
         self._phone_number = phone_number
         self._marital_status = marital_status
         self._email = email
-
-    def get_employee_ID(self) -> str:
-        return self._employee.get_employee_ID()
 
     def get_birth_date(self) -> date:
         return self._birth_date

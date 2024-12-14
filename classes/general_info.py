@@ -2,15 +2,11 @@ from datetime import date
 from classes.employee import Employee
 
 class GeneralInfo:
-    def __init__(self, employee: Employee, department_id: int, position_id: int, hire_date: date, experience: int):
-        self._employee = employee
+    def __init__(self, department_id: int, position_id: int, hire_date: date, experience: int):
         self._department_ID = department_id
         self._position_ID = position_id
         self._hire_date = hire_date
         self._experience = experience
-
-    def get_employee_ID(self) -> str:
-        return self._employee.get_employee_ID()
 
     def get_department_ID(self) -> int:
         return self._department_ID
