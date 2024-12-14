@@ -95,9 +95,9 @@ class MySQL:
         for table_name, table_query in tables.items():
             try:
                 self.cursor.execute(table_query)
-                print(f"Таблиця '{table_name}' створена успішно.")
+                print(f"Table '{table_name}' is successfully created.")
             except mysql.connector.Error as e:
-                print(f"Помилка під час створення таблиці '{table_name}':", e)
+                print(f"Error while creating table '{table_name}':", e)
 
         self.mydb.commit()
 
@@ -113,14 +113,7 @@ class MySQL:
         query = """INSERT INTO GeneralInfo (ID, ID_Department, ID_Position, hire_date, experience)
                    VALUES (%s, %s, %s, %s, %s)"""
         cursor.execute(
-            query,
-            (
-                general_info.get_employee_id(),
-                general_info.get_department_id(),
-                general_info.get_position_id(),
-                general_info.get_hire_date(),
-                general_info.get_experience()
-            )
+            query,(general_info.get_employee_id(), general_info.get_department_id(), general_info.get_position_id(), general_info.get_hire_date(),general_info.get_experience())
         )
         self.mydb.commit()
         cursor.close()
@@ -130,16 +123,7 @@ class MySQL:
         query = """INSERT INTO PersonalInfo (ID, birth_date, sex, number_of_children, phone_number, marital_status, email)
                    VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(
-            query,
-            (
-                personal_info.get_employee_id(),
-                personal_info.get_birth_date(),
-                personal_info.get_sex(),
-                personal_info.get_number_of_children(),
-                personal_info.get_phone_number(),
-                personal_info.get_marital_status(),
-                personal_info.get_email()
-            )
+            query,( personal_info.get_employee_id(), personal_info.get_birth_date(), personal_info.get_sex(), personal_info.get_number_of_children(), personal_info.get_phone_number(), personal_info.get_marital_status(), personal_info.get_email())
         )
         self.mydb.commit()
         cursor.close()
