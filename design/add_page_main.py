@@ -1,3 +1,5 @@
+import re
+
 from design.add_page import *
 from imports import *
 
@@ -13,11 +15,34 @@ class AddPage:
         self.mysql_connection = MySQL()
         self.load_departments()
 
-        # Прив'язка сигналів
         self.ui.department_comboBox.currentIndexChanged.connect(self.on_department_change)
         self.ui.save_pushButton.clicked.connect(self.add_date)
 
         self.add_page.exec_()
+
+    def validate_input(self, login, password, full_name, experience):
+        login_pattern = re.compile(r"^[a-zA-Z]+\_[a-zA-Z]+$")
+        if not login_pattern.match(login):
+            QtWidgets.QMessageBox.critical(self.add_page, "Error", "Login must be in the format 'name_username'.")
+            return False
+
+        password_pattern = re.compile(r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).+$")
+        if not password_pattern.match(password):
+            QtWidgets.QMessageBox.critical(self.add_page, "Error",
+                                           "Password must contain letters, digits, and symbols.")
+            return False
+
+        full_name_pattern = re.compile(r"^[A-Z][a-z]+\s[A-Z][a-z]+$")
+        if not full_name_pattern.match(full_name):
+            QtWidgets.QMessageBox.critical(self.add_page, "Error",
+                                           "Full Name must consist of two words starting with uppercase letters.")
+            return False
+
+        if not experience.isdigit() or not (0 <= int(experience) <= 70):
+            QtWidgets.QMessageBox.critical(self.add_page, "Error", "Experience must be a number between 0 and 70.")
+            return False
+
+        return True
 
     def add_date(self):
         employee_login = self.ui.login_lineEdit.text()
@@ -29,6 +54,9 @@ class AddPage:
         employee_hire_day = self.ui.hire_date_dateEdit.date().toString("yyyy-MM-dd")
         employee_experience = self.ui.experience_lineEdit.text()
         employee_birth_date = self.ui.birth_date_dateEdit.date().toString("yyyy-MM-dd")
+
+        if not self.validate_input(employee_login, employee_password, employee_full_name, employee_experience):
+            return
 
         new_user = User(employee_login, employee_password)
         new_user_id = new_user.get_ID()
