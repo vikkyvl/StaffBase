@@ -7,6 +7,9 @@ class AddPage:
         self.add_page.setWindowFlags(self.add_page.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.add_page)
-
-    def run(self):
         self.add_page.exec_()
+
+    def add_date(self):
+        employee_login = self.ui.login_lineEdit.text()
+        employee_password = self.ui.password_lineEdit.text()
+        employee_full_name = self.ui.full_name_lineEdit.text()

@@ -27,6 +27,7 @@ class MainPage(QMainWindow):
         }
 
         self.redis_connection = Redis()
+        self.mysql_connection = MySQL()
         self.auth_process = Authorization()
 
         self.verification_code = None

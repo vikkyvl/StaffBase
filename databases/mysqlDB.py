@@ -13,6 +13,9 @@ class MySQL:
                 database=database,
                 use_pure=use_pure
             )
+            self.cursor = self.mydb.cursor()
+            self.create_tables()
+
     def create_tables(self):
         tables = {
             "Employee": """

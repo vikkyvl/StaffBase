@@ -500,34 +500,6 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
      <number>100</number>
     </property>
    </widget>
-   <widget class="QLineEdit" name="department_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>150</y>
-      <width>241</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Caros Light</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit {
-	background-color: rgb(255, 255, 255);
-    border: 2px solid  rgb(0, 31, 63);
-    border-radius: 8px; 
-    padding: 5px; 
-	font-size: 14pt;
-}</string>
-    </property>
-    <property name="maxLength">
-     <number>100</number>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="full_name_lineEdit">
     <property name="geometry">
      <rect>
@@ -610,6 +582,42 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     </property>
     <property name="maxLength">
      <number>100</number>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="department_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>150</y>
+      <width>241</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Caros Light</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
     </property>
    </widget>
   </widget>

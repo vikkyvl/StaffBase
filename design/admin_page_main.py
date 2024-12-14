@@ -41,7 +41,7 @@ class AdminPage(QtWidgets.QWidget):
 
     def add_info_worker(self):
         add_new_worker = AddPage()
-        add_new_worker.run()
+        # add_new_worker.run()
 
     def confirm_exit(self):
         reply = QMessageBox.question(
