@@ -68,6 +68,15 @@ class MySQL:
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
                 )
                 """,
+            "Positions": """
+                CREATE TABLE IF NOT EXISTS Positions (
+                    position_id INT PRIMARY KEY AUTO_INCREMENT,
+                    department_id INT NOT NULL,
+                    position_name VARCHAR(255) NOT NULL,
+                    salary_amount DECIMAL(10, 2) NOT NULL,
+                    FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE CASCADE
+                )
+            """,
             "Departments": """
                 CREATE TABLE IF NOT EXISTS Departments (
                     department_id INT PRIMARY KEY,
