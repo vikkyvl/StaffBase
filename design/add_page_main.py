@@ -3,16 +3,15 @@ import re
 from design.add_page import *
 from imports import *
 
-class AddPage:
+class AddPage(Connection):
     def __init__(self, parent=None):
+        super().__init__()
         self.parent = parent
         self.add_page = QtWidgets.QDialog(self.parent)
         self.add_page.setWindowFlags(self.add_page.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.add_page)
 
-        self.redis_connection = Redis()
-        self.mysql_connection = MySQL()
         self.load_departments()
 
         self.ui.department_comboBox.currentIndexChanged.connect(self.on_department_change)

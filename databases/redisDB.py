@@ -48,20 +48,18 @@ class Redis(Admin, User):
         return 0
 
     def get_all_users(self):
-        user_keys = self.r.scan_iter("user:*")
+        user_keys = self.r.keys("user:*")
         users = []
 
         for key in user_keys:
             user_data = self.r.hgetall(key)
             login = key.split("user:")[-1]
             user_id = user_data.get("id")
-            users.append({
-                "id": user_id,
-                "login": login,
-                "data": user_data
-            })
+            password = user_data.get("password")
+            users.append({"id": user_id, "login": login, "password": password})
 
         return users
+
 
 
 
