@@ -18,6 +18,7 @@ class MySQL:
             self.cursor = self.mydb.cursor()
             self.create_tables()
             # self.check_and_insert_departments()
+            self.create_trigger_calculate_experience_generalinfo()
 
     def create_tables(self):
         tables = {
@@ -55,12 +56,14 @@ class MySQL:
                     department_id INT NOT NULL,
                     position_id INT NOT NULL,
                     hire_date DATE NOT NULL,
-                    experience INT,
+                    previous_experience INT DEFAULT 0,
+                    total_experience INT DEFAULT 0,
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE,
                     FOREIGN KEY (department_id) REFERENCES Departments(department_id),
                     FOREIGN KEY (position_id) REFERENCES Positions(position_id)
                 )
             """,
+
             "PersonalInfo": """
                 CREATE TABLE IF NOT EXISTS PersonalInfo (
                     employee_id VARCHAR(36) PRIMARY KEY,
@@ -113,7 +116,7 @@ class MySQL:
 
     def add_general_info(self, general_info: GeneralInfo):
         cursor = self.mydb.cursor()
-        query = """INSERT INTO GeneralInfo (employee_id, department_id, position_id, hire_date, experience)
+        query = """INSERT INTO GeneralInfo (employee_id, department_id, position_id, hire_date, previous_experience)
                    VALUES (%s, %s, %s, %s, %s)"""
         cursor.execute(
             query,(general_info.get_employee_id(), general_info.get_department_id(), general_info.get_position_id(), general_info.get_hire_date(),general_info.get_experience())
@@ -197,3 +200,21 @@ class MySQL:
         """
         self.cursor.execute(query, (department_id,))
         return self.cursor.fetchall()
+
+    def create_trigger_calculate_experience_generalinfo(self):
+        trigger_query = """
+        CREATE TRIGGER calculate_experience_generalinfo
+        BEFORE INSERT OR UPDATE ON GeneralInfo
+        FOR EACH ROW
+        BEGIN
+            SET NEW.total_experience = NEW.previous_experience + YEAR(CURDATE()) - YEAR(NEW.hire_date);
+        END;
+        """
+        try:
+            self.cursor.execute(trigger_query)
+            print("Trigger 'calculate_experience_generalinfo' is successfully created.")
+        except mysql.connector.Error as e:
+            if "already exists" in str(e):
+                print("Trigger already exists.")
+            else:
+                print(f"Error while creating trigger: {e}")
