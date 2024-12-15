@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
+
 from design.admin_page import Ui_Form
 from design.add_page_main import *
 
