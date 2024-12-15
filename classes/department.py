@@ -1,5 +1,5 @@
 class Department:
-    def __init__(self, department_ID: int, department_name: str, department_positions: int):
+    def __init__(self, department_ID: int = None, department_name: str = "", department_positions: int = 0):
         self._department_ID = department_ID
         self._department_name = department_name
         self._department_positions = department_positions

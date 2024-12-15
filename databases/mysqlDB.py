@@ -17,7 +17,7 @@ class MySQL:
             )
             self.cursor = self.mydb.cursor()
             self.create_tables()
-            # self.check_and_insert_departments()
+            self.check_and_insert_departments()
             self.create_trigger_calculate_experience_generalinfo()
 
     def create_tables(self):
@@ -203,13 +203,13 @@ class MySQL:
 
     def create_trigger_calculate_experience_generalinfo(self):
         trigger_query = """
-        CREATE TRIGGER calculate_experience_generalinfo
-        BEFORE INSERT OR UPDATE ON GeneralInfo
-        FOR EACH ROW
-        BEGIN
-            SET NEW.total_experience = NEW.previous_experience + YEAR(CURDATE()) - YEAR(NEW.hire_date);
-        END;
-        """
+            CREATE TRIGGER calculate_experience_generalinfo
+            BEFORE INSERT ON GeneralInfo
+            FOR EACH ROW
+            BEGIN
+                SET NEW.total_experience = NEW.previous_experience + YEAR(CURDATE()) - YEAR(NEW.hire_date);
+            END
+            """
         try:
             self.cursor.execute(trigger_query)
             print("Trigger 'calculate_experience_generalinfo' is successfully created.")
