@@ -16,7 +16,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.generate_report_pushButton: 3,
             self.ui.add_pushButton: 4,
             self.ui.exit_pushButton: 5,
-            self.ui.view_pushButton: 6,
+            # self.ui.view_pushButton: 6,
         }
 
         for button, page in self.page_buttons.items():
@@ -65,8 +65,7 @@ class AdminPage(QtWidgets.QWidget):
 
         model.setHorizontalHeaderLabels([
             "ID", "Login", "Password", "Full Name", "Sex",
-            "Department", "Position", "Hire Date", "Experience",
-            "Birth Date", "Phone Number", "Marital Status", "Email"
+            "Department", "Position", "Hire Date", "Experience", "Birth Date"
         ])
 
         self.ui.worker_tableView.setModel(model)
@@ -91,9 +90,7 @@ class AdminPage(QtWidgets.QWidget):
             password = user["password"]
 
             mysql_connection.cursor.execute("""
-                SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
-                       g.hire_date, g.experience, p.birth_date, 
-                       p.phone_number, p.marital_status, p.email
+                SELECT e.full_name, p.sex, d.department_name, pos.position_name, g.hire_date, g.experience, p.birth_date
                 FROM Employee e
                 LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
                 LEFT JOIN Departments d ON g.department_id = d.department_id
@@ -105,15 +102,11 @@ class AdminPage(QtWidgets.QWidget):
             result = mysql_connection.cursor.fetchone()
 
             if result:
-                (full_name, sex, department, position, hire_date, experience,
-                 birth_date, phone_number, marital_status, email) = result
+                full_name, sex, department, position, hire_date, experience, birth_date = result
 
                 row = [
                     user_id, login, password, full_name, sex, department,
-                    position, str(hire_date), str(experience), str(birth_date),
-                    phone_number if phone_number else "N/A",
-                    marital_status if marital_status else "N/A",
-                    email if email else "N/A"
+                    position, str(hire_date), str(experience), str(birth_date)
                 ]
 
                 model.insertRow(model.rowCount())
@@ -121,4 +114,3 @@ class AdminPage(QtWidgets.QWidget):
                     model.setData(model.index(model.rowCount() - 1, col), value)
 
         self.ui.worker_tableView.resizeColumnsToContents()
-
