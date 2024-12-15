@@ -137,7 +137,7 @@ class MySQL:
     def get_worker_details(self, employee_id):
         query = """
             SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
-                   g.hire_date, g.experience, p.birth_date, 
+                   g.hire_date, g.previous_experience, g.total_experience, p.birth_date, 
                    p.phone_number, p.marital_status, p.email
             FROM Employee e
             LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id

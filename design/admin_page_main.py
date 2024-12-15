@@ -68,8 +68,9 @@ class AdminPage(QtWidgets.QWidget):
 
         model.setHorizontalHeaderLabels([
             "ID", "Login", "Password", "Full Name", "Sex",
-            "Department", "Position", "Hire Date", "Experience",
-            "Birth Date", "Phone Number", "Marital Status", "Email"
+            "Department", "Position", "Hire Date", "Previous Experience",
+            "Total Experience", "Birth Date", "Phone Number",
+            "Marital Status", "Email"
         ])
 
         self.ui.worker_tableView.setModel(model)
@@ -93,13 +94,14 @@ class AdminPage(QtWidgets.QWidget):
             result = self.mysql_connection.get_worker_details(user_id)
 
             if result:
-                (full_name, sex, department, position, hire_date, experience,
-                 birth_date, phone_number, marital_status, email) = result
+                (full_name, sex, department, position, hire_date,
+                 previous_experience, total_experience, birth_date,
+                 phone_number, marital_status, email) = result
 
                 row = [
                     user_id, login, password, full_name, sex, department,
-                    position, str(hire_date), str(experience), str(birth_date),
-                    phone_number if phone_number else "",
+                    position, str(hire_date), str(previous_experience), str(total_experience),
+                    str(birth_date), phone_number if phone_number else "",
                     marital_status if marital_status else "",
                     email if email else ""
                 ]
@@ -109,5 +111,6 @@ class AdminPage(QtWidgets.QWidget):
                     model.setData(model.index(model.rowCount() - 1, col), value)
 
         self.ui.worker_tableView.resizeColumnsToContents()
+
 
 
