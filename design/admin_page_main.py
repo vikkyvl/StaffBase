@@ -16,12 +16,14 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.generate_report_pushButton: 3,
             self.ui.add_pushButton: 4,
             self.ui.exit_pushButton: 5,
-            # self.ui.view_pushButton: 6,
+            self.ui.view_pushButton: 6,
         }
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
 
+        self.redis_connection = Redis()
+        self.mysql_connection = MySQL()
         self.setup_worker_table()
 
 
@@ -79,17 +81,14 @@ class AdminPage(QtWidgets.QWidget):
         model = self.ui.worker_tableView.model()
         model.removeRows(0, model.rowCount())
 
-        redis_connection = Redis()
-        mysql_connection = MySQL()
-
-        redis_users = redis_connection.get_all_users()
+        redis_users = self.redis_connection.get_all_users()
 
         for user in redis_users:
             user_id = user["id"]
             login = user["login"]
             password = user["password"]
 
-            mysql_connection.cursor.execute("""
+            self.mysql_connection.cursor.execute("""
                 SELECT e.full_name, p.sex, d.department_name, pos.position_name, g.hire_date, g.experience, p.birth_date
                 FROM Employee e
                 LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
@@ -99,7 +98,7 @@ class AdminPage(QtWidgets.QWidget):
                 WHERE e.employee_id = %s
             """, (user_id,))
 
-            result = mysql_connection.cursor.fetchone()
+            result = self.mysql_connection.cursor.fetchone()
 
             if result:
                 full_name, sex, department, position, hire_date, experience, birth_date = result
