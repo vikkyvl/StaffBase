@@ -13,6 +13,9 @@ class Redis(Admin, User):
             password=password
         )
 
+    def __del__(self):
+        del self.r
+
     def get_admin_password(self):
         return self.r.get(self.get_password_key())
 

@@ -72,7 +72,6 @@ class MySQL:
                     FOREIGN KEY (position_id) REFERENCES Positions(position_id)
                 )
             """,
-
             "PersonalInfo": """
                 CREATE TABLE IF NOT EXISTS PersonalInfo (
                     employee_id VARCHAR(36) PRIMARY KEY,
