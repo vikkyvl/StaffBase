@@ -157,6 +157,12 @@ class MySQL:
         self.cursor.execute(query, (employee_id,))
         return self.cursor.fetchone()
 
+    def delete_worker_by_id(self, employee_id):
+        delete_query = "DELETE FROM Employee WHERE employee_id = %s"
+        self.cursor.execute(delete_query, (employee_id,))
+        self.mydb.commit()
+        print(f"Worker with ID '{employee_id}' has been successfully deleted.")
+
     def get_email_by_id(self, employee_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
         self.cursor.execute(query, (employee_id,))

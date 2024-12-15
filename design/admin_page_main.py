@@ -17,6 +17,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.add_pushButton: 4,
             self.ui.exit_pushButton: 5,
             self.ui.view_pushButton: 6,
+            self.ui.delete_pushButton: 7,
         }
 
         self.redis_connection = Redis()
@@ -45,6 +46,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.confirm_exit()
             case 6:
                 self.load_workers_data()
+            case 7:
+                self.delete_workers_data()
 
 
     def add_info_worker(self):
@@ -111,6 +114,34 @@ class AdminPage(QtWidgets.QWidget):
                     model.setData(model.index(model.rowCount() - 1, col), value)
 
         self.ui.worker_tableView.resizeColumnsToContents()
+
+    def delete_workers_data(self):
+        selected_indexes = self.ui.worker_tableView.selectionModel().selectedRows()
+        if not selected_indexes:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a worker to delete.")
+            return
+
+        selected_row = selected_indexes[0]
+        user_id = self.ui.worker_tableView.model().index(selected_row.row(), 0).data()
+        login = self.ui.worker_tableView.model().index(selected_row.row(), 1).data()
+
+        confirmation = QtWidgets.QMessageBox.question(
+            self, "Delete Confirmation",
+            f"Are you sure you want to delete the worker with ID '{user_id}' and login '{login}'?",
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No
+        )
+
+        if confirmation == QtWidgets.QMessageBox.Yes:
+            try:
+                self.mysql_connection.delete_worker_by_id(user_id)
+                self.redis_connection.delete_employee(login)
+
+                QtWidgets.QMessageBox.information(self, "Success", f"Worker '{login}' has been successfully deleted.")
+                self.load_workers_data()
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(self, "Error", f"Failed to delete worker: {e}")
+
 
 
 
