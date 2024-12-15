@@ -20,6 +20,15 @@ class MySQL:
             self.check_and_insert_departments()
             self.create_trigger_calculate_experience_generalinfo()
 
+    def __del__(self):
+        try:
+            if self.cursor:
+                self.cursor.close()
+            if self.mydb:
+                self.mydb.close()
+        except Exception as e:
+            print(f"Error while closing resources: {e}")
+
     def create_tables(self):
         tables = {
             "Employee": """
