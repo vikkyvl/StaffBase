@@ -90,19 +90,7 @@ class AdminPage(QtWidgets.QWidget):
             login = user["login"]
             password = user["password"]
 
-            self.mysql_connection.cursor.execute("""
-                SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
-                       g.hire_date, g.experience, p.birth_date, 
-                       p.phone_number, p.marital_status, p.email
-                FROM Employee e
-                LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
-                LEFT JOIN Departments d ON g.department_id = d.department_id
-                LEFT JOIN Positions pos ON g.position_id = pos.position_id
-                LEFT JOIN PersonalInfo p ON e.employee_id = p.employee_id
-                WHERE e.employee_id = %s
-            """, (user_id,))
-
-            result = self.mysql_connection.cursor.fetchone()
+            result = self.mysql_connection.get_worker_details(user_id)
 
             if result:
                 (full_name, sex, department, position, hire_date, experience,
@@ -111,9 +99,9 @@ class AdminPage(QtWidgets.QWidget):
                 row = [
                     user_id, login, password, full_name, sex, department,
                     position, str(hire_date), str(experience), str(birth_date),
-                    phone_number if phone_number else "N/A",
-                    marital_status if marital_status else "N/A",
-                    email if email else "N/A"
+                    phone_number if phone_number else "",
+                    marital_status if marital_status else "",
+                    email if email else ""
                 ]
 
                 model.insertRow(model.rowCount())
@@ -121,4 +109,5 @@ class AdminPage(QtWidgets.QWidget):
                     model.setData(model.index(model.rowCount() - 1, col), value)
 
         self.ui.worker_tableView.resizeColumnsToContents()
+
 

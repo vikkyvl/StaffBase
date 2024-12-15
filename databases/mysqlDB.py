@@ -131,6 +131,21 @@ class MySQL:
         self.mydb.commit()
         cursor.close()
 
+    def get_worker_details(self, employee_id):
+        query = """
+            SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
+                   g.hire_date, g.experience, p.birth_date, 
+                   p.phone_number, p.marital_status, p.email
+            FROM Employee e
+            LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
+            LEFT JOIN Departments d ON g.department_id = d.department_id
+            LEFT JOIN Positions pos ON g.position_id = pos.position_id
+            LEFT JOIN PersonalInfo p ON e.employee_id = p.employee_id
+            WHERE e.employee_id = %s
+        """
+        self.cursor.execute(query, (employee_id,))
+        return self.cursor.fetchone()
+
     def get_email_by_id(self, employee_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
         self.cursor.execute(query, (employee_id,))
