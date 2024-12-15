@@ -4,9 +4,9 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 
 from design.admin_page import Ui_Form
 from design.add_page_main import *
+from imports import *
 
-
-class AdminPage(QtWidgets.QWidget):
+class AdminPage(QtWidgets.QWidget, Connection):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
@@ -18,6 +18,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.generate_report_pushButton: 3,
             self.ui.add_pushButton: 4,
             self.ui.exit_pushButton: 5,
+            self.ui.view_pushButton: 6,
         }
 
         for button, page in self.page_buttons.items():
@@ -41,6 +42,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.add_info_worker()
             case 5:
                 self.confirm_exit()
+            case 6:
+                self.load_workers_data()
 
 
     def add_info_worker(self):
@@ -73,3 +76,43 @@ class AdminPage(QtWidgets.QWidget):
 
         self.ui.worker_tableView.resizeColumnsToContents()
         self.ui.worker_tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Interactive)
+
+    def load_workers_data(self):
+        model = self.ui.worker_tableView.model()
+        model.removeRows(0, model.rowCount())
+
+        redis_connection = Redis()
+        mysql_connection = MySQL()
+
+        redis_users = redis_connection.get_all_users()
+
+        for user in redis_users:
+            user_id = user["id"]
+            login = user["login"]
+            password = user["password"]
+
+            mysql_connection.cursor.execute("""
+                SELECT e.full_name, p.sex, d.department_name, pos.position_name, g.hire_date, g.experience, p.birth_date
+                FROM Employee e
+                LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
+                LEFT JOIN Departments d ON g.department_id = d.department_id
+                LEFT JOIN Positions pos ON g.position_id = pos.position_id
+                LEFT JOIN PersonalInfo p ON e.employee_id = p.employee_id
+                WHERE e.employee_id = %s
+            """, (user_id,))
+
+            result = mysql_connection.cursor.fetchone()
+
+            if result:
+                full_name, sex, department, position, hire_date, experience, birth_date = result
+
+                row = [
+                    user_id, login, password, full_name, sex, department,
+                    position, str(hire_date), str(experience), str(birth_date)
+                ]
+
+                model.insertRow(model.rowCount())
+                for col, value in enumerate(row):
+                    model.setData(model.index(model.rowCount() - 1, col), value)
+
+        self.ui.worker_tableView.resizeColumnsToContents()
