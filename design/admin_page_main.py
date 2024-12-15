@@ -1,12 +1,10 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
-
 from design.admin_page import Ui_Form
 from design.add_page_main import *
-from imports import *
 
-class AdminPage(QtWidgets.QWidget, Connection):
+class AdminPage(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
@@ -18,7 +16,7 @@ class AdminPage(QtWidgets.QWidget, Connection):
             self.ui.generate_report_pushButton: 3,
             self.ui.add_pushButton: 4,
             self.ui.exit_pushButton: 5,
-            self.ui.view_pushButton: 6,
+            # self.ui.view_pushButton: 6,
         }
 
         for button, page in self.page_buttons.items():

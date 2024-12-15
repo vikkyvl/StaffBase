@@ -7,7 +7,7 @@ import sys
 from imports import *
 
 
-class MainPage(QMainWindow, Connection):
+class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -26,8 +26,8 @@ class MainPage(QMainWindow, Connection):
             self.ui.login_user_pushButton: 9
         }
 
-        # self.redis_connection = Redis()
-        # self.mysql_connection = MySQL()
+        self.redis_connection = Redis()
+        self.mysql_connection = MySQL()
         self.auth_process = Authorization()
 
         self.verification_code = None

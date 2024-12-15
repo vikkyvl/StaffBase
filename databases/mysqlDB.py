@@ -17,7 +17,7 @@ class MySQL:
             )
             self.cursor = self.mydb.cursor()
             self.create_tables()
-            self.check_and_insert_departments()
+            # self.check_and_insert_departments()
 
     def create_tables(self):
         tables = {
