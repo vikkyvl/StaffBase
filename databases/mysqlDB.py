@@ -17,6 +17,7 @@ class MySQL:
             )
             self.cursor = self.mydb.cursor()
             self.create_tables()
+            self.check_and_insert_departments()
 
     def create_tables(self):
         tables = {
@@ -137,7 +138,7 @@ class MySQL:
 
         return result[0] if result and "@" in result[0] else 0
 
-    def check_and_insert_departments(self, json_path='departments.json'):
+    def check_and_insert_departments(self, json_path='databases/departments.json'):
         with open(json_path, 'r') as file:
             data = json.load(file)
 

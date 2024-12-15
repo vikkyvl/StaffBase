@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>src/image/analyze.png</file>
     <file>src/image/Right.png</file>
     <file>src/image/Left.png</file>
     <file>src/image/Right.png</file>

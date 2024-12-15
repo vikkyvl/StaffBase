@@ -132,6 +132,52 @@ class Ui_Form(object):
         self.frame_2.setObjectName("frame_2")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.frame_2)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.edit_pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.edit_pushButton.setMinimumSize(QtCore.QSize(0, 75))
+        self.edit_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(16)
+        self.edit_pushButton.setFont(font)
+        self.edit_pushButton.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 31, 63);\n"
+"border-radius: 20px;\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"background-color: rgb(58, 109, 140);\n"
+"}\n"
+"")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/img/src/image/edit_row.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.edit_pushButton.setIcon(icon1)
+        self.edit_pushButton.setIconSize(QtCore.QSize(30, 30))
+        self.edit_pushButton.setObjectName("edit_pushButton")
+        self.gridLayout_3.addWidget(self.edit_pushButton, 3, 0, 1, 1)
+        self.delete_pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.delete_pushButton.setMinimumSize(QtCore.QSize(0, 75))
+        self.delete_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(16)
+        self.delete_pushButton.setFont(font)
+        self.delete_pushButton.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 31, 63);\n"
+"border-radius: 20px;\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"background-color: rgb(58, 109, 140);\n"
+"}\n"
+"")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/img/src/image/denied.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.delete_pushButton.setIcon(icon2)
+        self.delete_pushButton.setIconSize(QtCore.QSize(30, 30))
+        self.delete_pushButton.setObjectName("delete_pushButton")
+        self.gridLayout_3.addWidget(self.delete_pushButton, 4, 0, 1, 1)
         self.add_pushButton = QtWidgets.QPushButton(self.frame_2)
         self.add_pushButton.setMinimumSize(QtCore.QSize(0, 75))
         self.add_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
@@ -151,20 +197,20 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "}\n"
 "")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/img/src/image/add_user.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.add_pushButton.setIcon(icon1)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/img/src/image/add_user.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.add_pushButton.setIcon(icon3)
         self.add_pushButton.setIconSize(QtCore.QSize(30, 30))
         self.add_pushButton.setObjectName("add_pushButton")
-        self.gridLayout_3.addWidget(self.add_pushButton, 0, 0, 1, 1)
-        self.edit_pushButton = QtWidgets.QPushButton(self.frame_2)
-        self.edit_pushButton.setMinimumSize(QtCore.QSize(0, 75))
-        self.edit_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
+        self.gridLayout_3.addWidget(self.add_pushButton, 1, 0, 1, 1)
+        self.view_pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.view_pushButton.setMinimumSize(QtCore.QSize(0, 75))
+        self.view_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(16)
-        self.edit_pushButton.setFont(font)
-        self.edit_pushButton.setStyleSheet("QPushButton{\n"
+        self.view_pushButton.setFont(font)
+        self.view_pushButton.setStyleSheet("QPushButton{\n"
 "background-color: rgb(0, 31, 63);\n"
 "border-radius: 20px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -174,35 +220,12 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "}\n"
 "")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/img/src/image/edit_row.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.edit_pushButton.setIcon(icon2)
-        self.edit_pushButton.setIconSize(QtCore.QSize(30, 30))
-        self.edit_pushButton.setObjectName("edit_pushButton")
-        self.gridLayout_3.addWidget(self.edit_pushButton, 1, 0, 1, 1)
-        self.delete_pushButton = QtWidgets.QPushButton(self.frame_2)
-        self.delete_pushButton.setMinimumSize(QtCore.QSize(0, 75))
-        self.delete_pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        font.setPointSize(16)
-        self.delete_pushButton.setFont(font)
-        self.delete_pushButton.setStyleSheet("QPushButton{\n"
-"background-color: rgb(0, 31, 63);\n"
-"border-radius: 20px;\n"
-"color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"background-color: rgb(58, 109, 140);\n"
-"}\n"
-"")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/img/src/image/denied.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.delete_pushButton.setIcon(icon3)
-        self.delete_pushButton.setIconSize(QtCore.QSize(30, 30))
-        self.delete_pushButton.setObjectName("delete_pushButton")
-        self.gridLayout_3.addWidget(self.delete_pushButton, 2, 0, 1, 1)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/img/src/image/analyze.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.view_pushButton.setIcon(icon4)
+        self.view_pushButton.setIconSize(QtCore.QSize(30, 30))
+        self.view_pushButton.setObjectName("view_pushButton")
+        self.gridLayout_3.addWidget(self.view_pushButton, 0, 0, 1, 1)
         self.gridLayout_2.addWidget(self.frame_2, 1, 1, 1, 1)
         self.worker_tableView = QtWidgets.QTableView(self.manage_employees_page)
         self.worker_tableView.setStyleSheet("QHeaderView::section {\n"
@@ -248,6 +271,7 @@ class Ui_Form(object):
 "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
 "    background: none;\n"
 "}")
+        self.worker_tableView.setSortingEnabled(True)
         self.worker_tableView.setObjectName("worker_tableView")
         self.gridLayout_2.addWidget(self.worker_tableView, 1, 2, 1, 1)
         self.stackedWidget.addWidget(self.manage_employees_page)
@@ -255,14 +279,14 @@ class Ui_Form(object):
         self.calculate_salary_page.setObjectName("calculate_salary_page")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.calculate_salary_page)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.worker_leaves_tableView = QtWidgets.QTableView(self.calculate_salary_page)
-        self.worker_leaves_tableView.setObjectName("worker_leaves_tableView")
-        self.gridLayout_4.addWidget(self.worker_leaves_tableView, 1, 0, 1, 1)
         self.worker_salary_tableWidget = QtWidgets.QTableWidget(self.calculate_salary_page)
         self.worker_salary_tableWidget.setObjectName("worker_salary_tableWidget")
         self.worker_salary_tableWidget.setColumnCount(0)
         self.worker_salary_tableWidget.setRowCount(0)
         self.gridLayout_4.addWidget(self.worker_salary_tableWidget, 1, 1, 1, 1)
+        self.worker_leaves_tableView = QtWidgets.QTableView(self.calculate_salary_page)
+        self.worker_leaves_tableView.setObjectName("worker_leaves_tableView")
+        self.gridLayout_4.addWidget(self.worker_leaves_tableView, 1, 0, 1, 1)
         self.frame_3 = QtWidgets.QFrame(self.calculate_salary_page)
         self.frame_3.setMinimumSize(QtCore.QSize(0, 200))
         self.frame_3.setMaximumSize(QtCore.QSize(16777215, 200))
@@ -333,9 +357,9 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "color: rgb(0, 31, 63);\n"
 "}")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/img/src/image/salary.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.calculate_salary_pushButton.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/img/src/image/salary.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.calculate_salary_pushButton.setIcon(icon5)
         self.calculate_salary_pushButton.setIconSize(QtCore.QSize(30, 30))
         self.calculate_salary_pushButton.setObjectName("calculate_salary_pushButton")
         self.generate_report_pushButton = QtWidgets.QPushButton(self.widget)
@@ -356,9 +380,9 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "color: rgb(0, 31, 63);\n"
 "}")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/img/src/image/document.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.generate_report_pushButton.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/img/src/image/document.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.generate_report_pushButton.setIcon(icon6)
         self.generate_report_pushButton.setIconSize(QtCore.QSize(30, 30))
         self.generate_report_pushButton.setObjectName("generate_report_pushButton")
         self.manage_employees_pushButton = QtWidgets.QPushButton(self.widget)
@@ -379,9 +403,9 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "color: rgb(0, 31, 63);\n"
 "}")
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/img/src/image/employee.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.manage_employees_pushButton.setIcon(icon6)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/img/src/image/employee.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.manage_employees_pushButton.setIcon(icon7)
         self.manage_employees_pushButton.setIconSize(QtCore.QSize(30, 30))
         self.manage_employees_pushButton.setObjectName("manage_employees_pushButton")
         self.exit_pushButton = QtWidgets.QPushButton(self.widget)
@@ -411,7 +435,7 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        # self.stackedWidget.setCurrentIndex(0)
+        # self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -422,20 +446,11 @@ class Ui_Form(object):
         self.label_4.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">2. Calculate Salaries:</span> Process salaries with adjustments for bonuses and deductions.</p></body></html>"))
         self.label_3.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">1. Manage Employees:</span> Add, edit or delete employee records.</p></body></html>"))
         self.label_5.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">3. Generate Reports:</span> Create salary, attendance and department performance reports.</p></body></html>"))
-        self.add_pushButton.setText(_translate("Form", "ADD"))
         self.edit_pushButton.setText(_translate("Form", "EDIT"))
         self.delete_pushButton.setText(_translate("Form", "DELETE"))
+        self.add_pushButton.setText(_translate("Form", "ADD"))
+        self.view_pushButton.setText(_translate("Form", "VIEW"))
         self.label.setText(_translate("Form", "StaffBase"))
         self.calculate_salary_pushButton.setText(_translate("Form", "CALCULATE SALARY"))
         self.generate_report_pushButton.setText(_translate("Form", "GENERATE REPORT"))
         self.manage_employees_pushButton.setText(_translate("Form", "MANAGE EMPLOYEES"))
-
-
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     Form = QtWidgets.QWidget()
-#     ui = Ui_Form()
-#     ui.setupUi(Form)
-#     Form.show()
-#     sys.exit(app.exec_())

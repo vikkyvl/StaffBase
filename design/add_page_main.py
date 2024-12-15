@@ -11,7 +11,6 @@ class AddPage(Connection):
         self.add_page.setWindowFlags(self.add_page.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.add_page)
-
         self.load_departments()
 
         self.ui.department_comboBox.currentIndexChanged.connect(self.on_department_change)
