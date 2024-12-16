@@ -3,6 +3,7 @@ from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 from design.admin_page import Ui_Form
 from design.add_page_main import *
+from design.edit_page_main import *
 
 class AdminPage(QtWidgets.QWidget):
     def __init__(self):
@@ -18,6 +19,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.exit_pushButton: 5,
             self.ui.view_pushButton: 6,
             self.ui.delete_pushButton: 7,
+            self.ui.edit_pushButton: 8,
         }
 
         self.redis_connection = Redis()
@@ -48,10 +50,15 @@ class AdminPage(QtWidgets.QWidget):
                 self.load_workers_data()
             case 7:
                 self.delete_workers_data()
+            case 8:
+                self.edit_info_worker()
 
 
     def add_info_worker(self):
         add_new_worker = AddPage()
+
+    def edit_info_worker(self):
+        edit_worker = EditPage()
 
     def confirm_exit(self):
         reply = QMessageBox.question(

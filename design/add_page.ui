@@ -339,9 +339,9 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     <property name="geometry">
      <rect>
       <x>1</x>
-      <y>360</y>
+      <y>340</y>
       <width>96</width>
-      <height>19</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -352,11 +352,20 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
       <bold>true</bold>
      </font>
     </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">color:  rgb(0, 31, 63);</string>
     </property>
     <property name="text">
-     <string>EXPERIENCE</string>
+     <string>PREVIOUS EXPERIENCE</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -483,8 +492,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     </property>
     <property name="font">
      <font>
-      <family>Caros Light</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -493,7 +501,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     border: 2px solid  rgb(0, 31, 63);
     border-radius: 8px; 
     padding: 5px; 
-	font-size: 14pt;
+	font-size: 10pt;
 }</string>
     </property>
     <property name="maxLength">
@@ -511,8 +519,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     </property>
     <property name="font">
      <font>
-      <family>Caros Light</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -521,7 +528,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     border: 2px solid  rgb(0, 31, 63);
     border-radius: 8px; 
     padding: 5px; 
-	font-size: 14pt;
+	font-size: 10pt;
 }</string>
     </property>
     <property name="text">
@@ -545,8 +552,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     </property>
     <property name="font">
      <font>
-      <family>Caros Light</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -555,7 +561,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     border: 2px solid  rgb(0, 31, 63);
     border-radius: 8px; 
     padding: 5px; 
-	font-size: 14pt;
+	font-size: 10pt;
 }</string>
     </property>
     <property name="maxLength">
@@ -574,7 +580,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     <property name="font">
      <font>
       <family>Caros Light</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -583,7 +589,7 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     border: 2px solid  rgb(0, 31, 63);
     border-radius: 8px; 
     padding: 5px; 
-	font-size: 14pt;
+	font-size: 10pt;
 }</string>
     </property>
     <property name="maxLength">
