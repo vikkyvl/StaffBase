@@ -26,7 +26,7 @@ class AddPage():
             QtWidgets.QMessageBox.critical(self.add_page, "Error", "Login must be in the format 'name_username'.")
             return False
 
-        password_pattern = re.compile(r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).+$")
+        password_pattern = re.compile(r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]).+$")
         if not password_pattern.match(password):
             QtWidgets.QMessageBox.critical(self.add_page, "Error",
                                            "Password must contain letters, digits, and symbols.")

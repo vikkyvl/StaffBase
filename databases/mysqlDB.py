@@ -163,6 +163,27 @@ class MySQL:
         self.mydb.commit()
         print(f"Worker with ID '{employee_id}' has been successfully deleted.")
 
+    def update_employee_data(self, login, password, full_name, sex, department, position,
+                             hire_date, experience, birth_date, marital_status, phone_number, email):
+        """Оновлює дані працівника у базі даних."""
+        cursor = self.mydb.cursor()
+        query = """
+            UPDATE Employee e
+            JOIN PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN GeneralInfo g ON e.employee_id = g.employee_id
+            JOIN Departments d ON g.department_id = d.department_id
+            JOIN Positions pos ON g.position_id = pos.position_id
+            SET e.full_name = %s, p.birth_date = %s, p.sex = %s, d.department_name = %s,
+                pos.position_name = %s, g.hire_date = %s, g.previous_experience = %s,
+                p.marital_status = %s, p.phone_number = %s, p.email = %s
+            WHERE e.login = %s AND p.password = %s
+        """
+        cursor.execute(query, (full_name, birth_date, sex, department, position,
+                               hire_date, experience, marital_status, phone_number,
+                               email, login, password))
+        self.mydb.commit()
+        cursor.close()
+
     def get_email_by_id(self, employee_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
         self.cursor.execute(query, (employee_id,))
