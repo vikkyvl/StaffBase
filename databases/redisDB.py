@@ -34,6 +34,14 @@ class Redis(Admin, User):
             return 1
         return 0
 
+    def update_employee_login(self, old_login, new_login):
+        if self.is_exist_user(old_login) and not self.is_exist_user(new_login):
+            user_data = self.r.hgetall(f"user:{old_login}")
+            self.r.delete(f"user:{old_login}")
+            self.r.hset(f"user:{new_login}", mapping=user_data)
+            return 1
+        return 0
+
     def get_id_by_login(self, login):
         if self.is_exist_user(login):
             return self.r.hget(f"user:{login}", "id")
