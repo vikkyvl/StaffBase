@@ -163,26 +163,55 @@ class MySQL:
         self.mydb.commit()
         print(f"Worker with ID '{employee_id}' has been successfully deleted.")
 
-    def update_employee_data(self, login, password, full_name, sex, department, position,
-                             hire_date, experience, birth_date, marital_status, phone_number, email):
-        """Оновлює дані працівника у базі даних."""
-        cursor = self.mydb.cursor()
-        query = """
-            UPDATE Employee e
-            JOIN PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN GeneralInfo g ON e.employee_id = g.employee_id
-            JOIN Departments d ON g.department_id = d.department_id
-            JOIN Positions pos ON g.position_id = pos.position_id
-            SET e.full_name = %s, p.birth_date = %s, p.sex = %s, d.department_name = %s,
-                pos.position_name = %s, g.hire_date = %s, g.previous_experience = %s,
-                p.marital_status = %s, p.phone_number = %s, p.email = %s
-            WHERE e.login = %s AND p.password = %s
-        """
-        cursor.execute(query, (full_name, birth_date, sex, department, position,
-                               hire_date, experience, marital_status, phone_number,
-                               email, login, password))
-        self.mydb.commit()
-        cursor.close()
+    def update_employee(self, data):
+        try:
+            query_employee = """
+                UPDATE Employee
+                SET full_name = %s
+                WHERE employee_id = %s
+            """
+            self.cursor.execute(query_employee, (data["full_name"], data["employee_id"]))
+
+            query_general_info = """
+                UPDATE GeneralInfo
+                SET department_id = %s,
+                    position_id = %s,
+                    hire_date = %s,
+                    previous_experience = %s
+                WHERE employee_id = %s
+            """
+            self.cursor.execute(query_general_info, (
+                data["department_id"],
+                data["position_id"],
+                data["hire_date"],
+                data["experience"],
+                data["employee_id"]
+            ))
+
+            query_personal_info = """
+                UPDATE PersonalInfo
+                SET birth_date = %s,
+                    sex = %s,
+                    phone_number = %s,
+                    marital_status = %s,
+                    email = %s
+                WHERE employee_id = %s
+            """
+            self.cursor.execute(query_personal_info, (
+                data["birth_date"],
+                data["sex"],
+                data["phone_number"],
+                data["marital_status"],
+                data["email"],
+                data["employee_id"]
+            ))
+
+            self.mydb.commit()
+            return True
+        except mysql.connector.Error as e:
+            print(f"Error while updating employee data: {e}")
+            self.mydb.rollback()
+            return False
 
     def get_email_by_id(self, employee_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
