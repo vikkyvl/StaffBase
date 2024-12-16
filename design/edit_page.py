@@ -425,7 +425,7 @@ class Ui_Dialog(object):
 "                height: 12px;\n"
 "            }")
         self.maritual_status_comboBox.setObjectName("maritual_status_comboBox")
-        self.maritual_status_comboBox.addItems(['Single', 'Married'])
+        self.maritual_status_comboBox.addItems(['', 'Single', 'Married'])
         self.phone_number_lineEdit = QtWidgets.QLineEdit(self.frame)
         self.phone_number_lineEdit.setGeometry(QtCore.QRect(110, 400, 241, 35))
         font = QtGui.QFont()
