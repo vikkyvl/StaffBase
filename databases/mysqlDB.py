@@ -180,13 +180,7 @@ class MySQL:
                     previous_experience = %s
                 WHERE employee_id = %s
             """
-            self.cursor.execute(query_general_info, (
-                data["department_id"],
-                data["position_id"],
-                data["hire_date"],
-                data["experience"],
-                data["employee_id"]
-            ))
+            self.cursor.execute(query_general_info, (data["department_id"], data["position_id"], data["hire_date"], data["experience"], data["employee_id"]))
 
             query_personal_info = """
                 UPDATE PersonalInfo
@@ -197,14 +191,7 @@ class MySQL:
                     email = %s
                 WHERE employee_id = %s
             """
-            self.cursor.execute(query_personal_info, (
-                data["birth_date"],
-                data["sex"],
-                data["phone_number"],
-                data["marital_status"],
-                data["email"],
-                data["employee_id"]
-            ))
+            self.cursor.execute(query_personal_info, (data["birth_date"], data["sex"], data["phone_number"], data["marital_status"], data["email"], data["employee_id"]))
 
             self.mydb.commit()
             return True
