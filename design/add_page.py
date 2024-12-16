@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from PyQt5.QtCore import QDateTime
 
 # Form implementation generated from reading ui file 'add_page.ui'
 #
@@ -127,6 +128,7 @@ class Ui_Dialog(object):
         self.hire_date_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
         self.hire_date_dateEdit.setCalendarPopup(True)
         self.hire_date_dateEdit.setObjectName("hire_date_dateEdit")
+        self.hire_date_dateEdit.setDateTime(QDateTime.currentDateTime())
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(0, 10, 51, 19))
         font = QtGui.QFont()
