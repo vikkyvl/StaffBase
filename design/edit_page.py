@@ -389,6 +389,7 @@ class Ui_Dialog(object):
         self.sex_comboBox.setEditable(False)
         self.sex_comboBox.setCurrentText("")
         self.sex_comboBox.setObjectName("sex_comboBox")
+        self.sex_comboBox.addItems(["Male", "Female"])
         self.label_9 = QtWidgets.QLabel(self.frame)
         self.label_9.setGeometry(QtCore.QRect(0, 120, 47, 13))
         font = QtGui.QFont()
@@ -424,6 +425,7 @@ class Ui_Dialog(object):
 "                height: 12px;\n"
 "            }")
         self.maritual_status_comboBox.setObjectName("maritual_status_comboBox")
+        self.maritual_status_comboBox.addItems(['Single', 'Married'])
         self.phone_number_lineEdit = QtWidgets.QLineEdit(self.frame)
         self.phone_number_lineEdit.setGeometry(QtCore.QRect(110, 400, 241, 35))
         font = QtGui.QFont()
