@@ -2,16 +2,15 @@ import re
 from design.add_page import *
 from imports import *
 
-class AddPage():
-    def __init__(self, parent=None):
+class AddPage:
+    def __init__(self, redis_connection, mysql_connection, parent=None):
         self.parent = parent
+        self.redis_connection = redis_connection
+        self.mysql_connection = mysql_connection
         self.add_page = QtWidgets.QDialog(self.parent)
         self.add_page.setWindowFlags(self.add_page.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.add_page)
-
-        self.redis_connection = Redis()
-        self.mysql_connection = MySQL()
 
         self.load_departments()
 
@@ -95,15 +94,15 @@ class AddPage():
         for department_id, department_name in departments:
             self.ui.department_comboBox.addItem(department_name, department_id)
 
+    def load_positions(self, department_id):
+        positions = self.mysql_connection.get_positions(department_id)
+        for position_id, position_name in positions:
+            self.ui.position_comboBox.addItem(position_name, position_id)
+
     def on_department_change(self):
         self.ui.position_comboBox.clear()
         selected_department_id = self.ui.department_comboBox.currentData()
 
         if selected_department_id:
             self.load_positions(selected_department_id)
-
-    def load_positions(self, department_id):
-        positions = self.mysql_connection.get_positions(department_id)
-        for position_id, position_name in positions:
-            self.ui.position_comboBox.addItem(position_name, position_id)
 

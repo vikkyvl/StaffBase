@@ -60,7 +60,7 @@ class MainPage(QMainWindow):
 
     def open_admin_page(self):
         self.close()
-        self.admin_page = AdminPage()
+        self.admin_page = AdminPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
         self.admin_page.show()
 
     def admin_auth_page(self):

@@ -6,7 +6,7 @@ from design.add_page_main import *
 from design.edit_page_main import *
 
 class AdminPage(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, redis_connection, mysql_connection):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
@@ -22,8 +22,8 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.edit_pushButton: 8,
         }
 
-        self.redis_connection = Redis()
-        self.mysql_connection = MySQL()
+        self.redis_connection = redis_connection
+        self.mysql_connection = mysql_connection
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
@@ -53,12 +53,11 @@ class AdminPage(QtWidgets.QWidget):
             case 8:
                 self.edit_info_worker()
 
-
     def add_info_worker(self):
-        add_new_worker = AddPage()
+        add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
 
     def edit_info_worker(self):
-        edit_worker = EditPage()
+        edit_worker = EditPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_table=self.ui.worker_tableView)
 
     def confirm_exit(self):
         reply = QMessageBox.question(
