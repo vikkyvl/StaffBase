@@ -24,6 +24,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.add_leave_pushButton: 9,
             self.ui.view_leave_pushButton: 10,
             self.ui.edit_leave_pushButton: 11,
+            self.ui.delete_leave_pushButton: 12,
         }
 
         self.redis_connection = redis_connection
@@ -63,6 +64,10 @@ class AdminPage(QtWidgets.QWidget):
                 self.view_leave_requests()
             case 11:
                 self.edit_leave_request()
+            case 2:
+                self.load_workers_into_combobox()
+            case 12:
+                self.delete_leave_request()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -274,4 +279,42 @@ class AdminPage(QtWidgets.QWidget):
             QtWidgets.QMessageBox.information(self, "Success", "Leave request updated successfully!")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to update leave request: {e}")
+
+    def delete_leave_request(self):
+        selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
+        if not selected_indexes:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to delete.")
+            return
+
+        selected_row = selected_indexes[0].row()
+
+        worker_name = self.ui.worker_leaves_tableView.model().index(selected_row, 0).data()
+        leave_type = self.ui.worker_leaves_tableView.model().index(selected_row, 1).data()
+        start_date = self.ui.worker_leaves_tableView.model().index(selected_row, 2).data()
+        end_date = self.ui.worker_leaves_tableView.model().index(selected_row, 3).data()
+
+        confirmation = QtWidgets.QMessageBox.question(
+            self,
+            "Delete Confirmation",
+            f"Are you sure you want to delete the leave request for '{worker_name}' ({leave_type}) "
+            f"from {start_date} to {end_date}?",
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No
+        )
+
+        if confirmation == QtWidgets.QMessageBox.Yes:
+            employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+            if not employee_id:
+                QtWidgets.QMessageBox.critical(self, "Error", "Failed to find employee ID.")
+                return
+
+            try:
+                self.mysql_connection.delete_leave_request(employee_id, leave_type, start_date, end_date)
+
+                self.ui.worker_leaves_tableView.model().removeRow(selected_row)
+
+                QtWidgets.QMessageBox.information(self, "Success", "Leave request deleted successfully!")
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(self, "Error", f"Failed to delete leave request: {e}")
+
 

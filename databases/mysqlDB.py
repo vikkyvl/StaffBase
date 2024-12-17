@@ -179,6 +179,22 @@ class MySQL:
         self.mydb.commit()
         print(f"Worker with ID '{employee_id}' has been successfully deleted.")
 
+    def delete_leave_request(self, employee_id, leave_type, start_date, end_date):
+        delete_query = """
+            DELETE FROM Leaves
+            WHERE employee_id = %s AND leave_type = %s AND start_date = %s AND end_date = %s
+        """
+        try:
+            cursor = self.mydb.cursor()
+            cursor.execute(delete_query, (employee_id, leave_type, start_date, end_date))
+            self.mydb.commit()
+            print(f"Leave request for employee '{employee_id}' from {start_date} to {end_date} has been deleted.")
+        except Exception as e:
+            print(f"Error deleting leave request: {e}")
+            self.mydb.rollback()
+        finally:
+            cursor.close()
+
     def update_employee(self, data):
         try:
             query_employee = """
