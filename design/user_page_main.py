@@ -11,11 +11,11 @@ class UserPage(QtWidgets.QWidget):
         self.ui.setupUi(self)
 
         self.page_buttons = {
-            self.ui.my_profile_page: 0,
-            self.ui.salary_page: 1,
-            self.ui.leave_history_page: 2,
-            self.ui.request_leave_page: 3,
             self.ui.exit_pushButton: 4,
+            self.ui.my_profile_pushButton: 0,
+            self.ui.salary_pushButton: 1,
+            self.ui.leave_history_pushButton: 2,
+            self.ui.request_leave_pushButton: 3,
         }
 
         self.redis_connection = redis_connection
