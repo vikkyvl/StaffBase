@@ -73,8 +73,11 @@ class TestAdminPage(unittest.TestCase):
         selected_indexes = [MagicMock()]
         self.admin_page.ui.worker_tableView.selectionModel().selectedRows.return_value = selected_indexes
 
-        selected_indexes[0].row.return_value = 0
-        self.admin_page.ui.worker_tableView.model().index.return_value.data.return_value = "1"
+        mock_model = MagicMock()
+        self.admin_page.ui.worker_tableView.model = MagicMock(return_value=mock_model)
+        mock_index = MagicMock()
+        mock_model.index.return_value = mock_index
+        mock_index.data.return_value = "1"
 
         with patch('PyQt5.QtWidgets.QMessageBox.question', return_value=QtWidgets.QMessageBox.Yes), \
                 patch('PyQt5.QtWidgets.QMessageBox.information') as mock_info:
