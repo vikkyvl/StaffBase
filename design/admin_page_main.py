@@ -5,6 +5,7 @@ from design.admin_page import Ui_Form
 from design.add_page_main import *
 from design.edit_page_main import *
 
+
 class AdminPage(QtWidgets.QWidget):
     def __init__(self, redis_connection, mysql_connection):
         super().__init__()

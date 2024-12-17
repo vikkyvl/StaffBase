@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="img">
+    <file>src/image/Left_Dark.png</file>
+    <file>src/image/Right_Dark.png</file>
     <file>src/image/profile.png</file>
     <file>src/image/edit_icon.png</file>
     <file>src/image/analyze.png</file>

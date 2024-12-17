@@ -250,7 +250,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.user_login_lineEdit.setMaxLength(50)
-        self.user_login_lineEdit.setEchoMode(QtWidgets.QLineEdit.PasswordEchoOnEdit)
+        self.user_login_lineEdit.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.user_login_lineEdit.setObjectName("user_login_lineEdit")
         self.label_8 = QtWidgets.QLabel(self.frame_2)
         self.label_8.setGeometry(QtCore.QRect(50, 140, 201, 31))
