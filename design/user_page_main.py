@@ -5,7 +5,7 @@ from design.user_page import Ui_Form
 
 
 class UserPage(QtWidgets.QWidget):
-    def __init__(self, redis_connection, mysql_connection):
+    def __init__(self, redis_connection, mysql_connection, worker_id):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
@@ -20,6 +20,8 @@ class UserPage(QtWidgets.QWidget):
 
         self.redis_connection = redis_connection
         self.mysql_connection = mysql_connection
+        self.worker_id = worker_id
+
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))

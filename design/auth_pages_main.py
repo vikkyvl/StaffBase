@@ -78,7 +78,7 @@ class MainPage(QMainWindow):
 
     def open_user_page(self, worker_id):
         self.close()
-        self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
+        self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection, worker_id=worker_id)
         self.user_page.show()
 
     def user_auth_page(self):

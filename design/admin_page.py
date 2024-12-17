@@ -400,6 +400,264 @@ class Ui_Form(object):
         self.calculate_salary_page.setObjectName("calculate_salary_page")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.calculate_salary_page)
         self.gridLayout_4.setObjectName("gridLayout_4")
+        self.frame_11 = QtWidgets.QFrame(self.calculate_salary_page)
+        self.frame_11.setStyleSheet("background-color: rgb(238, 238, 238);\n"
+"border-radius:20px;")
+        self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_11.setObjectName("frame_11")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.frame_11)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.label_8 = QtWidgets.QLabel(self.frame_11)
+        self.label_8.setMinimumSize(QtCore.QSize(0, 23))
+        self.label_8.setMaximumSize(QtCore.QSize(16777215, 23))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_8.setFont(font)
+        self.label_8.setToolTip("")
+        self.label_8.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_8.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_8.setObjectName("label_8")
+        self.gridLayout_10.addWidget(self.label_8, 0, 0, 1, 1)
+        self.hint_label = QtWidgets.QLabel(self.frame_11)
+        self.hint_label.setMinimumSize(QtCore.QSize(23, 0))
+        self.hint_label.setMaximumSize(QtCore.QSize(23, 16777215))
+        self.hint_label.setStyleSheet("image: url(:/img/src/image/question_mark.png);")
+        self.hint_label.setText("")
+        self.hint_label.setObjectName("hint_label")
+        self.gridLayout_10.addWidget(self.hint_label, 0, 1, 1, 1)
+        self.frame_14 = QtWidgets.QFrame(self.frame_11)
+        self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_14.setObjectName("frame_14")
+        self.gridLayout_14 = QtWidgets.QGridLayout(self.frame_14)
+        self.gridLayout_14.setObjectName("gridLayout_14")
+        self.frame_15 = QtWidgets.QFrame(self.frame_14)
+        self.frame_15.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_15.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_15.setObjectName("frame_15")
+        self.gridLayout_15 = QtWidgets.QGridLayout(self.frame_15)
+        self.gridLayout_15.setObjectName("gridLayout_15")
+        self.calculate_pushButton = QtWidgets.QPushButton(self.frame_15)
+        self.calculate_pushButton.setMinimumSize(QtCore.QSize(0, 40))
+        self.calculate_pushButton.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.calculate_pushButton.setFont(font)
+        self.calculate_pushButton.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 31, 63);\n"
+"border-radius: 20px;\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"background-color: rgb(58, 109, 140);\n"
+"}")
+        self.calculate_pushButton.setObjectName("calculate_pushButton")
+        self.gridLayout_15.addWidget(self.calculate_pushButton, 0, 0, 1, 1)
+        self.view_salary_pushButton = QtWidgets.QPushButton(self.frame_15)
+        self.view_salary_pushButton.setMinimumSize(QtCore.QSize(0, 40))
+        self.view_salary_pushButton.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.view_salary_pushButton.setFont(font)
+        self.view_salary_pushButton.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 31, 63);\n"
+"border-radius: 20px;\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"background-color: rgb(58, 109, 140);\n"
+"}")
+        self.view_salary_pushButton.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.view_salary_pushButton.setObjectName("view_salary_pushButton")
+        self.gridLayout_15.addWidget(self.view_salary_pushButton, 0, 1, 1, 1)
+        self.gridLayout_14.addWidget(self.frame_15, 6, 0, 1, 2)
+        self.label_22 = QtWidgets.QLabel(self.frame_14)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_22.setFont(font)
+        self.label_22.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_22.setObjectName("label_22")
+        self.gridLayout_14.addWidget(self.label_22, 4, 0, 1, 1)
+        self.label_20 = QtWidgets.QLabel(self.frame_14)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_20.setObjectName("label_20")
+        self.gridLayout_14.addWidget(self.label_20, 0, 0, 1, 1)
+        self.worker_salary_comboBox = QtWidgets.QComboBox(self.frame_14)
+        self.worker_salary_comboBox.setMinimumSize(QtCore.QSize(0, 30))
+        self.worker_salary_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.worker_salary_comboBox.setFont(font)
+        self.worker_salary_comboBox.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 2px solid rgb(0, 31, 63);\n"
+"    border-radius: 8px;\n"
+"    padding: 5px;\n"
+"    font-size: 14pt;\n"
+"    color: rgb(50, 50, 50);\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border: none;\n"
+"    width: 25px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/img/src/image/chevron_down.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: none;\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(50, 50, 50);\n"
+"    font-size: 14pt;\n"
+"}\n"
+"")
+        self.worker_salary_comboBox.setObjectName("worker_salary_comboBox")
+        self.gridLayout_14.addWidget(self.worker_salary_comboBox, 1, 0, 1, 2)
+        self.premium_lineEdit = QtWidgets.QLineEdit(self.frame_14)
+        self.premium_lineEdit.setMinimumSize(QtCore.QSize(0, 30))
+        self.premium_lineEdit.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(10)
+        self.premium_lineEdit.setFont(font)
+        self.premium_lineEdit.setStyleSheet(" background-color: rgb(255, 255, 255);\n"
+"border: 2px solid  rgb(0, 31, 63);\n"
+" border-radius: 8px;\n"
+"padding: 5px;\n"
+"font-size: 10pt;\n"
+"color: rgb(50, 50, 50);")
+        self.premium_lineEdit.setObjectName("premium_lineEdit")
+        self.gridLayout_14.addWidget(self.premium_lineEdit, 5, 0, 1, 2)
+        self.label_21 = QtWidgets.QLabel(self.frame_14)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_21.setFont(font)
+        self.label_21.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_21.setObjectName("label_21")
+        self.gridLayout_14.addWidget(self.label_21, 2, 0, 1, 1)
+        self.label_23 = QtWidgets.QLabel(self.frame_14)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_23.setFont(font)
+        self.label_23.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_23.setObjectName("label_23")
+        self.gridLayout_14.addWidget(self.label_23, 2, 1, 1, 1)
+        self.month_comboBox = QtWidgets.QComboBox(self.frame_14)
+        self.month_comboBox.setMinimumSize(QtCore.QSize(0, 30))
+        self.month_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.month_comboBox.setFont(font)
+        self.month_comboBox.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 2px solid rgb(0, 31, 63);\n"
+"    border-radius: 8px;\n"
+"    padding: 5px;\n"
+"    font-size: 14pt;\n"
+"    color: rgb(50, 50, 50);\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border: none;\n"
+"    width: 25px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/img/src/image/chevron_down.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: none;\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(50, 50, 50);\n"
+"    font-size: 14pt;\n"
+"}")
+        self.month_comboBox.setObjectName("month_comboBox")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.setItemText(0, "")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.month_comboBox.addItem("")
+        self.gridLayout_14.addWidget(self.month_comboBox, 3, 0, 1, 1)
+        self.year_dateEdit = QtWidgets.QDateEdit(self.frame_14)
+        self.year_dateEdit.setMinimumSize(QtCore.QSize(0, 30))
+        self.year_dateEdit.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.year_dateEdit.setFont(font)
+        self.year_dateEdit.setStyleSheet("QDateEdit {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 2px solid rgb(0, 31, 63);\n"
+"    border-radius: 8px;\n"
+"    padding: 5px;\n"
+"    font-size: 14pt;\n"
+"    color: rgb(50, 50, 50);\n"
+"}\n"
+"\n"
+"QDateEdit::up-button {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border-top-right-radius: 8px; \n"
+"    image: url(:/img/src/image/chevron_up.png)\n"
+"}\n"
+"\n"
+"QDateEdit::down-button {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border-bottom-right-radius: 8px;\n"
+"    image: url(:/img/src/image/chevron_down.png)\n"
+"}\n"
+"\n"
+"/*QDateEdit::up-button:hover, QDateEdit::down-button:hover {\n"
+"    background-color: rgb(58, 109, 140);\n"
+"}*/\n"
+"\n"
+"")
+        self.year_dateEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.year_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
+        self.year_dateEdit.setCalendarPopup(False)
+        self.year_dateEdit.setDateTime(QDateTime.currentDateTime())
+        self.year_dateEdit.setObjectName("year_dateEdit")
+        self.gridLayout_14.addWidget(self.year_dateEdit, 3, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.frame_14, 1, 0, 1, 2)
+        self.gridLayout_4.addWidget(self.frame_11, 0, 1, 1, 1)
         self.frame_3 = QtWidgets.QFrame(self.calculate_salary_page)
         self.frame_3.setMinimumSize(QtCore.QSize(0, 300))
         self.frame_3.setMaximumSize(QtCore.QSize(16777215, 300))
@@ -562,9 +820,23 @@ class Ui_Form(object):
         self.start_date_dateEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.start_date_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
         self.start_date_dateEdit.setCalendarPopup(True)
-        self.start_date_dateEdit.setObjectName("start_date_dateEdit")
         self.start_date_dateEdit.setDateTime(QDateTime.currentDateTime())
+        self.start_date_dateEdit.setObjectName("start_date_dateEdit")
         self.gridLayout_11.addWidget(self.start_date_dateEdit, 1, 0, 1, 1)
+        self.label_12 = QtWidgets.QLabel(self.frame_12)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_12.setFont(font)
+        self.label_12.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_12.setObjectName("label_12")
+        self.gridLayout_11.addWidget(self.label_12, 0, 1, 1, 1)
+        self.label_11 = QtWidgets.QLabel(self.frame_12)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_11.setFont(font)
+        self.label_11.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_11.setObjectName("label_11")
+        self.gridLayout_11.addWidget(self.label_11, 0, 0, 1, 1)
         self.end_date_dateEdit = QtWidgets.QDateEdit(self.frame_12)
         font = QtGui.QFont()
         font.setFamily("Caros Light")
@@ -631,56 +903,10 @@ class Ui_Form(object):
         self.end_date_dateEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.end_date_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
         self.end_date_dateEdit.setCalendarPopup(True)
-        self.end_date_dateEdit.setObjectName("end_date_dateEdit")
         self.end_date_dateEdit.setDateTime(QDateTime.currentDateTime())
+        self.end_date_dateEdit.setObjectName("end_date_dateEdit")
         self.gridLayout_11.addWidget(self.end_date_dateEdit, 1, 1, 1, 1)
-        self.label_11 = QtWidgets.QLabel(self.frame_12)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        self.label_11.setFont(font)
-        self.label_11.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_11.setObjectName("label_11")
-        self.gridLayout_11.addWidget(self.label_11, 0, 0, 1, 1)
-        self.label_12 = QtWidgets.QLabel(self.frame_12)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        self.label_12.setFont(font)
-        self.label_12.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_12.setObjectName("label_12")
-        self.gridLayout_11.addWidget(self.label_12, 0, 1, 1, 1)
         self.gridLayout_9.addWidget(self.frame_12, 5, 0, 1, 4)
-        self.type_leave_comboBox = QtWidgets.QComboBox(self.frame_3)
-        self.type_leave_comboBox.setMinimumSize(QtCore.QSize(0, 30))
-        self.type_leave_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Caros Light")
-        font.setPointSize(14)
-        self.type_leave_comboBox.setFont(font)
-        self.type_leave_comboBox.setStyleSheet("QComboBox {\n"
-"                background-color: rgb(255, 255, 255);\n"
-"                border: 2px solid  rgb(0, 31, 63);\n"
-"                border-radius: 8px;\n"
-"                padding: 5px;\n"
-"                font-size: 14pt;\n"
-"                color: rgb(50, 50, 50);\n"
-"            }\n"
-"            QComboBox::drop-down {\n"
-"                background-color: rgb(0, 31, 63);\n"
-"                border: none;\n"
-"                width: 25px;\n"
-"            }\n"
-"            QComboBox::down-arrow {\n"
-"                image: url(:/img/src/image/chevron_down.png); \n"
-"                width: 12px;\n"
-"                height: 12px;\n"
-"            }")
-        self.type_leave_comboBox.setObjectName("type_leave_comboBox")
-        self.type_leave_comboBox.addItem("")
-        self.type_leave_comboBox.setItemText(0, "")
-        self.type_leave_comboBox.addItem("")
-        self.type_leave_comboBox.addItem("")
-        self.type_leave_comboBox.addItem("")
-        self.gridLayout_9.addWidget(self.type_leave_comboBox, 4, 0, 1, 4)
         self.label_10 = QtWidgets.QLabel(self.frame_3)
         font = QtGui.QFont()
         font.setFamily("Caros Black")
@@ -688,40 +914,6 @@ class Ui_Form(object):
         self.label_10.setStyleSheet("color: rgb(0, 31, 63);")
         self.label_10.setObjectName("label_10")
         self.gridLayout_9.addWidget(self.label_10, 3, 0, 1, 2)
-        self.worker_leave_comboBox = QtWidgets.QComboBox(self.frame_3)
-        self.worker_leave_comboBox.setMinimumSize(QtCore.QSize(0, 30))
-        self.worker_leave_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Caros Light")
-        font.setPointSize(14)
-        self.worker_leave_comboBox.setFont(font)
-        self.worker_leave_comboBox.setStyleSheet("QComboBox {\n"
-"                background-color: rgb(255, 255, 255);\n"
-"                border: 2px solid  rgb(0, 31, 63);\n"
-"                border-radius: 8px;\n"
-"                padding: 5px;\n"
-"                font-size: 14pt;\n"
-"                color: rgb(50, 50, 50);\n"
-"            }\n"
-"            QComboBox::drop-down {\n"
-"                background-color: rgb(0, 31, 63);\n"
-"                border: none;\n"
-"                width: 25px;\n"
-"            }\n"
-"            QComboBox::down-arrow {\n"
-"                image: url(:/img/src/image/chevron_down.png); \n"
-"                width: 12px;\n"
-"                height: 12px;\n"
-"            }")
-        self.worker_leave_comboBox.setObjectName("worker_leave_comboBox")
-        self.gridLayout_9.addWidget(self.worker_leave_comboBox, 2, 0, 1, 4)
-        self.label_9 = QtWidgets.QLabel(self.frame_3)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        self.label_9.setFont(font)
-        self.label_9.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_9.setObjectName("label_9")
-        self.gridLayout_9.addWidget(self.label_9, 1, 0, 1, 2)
         self.label_7 = QtWidgets.QLabel(self.frame_3)
         font = QtGui.QFont()
         font.setFamily("Caros Black")
@@ -730,204 +922,194 @@ class Ui_Form(object):
         font.setWeight(75)
         self.label_7.setFont(font)
         self.label_7.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_7.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_7.setObjectName("label_7")
         self.gridLayout_9.addWidget(self.label_7, 0, 0, 1, 4)
+        self.label_9 = QtWidgets.QLabel(self.frame_3)
+        font = QtGui.QFont()
+        font.setFamily("Caros Black")
+        self.label_9.setFont(font)
+        self.label_9.setStyleSheet("color: rgb(0, 31, 63);")
+        self.label_9.setObjectName("label_9")
+        self.gridLayout_9.addWidget(self.label_9, 1, 0, 1, 2)
+        self.worker_leave_comboBox = QtWidgets.QComboBox(self.frame_3)
+        self.worker_leave_comboBox.setMinimumSize(QtCore.QSize(0, 30))
+        self.worker_leave_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.worker_leave_comboBox.setFont(font)
+        self.worker_leave_comboBox.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 2px solid rgb(0, 31, 63);\n"
+"    border-radius: 8px;\n"
+"    padding: 5px;\n"
+"    font-size: 14pt;\n"
+"    color: rgb(50, 50, 50);\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border: none;\n"
+"    width: 25px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/img/src/image/chevron_down.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: none; \n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(50, 50, 50);\n"
+"    font-size: 14pt;\n"
+"}\n"
+"")
+        self.worker_leave_comboBox.setObjectName("worker_leave_comboBox")
+        self.gridLayout_9.addWidget(self.worker_leave_comboBox, 2, 0, 1, 4)
+        self.type_leave_comboBox = QtWidgets.QComboBox(self.frame_3)
+        self.type_leave_comboBox.setMinimumSize(QtCore.QSize(0, 30))
+        self.type_leave_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Caros Light")
+        font.setPointSize(14)
+        self.type_leave_comboBox.setFont(font)
+        self.type_leave_comboBox.setStyleSheet("QComboBox {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 2px solid rgb(0, 31, 63);\n"
+"    border-radius: 8px;\n"
+"    padding: 5px;\n"
+"    font-size: 14pt;\n"
+"    color: rgb(50, 50, 50);\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    border: none;\n"
+"    width: 25px;\n"
+"    border-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/img/src/image/chevron_down.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: none; \n"
+"    background-color: rgb(255, 255, 255);\n"
+"    color: rgb(50, 50, 50);\n"
+"    font-size: 14pt;\n"
+"}\n"
+"")
+        self.type_leave_comboBox.setObjectName("type_leave_comboBox")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.setItemText(0, "")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.addItem("")
+        self.gridLayout_9.addWidget(self.type_leave_comboBox, 4, 0, 1, 4)
         self.gridLayout_4.addWidget(self.frame_3, 0, 0, 1, 1)
         self.worker_salary_tableWidget = QtWidgets.QTableWidget(self.calculate_salary_page)
-        self.worker_salary_tableWidget.setStyleSheet("border-color: rgb(0, 31, 63);")
+        self.worker_salary_tableWidget.setStyleSheet("QHeaderView::section {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    color: white;\n"
+"    font-size: 14pt;\n"
+"    font-weight: bold;\n"
+"    border: 1px solid rgb(255, 255, 255);\n"
+"    padding: 5px;\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    background: rgb(230, 230, 230);\n"
+"    width: 12px;\n"
+"    margin: 0px 3px 0px 3px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgb(150, 150, 150);\n"
+"    min-height: 20px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"    background: rgb(230, 230, 230);\n"
+"    height: 12px;\n"
+"    margin: 3px 0px 3px 0px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgb(150, 150, 150);\n"
+"    min-width: 20px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+"    background: none;\n"
+"}")
+        self.worker_salary_tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.worker_salary_tableWidget.setObjectName("worker_salary_tableWidget")
         self.worker_salary_tableWidget.setColumnCount(0)
         self.worker_salary_tableWidget.setRowCount(0)
-        self.gridLayout_4.addWidget(self.worker_salary_tableWidget, 2, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.worker_salary_tableWidget, 1, 1, 1, 1)
         self.worker_leaves_tableView = QtWidgets.QTableView(self.calculate_salary_page)
-        self.worker_leaves_tableView.setStyleSheet("border-color: rgb(0, 31, 63);")
+        self.worker_leaves_tableView.setStyleSheet("QHeaderView::section {\n"
+"    background-color: rgb(0, 31, 63);\n"
+"    color: white;\n"
+"    font-size: 14pt;\n"
+"    font-weight: bold;\n"
+"    border: 1px solid rgb(255, 255, 255);\n"
+"    padding: 5px;\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    background: rgb(230, 230, 230);\n"
+"    width: 12px;\n"
+"    margin: 0px 3px 0px 3px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgb(150, 150, 150);\n"
+"    min-height: 20px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"    background: rgb(230, 230, 230);\n"
+"    height: 12px;\n"
+"    margin: 3px 0px 3px 0px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgb(150, 150, 150);\n"
+"    min-width: 20px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+"    background: none;\n"
+"}")
+        self.worker_leaves_tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.worker_leaves_tableView.setObjectName("worker_leaves_tableView")
-        self.gridLayout_4.addWidget(self.worker_leaves_tableView, 2, 0, 1, 1)
-        self.frame_11 = QtWidgets.QFrame(self.calculate_salary_page)
-        self.frame_11.setStyleSheet("background-color: rgb(238, 238, 238);\n"
-"border-radius:20px;")
-        self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_11.setObjectName("frame_11")
-        self.gridLayout_10 = QtWidgets.QGridLayout(self.frame_11)
-        self.gridLayout_10.setObjectName("gridLayout_10")
-        self.frame_14 = QtWidgets.QFrame(self.frame_11)
-        self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_14.setObjectName("frame_14")
-        self.gridLayout_14 = QtWidgets.QGridLayout(self.frame_14)
-        self.gridLayout_14.setObjectName("gridLayout_14")
-        self.label_20 = QtWidgets.QLabel(self.frame_14)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        self.label_20.setFont(font)
-        self.label_20.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_20.setObjectName("label_20")
-        self.gridLayout_14.addWidget(self.label_20, 0, 0, 1, 1)
-        self.worker_salary_comboBox = QtWidgets.QComboBox(self.frame_14)
-        self.worker_salary_comboBox.setMinimumSize(QtCore.QSize(0, 30))
-        self.worker_salary_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Caros Light")
-        font.setPointSize(14)
-        self.worker_salary_comboBox.setFont(font)
-        self.worker_salary_comboBox.setStyleSheet("QComboBox {\n"
-"                background-color: rgb(255, 255, 255);\n"
-"                border: 2px solid  rgb(0, 31, 63);\n"
-"                border-radius: 8px;\n"
-"                padding: 5px;\n"
-"                font-size: 14pt;\n"
-"                color: rgb(50, 50, 50);\n"
-"            }\n"
-"            QComboBox::drop-down {\n"
-"                background-color: rgb(0, 31, 63);\n"
-"                border: none;\n"
-"                width: 25px;\n"
-"            }\n"
-"            QComboBox::down-arrow {\n"
-"                image: url(:/img/src/image/chevron_down.png); \n"
-"                width: 12px;\n"
-"                height: 12px;\n"
-"            }")
-        self.worker_salary_comboBox.setObjectName("worker_salary_comboBox")
-        self.gridLayout_14.addWidget(self.worker_salary_comboBox, 1, 0, 1, 2)
-        self.month_comboBox = QtWidgets.QComboBox(self.frame_14)
-        self.month_comboBox.setMinimumSize(QtCore.QSize(0, 30))
-        self.month_comboBox.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Caros Light")
-        font.setPointSize(14)
-        self.month_comboBox.setFont(font)
-        self.month_comboBox.setStyleSheet("QComboBox {\n"
-"                background-color: rgb(255, 255, 255);\n"
-"                border: 2px solid  rgb(0, 31, 63);\n"
-"                border-radius: 8px;\n"
-"                padding: 5px;\n"
-"                font-size: 14pt;\n"
-"                color: rgb(50, 50, 50);\n"
-"            }\n"
-"            QComboBox::drop-down {\n"
-"                background-color: rgb(0, 31, 63);\n"
-"                border: none;\n"
-"                width: 25px;\n"
-"            }\n"
-"            QComboBox::down-arrow {\n"
-"                image: url(:/img/src/image/chevron_down.png); \n"
-"                width: 12px;\n"
-"                height: 12px;\n"
-"            }")
-        self.month_comboBox.setObjectName("month_comboBox")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.setItemText(0, "")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.month_comboBox.addItem("")
-        self.gridLayout_14.addWidget(self.month_comboBox, 3, 0, 1, 2)
-        self.premium_lineEdit = QtWidgets.QLineEdit(self.frame_14)
-        self.premium_lineEdit.setMinimumSize(QtCore.QSize(0, 30))
-        self.premium_lineEdit.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Caros Light")
-        font.setPointSize(10)
-        self.premium_lineEdit.setFont(font)
-        self.premium_lineEdit.setStyleSheet(" background-color: rgb(255, 255, 255);\n"
-"border: 2px solid  rgb(0, 31, 63);\n"
-" border-radius: 8px;\n"
-"padding: 5px;\n"
-"font-size: 10pt;\n"
-"color: rgb(50, 50, 50);")
-        self.premium_lineEdit.setObjectName("premium_lineEdit")
-        self.gridLayout_14.addWidget(self.premium_lineEdit, 5, 0, 1, 2)
-        self.label_21 = QtWidgets.QLabel(self.frame_14)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_21.setFont(font)
-        self.label_21.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_21.setObjectName("label_21")
-        self.gridLayout_14.addWidget(self.label_21, 2, 0, 1, 1)
-        self.label_22 = QtWidgets.QLabel(self.frame_14)
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        self.label_22.setFont(font)
-        self.label_22.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_22.setObjectName("label_22")
-        self.gridLayout_14.addWidget(self.label_22, 4, 0, 1, 1)
-        self.frame_15 = QtWidgets.QFrame(self.frame_14)
-        self.frame_15.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_15.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_15.setObjectName("frame_15")
-        self.gridLayout_15 = QtWidgets.QGridLayout(self.frame_15)
-        self.gridLayout_15.setObjectName("gridLayout_15")
-        self.calculate_pushButton = QtWidgets.QPushButton(self.frame_15)
-        self.calculate_pushButton.setMinimumSize(QtCore.QSize(0, 40))
-        self.calculate_pushButton.setMaximumSize(QtCore.QSize(16777215, 40))
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.calculate_pushButton.setFont(font)
-        self.calculate_pushButton.setStyleSheet("QPushButton{\n"
-"background-color: rgb(0, 31, 63);\n"
-"border-radius: 20px;\n"
-"color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"background-color: rgb(58, 109, 140);\n"
-"}")
-        self.calculate_pushButton.setObjectName("calculate_pushButton")
-        self.gridLayout_15.addWidget(self.calculate_pushButton, 0, 0, 1, 1)
-        self.view_salary_pushButton = QtWidgets.QPushButton(self.frame_15)
-        self.view_salary_pushButton.setMinimumSize(QtCore.QSize(0, 40))
-        self.view_salary_pushButton.setMaximumSize(QtCore.QSize(16777215, 40))
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.view_salary_pushButton.setFont(font)
-        self.view_salary_pushButton.setStyleSheet("QPushButton{\n"
-"background-color: rgb(0, 31, 63);\n"
-"border-radius: 20px;\n"
-"color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"background-color: rgb(58, 109, 140);\n"
-"}")
-        self.view_salary_pushButton.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.view_salary_pushButton.setObjectName("view_salary_pushButton")
-        self.gridLayout_15.addWidget(self.view_salary_pushButton, 0, 1, 1, 1)
-        self.gridLayout_14.addWidget(self.frame_15, 6, 0, 1, 2)
-        self.gridLayout_10.addWidget(self.frame_14, 1, 0, 1, 1)
-        self.label_8 = QtWidgets.QLabel(self.frame_11)
-        self.label_8.setMinimumSize(QtCore.QSize(0, 23))
-        self.label_8.setMaximumSize(QtCore.QSize(16777215, 23))
-        font = QtGui.QFont()
-        font.setFamily("Caros Black")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_8.setFont(font)
-        self.label_8.setToolTip("")
-        self.label_8.setStyleSheet("color: rgb(0, 31, 63);")
-        self.label_8.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_8.setObjectName("label_8")
-        self.gridLayout_10.addWidget(self.label_8, 0, 0, 1, 1)
-        self.gridLayout_4.addWidget(self.frame_11, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.worker_leaves_tableView, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.calculate_salary_page)
         self.generate_report_page = QtWidgets.QWidget()
         self.generate_report_page.setObjectName("generate_report_page")
@@ -1094,6 +1276,7 @@ class Ui_Form(object):
         self.gridLayout_8.setObjectName("gridLayout_8")
         self.report_results_textEdit = QtWidgets.QTextEdit(self.frame_5)
         self.report_results_textEdit.setStyleSheet("border-color: rgb(0, 31, 63);")
+        self.report_results_textEdit.setReadOnly(True)
         self.report_results_textEdit.setObjectName("report_results_textEdit")
         self.gridLayout_8.addWidget(self.report_results_textEdit, 0, 0, 1, 1)
         self.gridLayout_5.addWidget(self.frame_5, 0, 1, 1, 1)
@@ -1119,19 +1302,13 @@ class Ui_Form(object):
         self.delete_pushButton.setText(_translate("Form", "DELETE"))
         self.add_pushButton.setText(_translate("Form", "ADD"))
         self.view_pushButton.setText(_translate("Form", "VIEW"))
-        self.add_leave_pushButton.setText(_translate("Form", "ADD"))
-        self.delete_leave_pushButton.setText(_translate("Form", "DELETE"))
-        self.edit_leave_pushButton.setText(_translate("Form", "EDIT"))
-        self.view_leave_pushButton.setText(_translate("Form", "VIEW"))
-        self.label_11.setText(_translate("Form", "START DAY"))
-        self.label_12.setText(_translate("Form", "END DAY"))
-        self.type_leave_comboBox.setItemText(1, _translate("Form", "Sick"))
-        self.type_leave_comboBox.setItemText(2, _translate("Form", "Vacation"))
-        self.type_leave_comboBox.setItemText(3, _translate("Form", "Time Off"))
-        self.label_10.setText(_translate("Form", "TYPE OF LEAVE"))
-        self.label_9.setText(_translate("Form", "WORKER"))
-        self.label_7.setText(_translate("Form", "LEAVE MANAGEMENT"))
+        self.label_8.setText(_translate("Form", "CALCULATION OF SALARY"))
+        self.calculate_pushButton.setText(_translate("Form", "CALCULATE"))
+        self.view_salary_pushButton.setText(_translate("Form", "VIEW"))
+        self.label_22.setText(_translate("Form", "PREMIUM"))
         self.label_20.setText(_translate("Form", "WORKER"))
+        self.label_21.setText(_translate("Form", "MONTH"))
+        self.label_23.setText(_translate("Form", "YEAR"))
         self.month_comboBox.setItemText(1, _translate("Form", "January"))
         self.month_comboBox.setItemText(2, _translate("Form", "February"))
         self.month_comboBox.setItemText(3, _translate("Form", "March"))
@@ -1144,11 +1321,19 @@ class Ui_Form(object):
         self.month_comboBox.setItemText(10, _translate("Form", "October"))
         self.month_comboBox.setItemText(11, _translate("Form", "November"))
         self.month_comboBox.setItemText(12, _translate("Form", "December"))
-        self.label_21.setText(_translate("Form", "MONTH"))
-        self.label_22.setText(_translate("Form", "PREMIUM"))
-        self.calculate_pushButton.setText(_translate("Form", "CALCULATE"))
-        self.view_salary_pushButton.setText(_translate("Form", "VIEW"))
-        self.label_8.setText(_translate("Form", "CALCULATION OF SALARY"))
+        self.year_dateEdit.setDisplayFormat(_translate("Form", "yyyy"))
+        self.add_leave_pushButton.setText(_translate("Form", "ADD"))
+        self.delete_leave_pushButton.setText(_translate("Form", "DELETE"))
+        self.edit_leave_pushButton.setText(_translate("Form", "EDIT"))
+        self.view_leave_pushButton.setText(_translate("Form", "VIEW"))
+        self.label_12.setText(_translate("Form", "END DAY"))
+        self.label_11.setText(_translate("Form", "START DAY"))
+        self.label_10.setText(_translate("Form", "TYPE OF LEAVE"))
+        self.label_7.setText(_translate("Form", "LEAVE MANAGEMENT"))
+        self.label_9.setText(_translate("Form", "WORKER"))
+        self.type_leave_comboBox.setItemText(1, _translate("Form", "Sick"))
+        self.type_leave_comboBox.setItemText(2, _translate("Form", "Vacation"))
+        self.type_leave_comboBox.setItemText(3, _translate("Form", "Time Off"))
         self.number_report_comboBox.setItemText(1, _translate("Form", "1"))
         self.number_report_comboBox.setItemText(2, _translate("Form", "2"))
         self.number_report_comboBox.setItemText(3, _translate("Form", "3"))
@@ -1163,5 +1348,9 @@ class Ui_Form(object):
         self.label_18.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">5. Average Work Experience in the Department.</span></p></body></html>"))
         self.label_17.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">4. Duration of Sick Leaves by Departments(Total and Monthly).</span></p></body></html>"))
         self.label_15.setText(_translate("Form", "<html><head/><body><p><span style=\" font-weight:600;\">2. Employees by Department with Earnings Below N.</span></p></body></html>"))
-
+        self.report_results_textEdit.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
 

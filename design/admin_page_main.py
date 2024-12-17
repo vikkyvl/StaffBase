@@ -3,6 +3,7 @@ from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 from design.admin_page import Ui_Form
 from design.add_page_main import *
+from design.edit_leave_page_main import *
 from design.edit_page_main import *
 
 
@@ -68,6 +69,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.load_workers_into_combobox()
             case 12:
                 self.delete_leave_request()
+            case 13:
+                self.edit_leave_request()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -240,18 +243,19 @@ class AdminPage(QtWidgets.QWidget):
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load leave requests: {e}")
 
     def edit_leave_request(self):
-        selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
-        if not selected_indexes:
-            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to edit.")
-            return
-
-        # Дозволити редагування вибраного рядка
-        self.ui.worker_leaves_tableView.setEditTriggers(
-            QtWidgets.QAbstractItemView.DoubleClicked | QtWidgets.QAbstractItemView.EditKeyPressed
-        )
-        QtWidgets.QMessageBox.information(
-            self, "Info", "You can now edit the selected leave request. Press Enter to save changes."
-        )
+        edit_leave_worker = EditLeavePage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection,
+                               worker_leaves_tableView=self.ui.worker_leaves_tableView)
+        # selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
+        # if not selected_indexes:
+        #     QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to edit.")
+        #     return
+        #
+        # self.ui.worker_leaves_tableView.setEditTriggers(
+        #     QtWidgets.QAbstractItemView.DoubleClicked | QtWidgets.QAbstractItemView.EditKeyPressed
+        # )
+        # QtWidgets.QMessageBox.information(
+        #     self, "Info", "You can now edit the selected leave request. Press Enter to save changes."
+        # )
 
     def save_leave_request_changes(self):
         selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
@@ -261,13 +265,11 @@ class AdminPage(QtWidgets.QWidget):
 
         selected_row = selected_indexes[0].row()
 
-        # Зчитування даних із вибраного рядка
         worker_name = self.ui.worker_leaves_tableView.model().index(selected_row, 0).data()
         leave_type = self.ui.worker_leaves_tableView.model().index(selected_row, 1).data()
         start_date = self.ui.worker_leaves_tableView.model().index(selected_row, 2).data()
         end_date = self.ui.worker_leaves_tableView.model().index(selected_row, 3).data()
 
-        # Отримання employee_id за ім'ям працівника
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
         if not employee_id:
             QtWidgets.QMessageBox.critical(self, "Error", "Failed to find employee ID.")
