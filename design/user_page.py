@@ -10,12 +10,13 @@
 
 import design.res
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDateTime
 
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1000, 600)
+        Form.resize(1100, 600)
         Form.setMinimumSize(QtCore.QSize(0, 600))
         Form.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
@@ -180,13 +181,9 @@ class Ui_Form(object):
         self.frame_10.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_10.setObjectName("frame_10")
-        self.frame_12 = QtWidgets.QFrame(self.frame_10)
-        self.frame_12.setGeometry(QtCore.QRect(220, 540, 120, 80))
-        self.frame_12.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_12.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_12.setObjectName("frame_12")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.frame_10)
+        self.gridLayout_10.setObjectName("gridLayout_10")
         self.label_5 = QtWidgets.QLabel(self.frame_10)
-        self.label_5.setGeometry(QtCore.QRect(10, 20, 731, 61))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(24)
@@ -194,9 +191,10 @@ class Ui_Form(object):
         self.label_5.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
+        self.gridLayout_10.addWidget(self.label_5, 0, 0, 1, 1)
         self.gridLayout_6.addWidget(self.frame_10, 1, 0, 1, 1)
-        self.tableView_2 = QtWidgets.QTableView(self.salary_page)
-        self.tableView_2.setStyleSheet("QHeaderView::section {\n"
+        self.salary_history_tableView = QtWidgets.QTableView(self.salary_page)
+        self.salary_history_tableView.setStyleSheet("QHeaderView::section {\n"
 "    background-color: rgb(0, 31, 63);\n"
 "    color: white;\n"
 "    font-size: 14pt;\n"
@@ -239,8 +237,8 @@ class Ui_Form(object):
 "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
 "    background: none;\n"
 "}")
-        self.tableView_2.setObjectName("tableView_2")
-        self.gridLayout_6.addWidget(self.tableView_2, 2, 0, 1, 1)
+        self.salary_history_tableView.setObjectName("salary_history_tableView")
+        self.gridLayout_6.addWidget(self.salary_history_tableView, 2, 0, 1, 1)
         self.stackedWidget.addWidget(self.salary_page)
         self.leave_history_page = QtWidgets.QWidget()
         self.leave_history_page.setObjectName("leave_history_page")
@@ -254,8 +252,9 @@ class Ui_Form(object):
         self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_11.setObjectName("frame_11")
+        self.gridLayout_11 = QtWidgets.QGridLayout(self.frame_11)
+        self.gridLayout_11.setObjectName("gridLayout_11")
         self.label_6 = QtWidgets.QLabel(self.frame_11)
-        self.label_6.setGeometry(QtCore.QRect(10, 9, 741, 81))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(24)
@@ -263,9 +262,10 @@ class Ui_Form(object):
         self.label_6.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
+        self.gridLayout_11.addWidget(self.label_6, 0, 0, 1, 1)
         self.gridLayout_7.addWidget(self.frame_11, 0, 0, 1, 1)
-        self.tableView_3 = QtWidgets.QTableView(self.leave_history_page)
-        self.tableView_3.setStyleSheet("QHeaderView::section {\n"
+        self.leave_history_tableView = QtWidgets.QTableView(self.leave_history_page)
+        self.leave_history_tableView.setStyleSheet("QHeaderView::section {\n"
 "    background-color: rgb(0, 31, 63);\n"
 "    color: white;\n"
 "    font-size: 14pt;\n"
@@ -308,8 +308,8 @@ class Ui_Form(object):
 "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
 "    background: none;\n"
 "}")
-        self.tableView_3.setObjectName("tableView_3")
-        self.gridLayout_7.addWidget(self.tableView_3, 1, 0, 1, 1)
+        self.leave_history_tableView.setObjectName("leave_history_tableView")
+        self.gridLayout_7.addWidget(self.leave_history_tableView, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.leave_history_page)
         self.request_leave_page = QtWidgets.QWidget()
         self.request_leave_page.setObjectName("request_leave_page")
@@ -335,8 +335,8 @@ class Ui_Form(object):
         self.frame_13.setObjectName("frame_13")
         self.gridLayout_9 = QtWidgets.QGridLayout(self.frame_13)
         self.gridLayout_9.setObjectName("gridLayout_9")
-        self.calendarWidget_2 = QtWidgets.QCalendarWidget(self.frame_13)
-        self.calendarWidget_2.setStyleSheet("QCalendarWidget {\n"
+        self.end_date_calendarWidget = QtWidgets.QCalendarWidget(self.frame_13)
+        self.end_date_calendarWidget.setStyleSheet("QCalendarWidget {\n"
 "            background-color: rgb(179, 200, 207);\n"
 "            border: 1px solid rgb(200, 200, 200);\n"
 "            font-size: 12pt;\n"
@@ -374,15 +374,17 @@ class Ui_Form(object):
 "            qproperty-icon: none;\n"
 "            image: url(:/img/src/image/Right_Dark.png)\n"
 "        }")
-        self.calendarWidget_2.setObjectName("calendarWidget_2")
-        self.gridLayout_9.addWidget(self.calendarWidget_2, 1, 1, 1, 1)
-        self.textEdit = QtWidgets.QTextEdit(self.frame_13)
-        self.textEdit.setStyleSheet("border-color: rgb(0, 31, 63);")
-        self.textEdit.setReadOnly(True)
-        self.textEdit.setObjectName("textEdit")
-        self.gridLayout_9.addWidget(self.textEdit, 4, 0, 1, 2)
-        self.calendarWidget = QtWidgets.QCalendarWidget(self.frame_13)
-        self.calendarWidget.setStyleSheet("QCalendarWidget {\n"
+        self.end_date_calendarWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.end_date_calendarWidget.setObjectName("end_date_calendarWidget")
+        self.end_date_calendarWidget.setSelectedDate(QDateTime.currentDateTime().date())
+        self.gridLayout_9.addWidget(self.end_date_calendarWidget, 1, 1, 1, 1)
+        self.generate_text_textEdit = QtWidgets.QTextEdit(self.frame_13)
+        self.generate_text_textEdit.setStyleSheet("border-color: rgb(0, 31, 63);")
+        self.generate_text_textEdit.setReadOnly(True)
+        self.generate_text_textEdit.setObjectName("generate_text_textEdit")
+        self.gridLayout_9.addWidget(self.generate_text_textEdit, 4, 0, 1, 2)
+        self.start_date_calendarWidget = QtWidgets.QCalendarWidget(self.frame_13)
+        self.start_date_calendarWidget.setStyleSheet("QCalendarWidget {\n"
 "            background-color: rgb(179, 200, 207);\n"
 "            border: 1px solid rgb(200, 200, 200);\n"
 "            font-size: 12pt;\n"
@@ -420,15 +422,17 @@ class Ui_Form(object):
 "            qproperty-icon: none;\n"
 "            image: url(:/img/src/image/Right_Dark.png)\n"
 "        }")
-        self.calendarWidget.setObjectName("calendarWidget")
-        self.gridLayout_9.addWidget(self.calendarWidget, 1, 0, 1, 1)
-        self.comboBox = QtWidgets.QComboBox(self.frame_13)
-        self.comboBox.setStyleSheet("QComboBox {\n"
+        self.start_date_calendarWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.start_date_calendarWidget.setObjectName("start_date_calendarWidget")
+        self.start_date_calendarWidget.setSelectedDate(QDateTime.currentDateTime().date())
+        self.gridLayout_9.addWidget(self.start_date_calendarWidget, 1, 0, 1, 1)
+        self.type_leave_comboBox = QtWidgets.QComboBox(self.frame_13)
+        self.type_leave_comboBox.setStyleSheet("QComboBox {\n"
 "                background-color: rgb(255, 255, 255);\n"
 "                border: 1px solid  rgb(0, 31, 63);\n"
 "                border-radius: 2px;\n"
 "                padding: 5px;\n"
-"                font-size: 14pt;\n"
+"    font: 25 14pt \"Caros Light\";\n"
 "                color: rgb(50, 50, 50);\n"
 "            }\n"
 "            QComboBox::drop-down {\n"
@@ -441,18 +445,23 @@ class Ui_Form(object):
 "                width: 12px;\n"
 "                height: 12px;\n"
 "            }")
-        self.comboBox.setObjectName("comboBox")
-        self.gridLayout_9.addWidget(self.comboBox, 3, 0, 1, 2)
-        self.pushButton = QtWidgets.QPushButton(self.frame_13)
-        self.pushButton.setMinimumSize(QtCore.QSize(0, 50))
-        self.pushButton.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.type_leave_comboBox.setObjectName("type_leave_comboBox")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.setItemText(0, "")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.addItem("")
+        self.type_leave_comboBox.addItem("")
+        self.gridLayout_9.addWidget(self.type_leave_comboBox, 3, 0, 1, 2)
+        self.generate_pushButton = QtWidgets.QPushButton(self.frame_13)
+        self.generate_pushButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.generate_pushButton.setMaximumSize(QtCore.QSize(16777215, 50))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("QPushButton{\n"
+        self.generate_pushButton.setFont(font)
+        self.generate_pushButton.setStyleSheet("QPushButton{\n"
 "background-color: rgb(0, 31, 63);\n"
 "border-radius: 20px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -462,8 +471,8 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "}\n"
 "")
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout_9.addWidget(self.pushButton, 5, 0, 1, 1)
+        self.generate_pushButton.setObjectName("generate_pushButton")
+        self.gridLayout_9.addWidget(self.generate_pushButton, 5, 0, 1, 1)
         self.label_8 = QtWidgets.QLabel(self.frame_13)
         font = QtGui.QFont()
         font.setFamily("Caros Black")
@@ -497,16 +506,16 @@ class Ui_Form(object):
         self.label_10.setAlignment(QtCore.Qt.AlignCenter)
         self.label_10.setObjectName("label_10")
         self.gridLayout_9.addWidget(self.label_10, 2, 0, 1, 2)
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame_13)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 50))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.send_pushButton = QtWidgets.QPushButton(self.frame_13)
+        self.send_pushButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.send_pushButton.setMaximumSize(QtCore.QSize(16777215, 50))
         font = QtGui.QFont()
         font.setFamily("Caros Black")
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setStyleSheet("QPushButton{\n"
+        self.send_pushButton.setFont(font)
+        self.send_pushButton.setStyleSheet("QPushButton{\n"
 "background-color: rgb(0, 31, 63);\n"
 "border-radius: 20px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -516,8 +525,8 @@ class Ui_Form(object):
 "background-color: rgb(58, 109, 140);\n"
 "}\n"
 "")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.gridLayout_9.addWidget(self.pushButton_2, 5, 1, 1, 1)
+        self.send_pushButton.setObjectName("send_pushButton")
+        self.gridLayout_9.addWidget(self.send_pushButton, 5, 1, 1, 1)
         self.gridLayout_8.addWidget(self.frame_13, 1, 0, 1, 1)
         self.stackedWidget.addWidget(self.request_leave_page)
         self.gridLayout.addWidget(self.stackedWidget, 0, 1, 1, 1)
@@ -665,6 +674,7 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -680,16 +690,17 @@ class Ui_Form(object):
         self.label_5.setText(_translate("Form", "SALARY HISTORY"))
         self.label_6.setText(_translate("Form", "LEAVE HISTORY"))
         self.label_7.setText(_translate("Form", "REQUEST LEAVE"))
-        self.pushButton.setText(_translate("Form", "GENERATE"))
+        self.type_leave_comboBox.setItemText(1, _translate("Form", "Sick"))
+        self.type_leave_comboBox.setItemText(2, _translate("Form", "Vacation"))
+        self.type_leave_comboBox.setItemText(3, _translate("Form", "Time Off"))
+        self.generate_pushButton.setText(_translate("Form", "GENERATE"))
         self.label_8.setText(_translate("Form", "START DATE"))
         self.label_9.setText(_translate("Form", "END DATE"))
         self.label_10.setText(_translate("Form", "TYPE OF LEAVE"))
-        self.pushButton_2.setText(_translate("Form", "SEND"))
+        self.send_pushButton.setText(_translate("Form", "SEND"))
         self.label.setText(_translate("Form", "StaffBase"))
         self.salary_pushButton.setText(_translate("Form", "SALARY"))
         self.leave_history_pushButton.setText(_translate("Form", "LEAVE HISTORY"))
         self.my_profile_pushButton.setText(_translate("Form", "MY PROFILE"))
         self.request_leave_pushButton.setText(_translate("Form", "REQUEST LEAVE"))
-
-
 

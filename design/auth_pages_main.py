@@ -76,7 +76,7 @@ class MainPage(QMainWindow):
             QMessageBox.warning(self, "Error", "Incorrect password. Please try again or click 'Forgot your password'.")
             self.ui.admin_password_lineEdit.clear()
 
-    def open_user_page(self):
+    def open_user_page(self, worker_id):
         self.close()
         self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
         self.user_page.show()
@@ -90,7 +90,8 @@ class MainPage(QMainWindow):
         if existence_user == 1:
             correct_password = self.redis_connection.get_password_by_login(entered_login)
             if correct_password == entered_password:
-                self.open_user_page()
+                user_id = self.redis_connection.get_id_by_login(entered_login)
+                self.open_user_page(user_id)
             else:
                 QMessageBox.warning(self, "Error", "Incorrect password. Please try again or click 'Forgot your password'.")
         else:

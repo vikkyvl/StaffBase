@@ -124,6 +124,7 @@ class Ui_Dialog(object):
 "    image: url(:/img/src/image/Right.png); \n"
 "}\n"
 "")
+        self.hire_date_dateEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.hire_date_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
         self.hire_date_dateEdit.setCalendarPopup(True)
         self.hire_date_dateEdit.setObjectName("hire_date_dateEdit")
@@ -274,6 +275,7 @@ class Ui_Dialog(object):
 "    image: url(:/img/src/image/Right.png); \n"
 "}\n"
 "")
+        self.birth_date_dateEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.birth_date_dateEdit.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(1945, 9, 14), QtCore.QTime(0, 0, 0)))
         self.birth_date_dateEdit.setCalendarPopup(True)
         self.birth_date_dateEdit.setObjectName("birth_date_dateEdit")

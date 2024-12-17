@@ -28,10 +28,265 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(179, 200, 207);
+border-radius: 15px;</string>
+     </property>
+     <widget class="QFrame" name="frame">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>121</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/img/src/image/icon.png);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cooper Black</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 31, 63);</string>
+      </property>
+      <property name="text">
+       <string>StaffBase</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="calculate_salary_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>300</y>
+        <width>201</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+border-radius: 0px;
+color: rgb(0, 31, 63);
+}
+
+QPushButton:hover{
+border-radius: 0px;
+background-color: rgb(58, 109, 140);
+color: rgb(0, 31, 63);
+}</string>
+      </property>
+      <property name="text">
+       <string>CALCULATE SALARY</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <selectedon>:/img/src/image/salary.png</selectedon>
+       </iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="generate_report_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>370</y>
+        <width>201</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+border-radius: 0px;
+color: rgb(0, 31, 63);
+}
+
+QPushButton:hover{
+border-radius: 0px;
+background-color: rgb(58, 109, 140);
+color: rgb(0, 31, 63);
+}</string>
+      </property>
+      <property name="text">
+       <string>GENERATE REPORT</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <selectedon>:/img/src/image/document.png</selectedon>
+       </iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="manage_employees_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>230</y>
+        <width>201</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+border-radius: 0px;
+color: rgb(0, 31, 63);
+}
+
+QPushButton:hover{
+border-radius: 0px;
+background-color: rgb(58, 109, 140);
+color: rgb(0, 31, 63);
+}</string>
+      </property>
+      <property name="text">
+       <string>MANAGE EMPLOYEES</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <selectedon>:/img/src/image/employee.png</selectedon>
+       </iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exit_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>450</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>201</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgba(255, 255, 255, 0);
+image: url(:/img/src/image/exit.png);
+}
+
+QPushButton:hover{
+background-color: rgba(255, 255, 255, 0);
+image: url(:/img/src/image/exit_hover.png);
+}
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QColumnView" name="columnView">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>320</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </item>
    <item row="0" column="1">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="welcome_page">
       <layout class="QGridLayout" name="gridLayout_6">
@@ -529,25 +784,23 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
      </widget>
      <widget class="QWidget" name="calculate_salary_page">
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="1" column="1">
-        <widget class="QTableWidget" name="worker_salary_tableWidget"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QTableView" name="worker_leaves_tableView"/>
-       </item>
-       <item row="0" column="0" colspan="2">
+       <item row="0" column="0">
         <widget class="QFrame" name="frame_3">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>200</height>
+           <height>300</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>200</height>
+           <height>300</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:20px;</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -555,6 +808,934 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QGridLayout" name="gridLayout_9">
+          <item row="6" column="1">
+           <widget class="QPushButton" name="add_leave_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+            </property>
+            <property name="text">
+             <string>ADD</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QPushButton" name="delete_leave_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+            </property>
+            <property name="text">
+             <string>DELETE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QPushButton" name="edit_leave_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+            </property>
+            <property name="text">
+             <string>EDIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QPushButton" name="view_leave_pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>4</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+            </property>
+            <property name="text">
+             <string>VIEW</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="4">
+           <widget class="QFrame" name="frame_12">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_11">
+             <item row="1" column="0">
+              <widget class="QDateEdit" name="start_date_dateEdit">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QDateEdit {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+QDateEdit::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QDateEdit::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }
+            QDateEdit QCalendarWidget {
+                background-color: rgb(240, 240, 240);
+                border: 1px solid rgb(200, 200, 200);
+                font-size: 12pt;
+                color: rgb(0, 0, 0);
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QToolButton {
+                color: rgb(0, 31, 63);
+                font-size: 12pt;
+                border: none;
+                margin: 5px;
+                padding: 5px;
+                border-radius: 5px;
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QToolButton:hover {
+                background-color: rgb(58, 109, 140);
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QTableView {
+                background-color: white;
+                color: black;
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+QDateEdit QCalendarWidget QTableView:selected {
+                background-color: rgb(0, 122, 204);
+                color: white;
+				font: 25 16pt &quot;Caros Light&quot;;
+ }
+QDateEdit QCalendarWidget QToolButton#qt_calendar_prevmonth  {
+	qproperty-icon: none;
+    image: url(:/img/src/image/Left_Dark.png)
+}
+
+QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
+	qproperty-icon: none;
+    image: url(:/img/src/image/Right_Dark.png)
+}
+</string>
+               </property>
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
+               </property>
+               <property name="minimumDateTime">
+                <datetime>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                 <year>1945</year>
+                 <month>9</month>
+                 <day>14</day>
+                </datetime>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QDateEdit" name="end_date_dateEdit">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QDateEdit {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+QDateEdit::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QDateEdit::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }
+            QDateEdit QCalendarWidget {
+                background-color: rgb(240, 240, 240);
+                border: 1px solid rgb(200, 200, 200);
+                font-size: 12pt;
+                color: rgb(0, 0, 0);
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QToolButton {
+                color: rgb(0, 31, 63);
+                font-size: 12pt;
+                border: none;
+                margin: 5px;
+                padding: 5px;
+                border-radius: 5px;
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QToolButton:hover {
+                background-color: rgb(58, 109, 140);
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+            QDateEdit QCalendarWidget QTableView {
+                background-color: white;
+                color: black;
+				font: 25 16pt &quot;Caros Light&quot;;
+            }
+QDateEdit QCalendarWidget QTableView:selected {
+                background-color: rgb(0, 122, 204);
+                color: white;
+				font: 25 16pt &quot;Caros Light&quot;;
+ }
+QDateEdit QCalendarWidget QToolButton#qt_calendar_prevmonth  {
+	qproperty-icon: none;
+    image: url(:/img/src/image/Left_Dark.png)
+}
+
+QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
+	qproperty-icon: none;
+    image: url(:/img/src/image/Right_Dark.png)
+}
+</string>
+               </property>
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
+               </property>
+               <property name="minimumDateTime">
+                <datetime>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                 <year>1945</year>
+                 <month>9</month>
+                 <day>14</day>
+                </datetime>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>START DAY</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_12">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>END DAY</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="4">
+           <widget class="QComboBox" name="type_leave_comboBox">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Light</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
+            </property>
+            <item>
+             <property name="text">
+              <string/>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sick</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Vacation</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Time Off</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QLabel" name="label_10">
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 31, 63);</string>
+            </property>
+            <property name="text">
+             <string>TYPE OF LEAVE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="4">
+           <widget class="QComboBox" name="worker_leave_comboBox">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Light</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QLabel" name="label_9">
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 31, 63);</string>
+            </property>
+            <property name="text">
+             <string>WORKER</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="4">
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 31, 63);</string>
+            </property>
+            <property name="text">
+             <string>LEAVE MANAGEMENT</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QTableWidget" name="worker_salary_tableWidget">
+         <property name="styleSheet">
+          <string notr="true">border-color: rgb(0, 31, 63);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QTableView" name="worker_leaves_tableView">
+         <property name="styleSheet">
+          <string notr="true">border-color: rgb(0, 31, 63);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QFrame" name="frame_11">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:20px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="1" column="0">
+           <widget class="QFrame" name="frame_14">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_14">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_20">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>WORKER</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QComboBox" name="worker_salary_comboBox">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="2">
+              <widget class="QComboBox" name="month_comboBox">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string/>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>January</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>February</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>March</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>April</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>May</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>June</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>July</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>August</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>September</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>October</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>November</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>December</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="2">
+              <widget class="QLineEdit" name="premium_lineEdit">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"> background-color: rgb(255, 255, 255);
+border: 2px solid  rgb(0, 31, 63);
+ border-radius: 8px;
+padding: 5px;
+font-size: 10pt;
+color: rgb(50, 50, 50);</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_21">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>MONTH</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_22">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>PREMIUM</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0" colspan="2">
+              <widget class="QFrame" name="frame_15">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_15">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="calculate_pushButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Caros Black</family>
+                    <pointsize>10</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>CALCULATE</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="view_salary_pushButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Caros Black</family>
+                    <pointsize>10</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+                  </property>
+                  <property name="locale">
+                   <locale language="English" country="UnitedStates"/>
+                  </property>
+                  <property name="text">
+                   <string>VIEW</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>23</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>23</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 31, 63);</string>
+            </property>
+            <property name="text">
+             <string>CALCULATION OF SALARY</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -565,13 +1746,13 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
         <widget class="QFrame" name="frame_4">
          <property name="minimumSize">
           <size>
-           <width>300</width>
+           <width>350</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>300</width>
+           <width>350</width>
            <height>16777215</height>
           </size>
          </property>
@@ -581,6 +1762,279 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="1" column="0">
+           <widget class="QComboBox" name="number_report_comboBox">
+            <property name="font">
+             <font>
+              <family>Caros Light</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="acceptDrops">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }
+</string>
+            </property>
+            <item>
+             <property name="text">
+              <string/>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="generate_report_pushButton_2">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>45</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>45</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Caros Black</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}
+</string>
+            </property>
+            <property name="text">
+             <string>GENERATE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QFrame" name="frame_13">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_13">
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_19">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;6.Average Earnings of Men and Women by Departments and Across the Company.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_14">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;1. Employees of Retirement Age with Work Experience.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;3. Average Age of Employees in the Department and Across the Company.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_13">
+               <property name="font">
+                <font>
+                 <family>Caros Black</family>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>SELECT A REPORT</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_18">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;5. Average Work Experience in the Department.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;4. Duration of Sick Leaves by Departments(Total and Monthly).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="font">
+                <font>
+                 <family>Caros Light</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(238, 238, 238);
+border-radius:10px;
+padding: 10px;
+color: rgb(0, 31, 63);</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;2. Employees by Department with Earnings Below N.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item row="0" column="1">
@@ -591,264 +2045,18 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <widget class="QTextEdit" name="report_results_textEdit">
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(0, 31, 63);</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
-     </widget>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QWidget" name="widget" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>200</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(179, 200, 207);
-border-radius: 15px;</string>
-     </property>
-     <widget class="QFrame" name="frame">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>30</y>
-        <width>121</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">image: url(:/img/src/image/icon.png);</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>160</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Cooper Black</family>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 31, 63);</string>
-      </property>
-      <property name="text">
-       <string>StaffBase</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="calculate_salary_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>300</y>
-        <width>201</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Caros Black</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-border-radius: 0px;
-color: rgb(0, 31, 63);
-}
-
-QPushButton:hover{
-border-radius: 0px;
-background-color: rgb(58, 109, 140);
-color: rgb(0, 31, 63);
-}</string>
-      </property>
-      <property name="text">
-       <string>CALCULATE SALARY</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <selectedon>:/img/src/image/salary.png</selectedon>
-       </iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="generate_report_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>370</y>
-        <width>201</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Caros Black</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-border-radius: 0px;
-color: rgb(0, 31, 63);
-}
-
-QPushButton:hover{
-border-radius: 0px;
-background-color: rgb(58, 109, 140);
-color: rgb(0, 31, 63);
-}</string>
-      </property>
-      <property name="text">
-       <string>GENERATE REPORT</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <selectedon>:/img/src/image/document.png</selectedon>
-       </iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="manage_employees_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>230</y>
-        <width>201</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Caros Black</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-border-radius: 0px;
-color: rgb(0, 31, 63);
-}
-
-QPushButton:hover{
-border-radius: 0px;
-background-color: rgb(58, 109, 140);
-color: rgb(0, 31, 63);
-}</string>
-      </property>
-      <property name="text">
-       <string>MANAGE EMPLOYEES</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <selectedon>:/img/src/image/employee.png</selectedon>
-       </iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="exit_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>450</y>
-        <width>201</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>201</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgba(255, 255, 255, 0);
-image: url(:/img/src/image/exit.png);
-}
-
-QPushButton:hover{
-background-color: rgba(255, 255, 255, 0);
-image: url(:/img/src/image/exit_hover.png);
-}
-</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QColumnView" name="columnView">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>320</y>
-        <width>256</width>
-        <height>192</height>
-       </rect>
-      </property>
      </widget>
     </widget>
    </item>

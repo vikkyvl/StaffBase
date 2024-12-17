@@ -253,19 +253,38 @@ class MySQL:
         return self.cursor.fetchall()
 
     def create_trigger_calculate_experience_generalinfo(self):
-        trigger_query = """
-            CREATE TRIGGER calculate_experience_generalinfo
+        trigger_insert_query = """
+            CREATE TRIGGER calculate_experience_generalinfo_before_insert
             BEFORE INSERT ON GeneralInfo
             FOR EACH ROW
             BEGIN
                 SET NEW.total_experience = NEW.previous_experience + YEAR(CURDATE()) - YEAR(NEW.hire_date);
-            END
-            """
+            END;
+        """
+
+        trigger_update_query = """
+            CREATE TRIGGER calculate_experience_generalinfo_before_update
+            BEFORE UPDATE ON GeneralInfo
+            FOR EACH ROW
+            BEGIN
+                SET NEW.total_experience = NEW.previous_experience + YEAR(CURDATE()) - YEAR(NEW.hire_date);
+            END;
+        """
+
         try:
-            self.cursor.execute(trigger_query)
-            print("Trigger 'calculate_experience_generalinfo' is successfully created.")
+            self.cursor.execute(trigger_insert_query)
+            print("Trigger 'calculate_experience_generalinfo_before_insert' is successfully created.")
         except mysql.connector.Error as e:
             if "already exists" in str(e):
-                print("Trigger already exists.")
+                print("Trigger 'calculate_experience_generalinfo_before_insert' already exists.")
             else:
-                print(f"Error while creating trigger: {e}")
+                print(f"Error while creating INSERT trigger: {e}")
+
+        try:
+            self.cursor.execute(trigger_update_query)
+            print("Trigger 'calculate_experience_generalinfo_before_update' is successfully created.")
+        except mysql.connector.Error as e:
+            if "already exists" in str(e):
+                print("Trigger 'calculate_experience_generalinfo_before_update' already exists.")
+            else:
+                print(f"Error while creating UPDATE trigger: {e}")

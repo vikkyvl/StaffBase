@@ -177,6 +177,9 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
 }
 </string>
     </property>
+    <property name="locale">
+     <locale language="English" country="UnitedStates"/>
+    </property>
     <property name="minimumDateTime">
      <datetime>
       <hour>0</hour>
@@ -466,6 +469,9 @@ QDateEdit QCalendarWidget QToolButton#qt_calendar_nextmonth {
     image: url(:/img/src/image/Right.png); 
 }
 </string>
+    </property>
+    <property name="locale">
+     <locale language="English" country="UnitedStates"/>
     </property>
     <property name="minimumDateTime">
      <datetime>
