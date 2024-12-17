@@ -355,3 +355,23 @@ class MySQL:
                 print("Trigger 'calculate_experience_generalinfo_before_update' already exists.")
             else:
                 print(f"Error while creating UPDATE trigger: {e}")
+
+    def check_user_email(self, worker_id):
+        query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
+        try:
+            self.cursor.execute(query, (worker_id,))
+            result = self.cursor.fetchone()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error checking user email: {e}")
+            return None
+
+    def update_user_email(self, worker_id, email):
+        query = "UPDATE PersonalInfo SET email = %s WHERE employee_id = %s"
+        try:
+            self.cursor.execute(query, (email, worker_id))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"Error updating email: {e}")
+            self.mydb.rollback()
+

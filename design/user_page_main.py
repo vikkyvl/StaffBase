@@ -22,7 +22,6 @@ class UserPage(QtWidgets.QWidget):
         self.mysql_connection = mysql_connection
         self.worker_id = worker_id
 
-
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
 

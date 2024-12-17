@@ -4,6 +4,7 @@ from design.auth_pages import Ui_MainWindow
 from design.admin_page_main import *
 from design.user_page_main import *
 from classes.authorization import Authorization
+from design.enter_email_page_main import EnterEmailPage
 from imports import *
 import sys
 
@@ -78,7 +79,15 @@ class MainPage(QMainWindow):
 
     def open_user_page(self, worker_id):
         self.close()
-        self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection, worker_id=worker_id)
+        if not self.mysql_connection.check_user_email(worker_id):
+            email_dialog = EnterEmailPage(mysql_connection=self.mysql_connection, worker_id=worker_id)
+            if email_dialog.exec_() == QtWidgets.QDialog.Accepted:
+                if not self.mysql_connection.check_user_email(worker_id):
+                    QtWidgets.QMessageBox.warning(self, "Warning", "Email entry failed. Please try again.")
+                    return
+
+        self.user_page = UserPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection,
+                                  worker_id=worker_id)
         self.user_page.show()
 
     def user_auth_page(self):
