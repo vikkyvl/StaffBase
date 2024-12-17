@@ -22,26 +22,27 @@ class AddPage:
     def validate_input(self, login, password, full_name, experience):
         login_pattern = re.compile(r"^[a-zA-Z]+\_[a-zA-Z]+$")
         if not login_pattern.match(login):
-            QtWidgets.QMessageBox.critical(self.add_page, "Error", "Login must be in the format 'name_username'.")
+            self.show_critical_message("Error", "Login must be in the format 'name_username'.")
             return False
 
         password_pattern = re.compile(r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]).+$")
         if not password_pattern.match(password):
-            QtWidgets.QMessageBox.critical(self.add_page, "Error",
-                                           "Password must contain letters, digits, and symbols.")
+            self.show_critical_message("Error", "Password must contain letters, digits, and symbols.")
             return False
 
         full_name_pattern = re.compile(r"^[A-Z][a-z]+\s[A-Z][a-z]+$")
         if not full_name_pattern.match(full_name):
-            QtWidgets.QMessageBox.critical(self.add_page, "Error",
-                                           "Full Name must consist of two words starting with uppercase letters.")
+            self.show_critical_message("Error", "Full Name must consist of two words starting with uppercase letters.")
             return False
 
         if not experience.isdigit() or not (0 <= int(experience) <= 70):
-            QtWidgets.QMessageBox.critical(self.add_page, "Error", "Experience must be a number between 0 and 70.")
+            self.show_critical_message("Error", "Experience must be a number between 0 and 70.")
             return False
 
         return True
+
+    def show_critical_message(self, title, message):
+        QtWidgets.QMessageBox.critical(self.add_page, title, message)
 
     def add_date(self):
         employee_login = self.ui.login_lineEdit.text()

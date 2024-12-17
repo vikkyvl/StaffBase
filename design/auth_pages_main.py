@@ -1,18 +1,16 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from design.auth_pages import Ui_MainWindow
-from design.admin_page_main import *
-from design.user_page_main import *
+from design.admin_page_main import AdminPage
+from design.user_page_main import UserPage
 from classes.authorization import Authorization
-from imports import *
 import sys
+from imports import *
 
 
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.user_page = None
-        self.admin_page = None
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -66,6 +64,11 @@ class MainPage(QMainWindow):
         self.admin_page = AdminPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
         self.admin_page.show()
 
+    def open_user_page(self):
+        self.close()
+        self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
+        self.user_page.show()
+
     def admin_auth_page(self):
         correct_password = self.redis_connection.get_admin_password()
         entered_password = self.ui.admin_password_lineEdit.text()
@@ -76,11 +79,6 @@ class MainPage(QMainWindow):
             QMessageBox.warning(self, "Error", "Incorrect password. Please try again or click 'Forgot your password'.")
             self.ui.admin_password_lineEdit.clear()
 
-    def open_user_page(self, worker_id):
-        self.close()
-        self.user_page = UserPage(redis_connection=self.redis_connection,mysql_connection=self.mysql_connection)
-        self.user_page.show()
-
     def user_auth_page(self):
         entered_login = self.ui.user_login_lineEdit.text()
         entered_password = self.ui.user_password_lineEdit.text()
@@ -90,8 +88,7 @@ class MainPage(QMainWindow):
         if existence_user == 1:
             correct_password = self.redis_connection.get_password_by_login(entered_login)
             if correct_password == entered_password:
-                user_id = self.redis_connection.get_id_by_login(entered_login)
-                self.open_user_page(user_id)
+                self.open_user_page()
             else:
                 QMessageBox.warning(self, "Error", "Incorrect password. Please try again or click 'Forgot your password'.")
         else:

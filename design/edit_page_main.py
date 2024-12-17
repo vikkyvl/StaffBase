@@ -26,31 +26,35 @@ class EditPage:
 
         self.fill_fields_from_table()
 
+        if self.worker_table:
+            self.fill_fields_from_table()
+
         self.edit_page.exec_()
 
     def validate_input(self, login, password, full_name, experience):
         login_pattern = re.compile(r"^[a-zA-Z]+\_[a-zA-Z]+$")
         if not login_pattern.match(login):
-            QtWidgets.QMessageBox.critical(self.edit_page, "Error", "Login must be in the format 'name_username'.")
+            self.show_critical_message("Error", "Login must be in the format 'name_username'.")
             return False
 
         password_pattern = re.compile(r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]).+$")
         if not password_pattern.match(password):
-            QtWidgets.QMessageBox.critical(self.edit_page, "Error",
-                                           "Password must contain letters, digits, and symbols.")
+            self.show_critical_message("Error", "Password must contain letters, digits, and symbols.")
             return False
 
         full_name_pattern = re.compile(r"^[A-Z][a-z]+\s[A-Z][a-z]+$")
         if not full_name_pattern.match(full_name):
-            QtWidgets.QMessageBox.critical(self.edit_page, "Error",
-                                           "Full Name must consist of two words starting with uppercase letters.")
+            self.show_critical_message("Error", "Full Name must consist of two words starting with uppercase letters.")
             return False
 
         if not experience.isdigit() or not (0 <= int(experience) <= 70):
-            QtWidgets.QMessageBox.critical(self.edit_page, "Error", "Experience must be a number between 0 and 70.")
+            self.show_critical_message("Error", "Experience must be a number between 0 and 70.")
             return False
 
         return True
+
+    def show_critical_message(self, title, message):
+        QtWidgets.QMessageBox.critical(self.edit_page, title, message)
 
     def fill_fields_from_table(self):
         model = self.worker_table.model()
@@ -135,7 +139,11 @@ class EditPage:
         success = self.mysql_connection.update_employee(data)
 
         if success:
-            QtWidgets.QMessageBox.information(self.edit_page, "Success", "Employee data updated successfully!")
+            self.show_success_message("Success", "Employee data updated successfully!")
             self.edit_page.accept()
         else:
             QtWidgets.QMessageBox.critical(self.edit_page, "Error", "Failed to update employee data.")
+
+    def show_success_message(self, title, message):
+        QtWidgets.QMessageBox.information(self.edit_page, title, message)
+
