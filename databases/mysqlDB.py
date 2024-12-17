@@ -41,7 +41,8 @@ class MySQL:
                 CREATE TABLE IF NOT EXISTS Departments (
                     department_id INT PRIMARY KEY AUTO_INCREMENT,
                     department_name VARCHAR(255) NOT NULL,
-                    department_positions INT DEFAULT 0
+                    department_positions INT DEFAULT 0,
+                    average_salary DECIMAL(10, 2) DEFAULT 0.00
                 )
             """,
             "Positions": """
@@ -211,19 +212,27 @@ class MySQL:
         with open(json_path, 'r') as file:
             data = json.load(file)
 
-        self.cursor.execute("SELECT COUNT(*) FROM Departments")
-        departments_count = self.cursor.fetchone()[0]
+        self.cursor.execute("SELECT COUNT(*) FROM Company")
+        company_count = self.cursor.fetchone()[0]
 
-        if departments_count == 0:
+        if company_count == 0:
+            num_of_departments = len(data['departments'])
+            self.cursor.execute(
+                "INSERT INTO Company (company_name, num_of_departments) VALUES (%s, %s)",
+                ("IT Academy", num_of_departments)
+            )
+            print("Company IT Academy inserted successfully!")
+
             for department_data in data['departments']:
-                department = Department(
-                    department_name=department_data['name'],
-                    department_positions=len(department_data['positions'])
-                )
+                department_name = department_data['name']
+                department_positions = len(department_data['positions'])
+
+                total_salary = sum(position['salary'] for position in department_data['positions'])
+                average_salary = total_salary / department_positions if department_positions > 0 else 0
 
                 self.cursor.execute(
-                    "INSERT INTO Departments (department_name, department_positions) VALUES (%s, %s)",
-                    (department.get_department_name(), department.get_department_positions())
+                    "INSERT INTO Departments (department_name, department_positions, average_salary) VALUES (%s, %s, %s)",
+                    (department_name, department_positions, average_salary)
                 )
                 department_id = self.cursor.lastrowid
 
@@ -234,9 +243,9 @@ class MySQL:
                     )
 
             self.mydb.commit()
-            print("Data inserted successfully!")
+            print("Departments, positions, and average salaries inserted successfully!")
         else:
-            print("Tables already contain data. No insertion required.")
+            print("Company data already exists. No insertion required.")
 
     def get_departments(self):
         query = "SELECT department_id, department_name FROM Departments"
