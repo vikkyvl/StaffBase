@@ -1,5 +1,7 @@
 import json
 import mysql.connector
+
+from classes.leaves import Leaves
 from classes.department import Department
 from classes.employee import Employee
 from classes.general_info import GeneralInfo
@@ -123,6 +125,19 @@ class MySQL:
         self.mydb.commit()
         cursor.close()
 
+    def get_employee_id_by_name(self, full_name):
+        cursor = self.mydb.cursor()
+        query = "SELECT employee_id FROM Employee WHERE full_name = %s"
+        try:
+            cursor.execute(query, (full_name,))
+            result = cursor.fetchone()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error fetching employee ID: {e}")
+            return None
+        finally:
+            cursor.close()
+
     def add_general_info(self, general_info: GeneralInfo):
         cursor = self.mydb.cursor()
         query = """INSERT INTO GeneralInfo (employee_id, department_id, position_id, hire_date, previous_experience)
@@ -201,12 +216,39 @@ class MySQL:
             self.mydb.rollback()
             return False
 
+    def add_leave_request(self, employee_id, leave_type, start_date, end_date):
+        cursor = self.mydb.cursor()
+        query = """INSERT INTO Leaves (employee_id, leave_type, start_date, end_date)
+                   VALUES (%s, %s, %s, %s)"""
+        try:
+            cursor.execute(query, (employee_id, leave_type, start_date, end_date))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"Error adding leave request: {e}")
+            self.mydb.rollback()
+        finally:
+            cursor.close()
+
     def get_email_by_id(self, employee_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
         self.cursor.execute(query, (employee_id,))
         result = self.cursor.fetchone()
 
         return result[0] if result and "@" in result[0] else 0
+
+    def get_all_leave_requests(self):
+        cursor = self.mydb.cursor()
+        query = """SELECT e.full_name, l.leave_type, l.start_date, l.end_date, l.duration
+                   FROM Leaves l
+                   JOIN Employee e ON l.employee_id = e.employee_id"""
+        try:
+            cursor.execute(query)
+            return cursor.fetchall()
+        except Exception as e:
+            print(f"Error fetching leave requests: {e}")
+            return []
+        finally:
+            cursor.close()
 
     def check_and_insert_departments(self, json_path='databases/departments.json'):
         with open(json_path, 'r') as file:

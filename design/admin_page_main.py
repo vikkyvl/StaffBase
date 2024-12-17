@@ -21,6 +21,9 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.view_pushButton: 6,
             self.ui.delete_pushButton: 7,
             self.ui.edit_pushButton: 8,
+            self.ui.add_leave_pushButton: 9,
+            self.ui.view_leave_pushButton: 10,
+            self.ui.edit_leave_pushButton: 11,
         }
 
         self.redis_connection = redis_connection
@@ -30,7 +33,8 @@ class AdminPage(QtWidgets.QWidget):
             button.clicked.connect(self.create_switch_page_handler(page))
 
         self.setup_worker_table()
-
+        self.load_workers_into_combobox()
+        self.ui.worker_leaves_tableView.doubleClicked.connect(self.save_leave_request_changes)
 
     def create_switch_page_handler(self, page):
         def handler():
@@ -53,6 +57,12 @@ class AdminPage(QtWidgets.QWidget):
                 self.delete_workers_data()
             case 8:
                 self.edit_info_worker()
+            case 9:
+                self.add_leave_request()
+            case 10:
+                self.view_leave_requests()
+            case 11:
+                self.edit_leave_request()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -149,6 +159,119 @@ class AdminPage(QtWidgets.QWidget):
             except Exception as e:
                 QtWidgets.QMessageBox.critical(self, "Error", f"Failed to delete worker: {e}")
 
+    def load_workers_into_combobox(self):
+        try:
+            query = "SELECT employee_id, full_name FROM Employee"
+            self.mysql_connection.cursor.execute(query)
+            workers = self.mysql_connection.cursor.fetchall()
 
+            self.ui.worker_leave_comboBox.clear()
 
+            for worker_id, full_name in workers:
+                self.ui.worker_leave_comboBox.addItem(full_name, worker_id)
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load workers: {e}")
+
+    def add_leave_request(self):
+        worker_name = self.ui.worker_leave_comboBox.currentText()
+        leave_type = self.ui.type_leave_comboBox.currentText()
+        start_date = self.ui.start_date_dateEdit.date().toString("yyyy-MM-dd")
+        end_date = self.ui.end_date_dateEdit.date().toString("yyyy-MM-dd")
+
+        if not worker_name or not leave_type:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a worker and leave type.")
+            return
+
+        employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+        if not employee_id:
+            QtWidgets.QMessageBox.critical(self, "Error", "Failed to find employee ID.")
+            return
+
+        try:
+            self.mysql_connection.add_leave_request(employee_id, leave_type, start_date, end_date)
+
+            model = self.ui.worker_leaves_tableView.model()
+            if not model:
+                model = QStandardItemModel()
+                model.setHorizontalHeaderLabels(["Worker", "Leave Type", "Start Date", "End Date", "Duration"])
+                self.ui.worker_leaves_tableView.setModel(model)
+
+            start_date_qt = self.ui.start_date_dateEdit.date()
+            end_date_qt = self.ui.end_date_dateEdit.date()
+            duration = start_date_qt.daysTo(end_date_qt) + 1
+
+            row = [worker_name, leave_type, start_date, end_date, str(duration)]
+            model.insertRow(model.rowCount())
+            for col, value in enumerate(row):
+                model.setData(model.index(model.rowCount() - 1, col), value)
+
+            self.ui.worker_leaves_tableView.resizeColumnsToContents()
+            QtWidgets.QMessageBox.information(self, "Success", "Leave request added successfully!")
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to add leave request: {e}")
+
+    def view_leave_requests(self):
+        try:
+            leave_requests = self.mysql_connection.get_all_leave_requests()
+
+            model = self.ui.worker_leaves_tableView.model()
+            if not model:
+                model = QStandardItemModel()
+                model.setHorizontalHeaderLabels(["Worker", "Leave Type", "Start Date", "End Date", "Duration"])
+                self.ui.worker_leaves_tableView.setModel(model)
+
+            model.removeRows(0, model.rowCount())
+
+            for leave in leave_requests:
+                model.insertRow(model.rowCount())
+                for col, value in enumerate(leave):
+                    model.setData(model.index(model.rowCount() - 1, col), str(value))
+
+            self.ui.worker_leaves_tableView.resizeColumnsToContents()
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load leave requests: {e}")
+
+    def edit_leave_request(self):
+        selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
+        if not selected_indexes:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to edit.")
+            return
+
+        # Дозволити редагування вибраного рядка
+        self.ui.worker_leaves_tableView.setEditTriggers(
+            QtWidgets.QAbstractItemView.DoubleClicked | QtWidgets.QAbstractItemView.EditKeyPressed
+        )
+        QtWidgets.QMessageBox.information(
+            self, "Info", "You can now edit the selected leave request. Press Enter to save changes."
+        )
+
+    def save_leave_request_changes(self):
+        selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
+        if not selected_indexes:
+            QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to save changes.")
+            return
+
+        selected_row = selected_indexes[0].row()
+
+        # Зчитування даних із вибраного рядка
+        worker_name = self.ui.worker_leaves_tableView.model().index(selected_row, 0).data()
+        leave_type = self.ui.worker_leaves_tableView.model().index(selected_row, 1).data()
+        start_date = self.ui.worker_leaves_tableView.model().index(selected_row, 2).data()
+        end_date = self.ui.worker_leaves_tableView.model().index(selected_row, 3).data()
+
+        # Отримання employee_id за ім'ям працівника
+        employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+        if not employee_id:
+            QtWidgets.QMessageBox.critical(self, "Error", "Failed to find employee ID.")
+            return
+
+        try:
+            # Оновлення запису у базі даних
+            self.mysql_connection.update_leave_request(employee_id, leave_type, start_date, end_date)
+            QtWidgets.QMessageBox.information(self, "Success", "Leave request updated successfully!")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to update leave request: {e}")
 
