@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Update Personal Information</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <selectedon>:/img/src/image/edit_icon.png</selectedon>
+   </iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(179, 200, 207);</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QComboBox" name="maritual_status_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>70</y>
+        <width>241</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Light</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+                background-color: rgb(255, 255, 255);
+                border: 2px solid  rgb(0, 31, 63);
+                border-radius: 8px;
+                padding: 5px;
+                font-size: 14pt;
+                color: rgb(50, 50, 50);
+            }
+            QComboBox::drop-down {
+                background-color: rgb(0, 31, 63);
+                border: none;
+                width: 25px;
+            }
+            QComboBox::down-arrow {
+                image: url(:/img/src/image/chevron_down.png); 
+                width: 12px;
+                height: 12px;
+            }</string>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Single</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Married</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLineEdit" name="phone_number_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>120</y>
+        <width>241</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	background-color: rgb(255, 255, 255);
+    border: 2px solid  rgb(0, 31, 63);
+    border-radius: 8px; 
+    padding: 5px; 
+	font-size: 10pt;
+}</string>
+      </property>
+      <property name="maxLength">
+       <number>100</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="email_lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>170</y>
+        <width>241</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	background-color: rgb(255, 255, 255);
+    border: 2px solid  rgb(0, 31, 63);
+    border-radius: 8px; 
+    padding: 5px; 
+	font-size: 10pt;
+}</string>
+      </property>
+      <property name="maxLength">
+       <number>100</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="number_of_children_spinBox">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>241</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Light</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 31, 63);
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 14pt;
+    color: rgb(50, 50, 50);
+}
+
+QSpinBox::up-button {
+    background-color: rgb(0, 31, 63);
+	border-top-right-radius: 8px; 
+    image: url(:/img/src/image/chevron_up.png)
+}
+
+QSpinBox::down-button {
+    background-color: rgb(0, 31, 63);
+	border-bottom-right-radius: 8px;
+    image: url(:/img/src/image/chevron_down.png)
+}</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>180</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:  rgb(0, 31, 63);</string>
+      </property>
+      <property name="text">
+       <string>EMAIL</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:  rgb(0, 31, 63);</string>
+      </property>
+      <property name="text">
+       <string>PHONE NUMBER</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:  rgb(0, 31, 63);</string>
+      </property>
+      <property name="text">
+       <string>MARITUAL STATUS</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Caros Black</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:  rgb(0, 31, 63);</string>
+      </property>
+      <property name="text">
+       <string>NUMBER OF CHILDREN</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="updte_pushButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>51</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>51</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Caros Black</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(0, 31, 63);
+border-radius: 20px;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+background-color: rgb(58, 109, 140);
+}</string>
+     </property>
+     <property name="text">
+      <string>UPDATE</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="rec.qrc"/>
+ </resources>
+ <connections/>
+</ui>

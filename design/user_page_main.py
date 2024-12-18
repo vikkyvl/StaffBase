@@ -1,7 +1,8 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 from design.user_page import Ui_Form
+from design.edit_personal_info_page_main import EditPersonalInformationPage
 from classes.authorization import Authorization
 
 
@@ -11,6 +12,10 @@ class UserPage(QtWidgets.QWidget):
         self.leave_data = None
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.redis_connection = redis_connection
+        self.mysql_connection = mysql_connection
+        self.worker_id = worker_id
+        self.load_worker_info()
 
         self.page_buttons = {
             self.ui.exit_pushButton: 4,
@@ -20,11 +25,8 @@ class UserPage(QtWidgets.QWidget):
             self.ui.request_leave_pushButton: 3,
             self.ui.generate_pushButton: 5,
             self.ui.send_pushButton: 6,
+            self.ui.edit_pushButton: 7,
         }
-
-        self.redis_connection = redis_connection
-        self.mysql_connection = mysql_connection
-        self.worker_id = worker_id
 
         for button, page in self.page_buttons.items():
             button.clicked.connect(self.create_switch_page_handler(page))
@@ -48,14 +50,51 @@ class UserPage(QtWidgets.QWidget):
             case 6:
                 if self.leave_data:
                     self.send_request_leave(*self.leave_data)
+            case 7:
+                self.edit_personal_information()
 
-    # def load_worker_info(self):
 
+    def load_worker_info(self):
+        worker_info = self.mysql_connection.get_employee_full_info(self.worker_id)
+        self.ui.user_full_name_textEdit.setText(worker_info['full_name'])
+
+        data = {
+            "Department Name": worker_info["department_name"],
+            "Position Name": worker_info["position_name"],
+            "Hire Date": worker_info["hire_date"],
+            "Total Experience": worker_info["total_experience"],
+            "Birth Date": worker_info["birth_date"],
+            "Sex": worker_info["sex"],
+            "Number Of Children": worker_info["number_of_children"],
+            "Phone Number": worker_info["phone_number"],
+            "Marital Status": worker_info["marital_status"],
+            "Email": worker_info["email"],
+        }
+
+        model = QStandardItemModel()
+        model.setHorizontalHeaderLabels(["Field", "Value"])
+
+        for field, value in data.items():
+            field_item = QStandardItem(field)
+            value_item = QStandardItem(str(value) if value is not None else "")
+            model.appendRow([field_item, value_item])
+
+        self.ui.worker_info_tableView.setModel(model)
+        self.ui.worker_info_tableView.resizeColumnsToContents()
 
     def request_leave(self):
         start_date_leave = self.ui.start_date_calendarWidget.selectedDate().toString('yyyy-MM-dd')
         end_date_leave = self.ui.end_date_calendarWidget.selectedDate().toString('yyyy-MM-dd')
         leave_type = self.ui.type_leave_comboBox.currentText()
+
+        if not leave_type:
+            QMessageBox.warning(self, "Error", "Leave type cannot be empty.")
+            return None
+
+        if start_date_leave > end_date_leave:
+            QMessageBox.warning(self, "Error", "Start date cannot be later than end date.")
+            return None
+
         worker_info = self.mysql_connection.get_info_for_request(self.worker_id)
 
         if worker_info:
@@ -76,8 +115,12 @@ class UserPage(QtWidgets.QWidget):
 
             self.ui.generate_text_textEdit.setText(body)
             return full_name, leave_type, body
+
+        QMessageBox.warning(self, "Error", "Worker information not found.")
         return None
 
+    def edit_personal_information(self):
+        edit_personal_information = EditPersonalInformationPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_info_tableView=self.ui.worker_info_tableView)
 
     def send_request_leave(self, full_name, leave_type, body):
         try:
