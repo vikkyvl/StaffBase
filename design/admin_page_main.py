@@ -30,6 +30,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.edit_leave_pushButton: 11,
             self.ui.delete_leave_pushButton: 12,
             self.ui.calculate_pushButton: 13,
+            self.ui.view_salary_pushButton: 14,
         }
 
         self.redis_connection = redis_connection
@@ -75,6 +76,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.delete_leave_request()
             case 13:
                 self.calculate_salary()
+            case 14:
+                self.view_salaries()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -202,6 +205,10 @@ class AdminPage(QtWidgets.QWidget):
 
         if start_date_qt > end_date_qt:
             QtWidgets.QMessageBox.critical(self, "Error", "Start date cannot be later than end date.")
+            return
+
+        if start_date_qt.year() != end_date_qt.year() or start_date_qt.month() != end_date_qt.month():
+            QtWidgets.QMessageBox.critical(self,"Error","Leave request dates must be within the same month and year.")
             return
 
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
@@ -341,3 +348,23 @@ class AdminPage(QtWidgets.QWidget):
 
         salary = Salary(employee_id, salary_month, calculated_salary)
         self.mysql_connection.add_employee_salary(salary)
+
+    def view_salaries(self):
+        try:
+            salaries = self.mysql_connection.get_all_salaries_with_names()
+
+            table = self.ui.worker_salary_tableWidget
+            table.clear()
+            table.setColumnCount(3)
+            table.setHorizontalHeaderLabels(["Worker", "Date", "Salary"])
+
+            table.setRowCount(len(salaries))
+            for row_idx, (full_name, salary_month, salary_amount) in enumerate(salaries):
+                table.setItem(row_idx, 0, QtWidgets.QTableWidgetItem(full_name))
+                table.setItem(row_idx, 1, QtWidgets.QTableWidgetItem(salary_month))
+                table.setItem(row_idx, 2, QtWidgets.QTableWidgetItem(str(salary_amount)))
+
+            table.resizeColumnsToContents()
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load salaries: {e}")

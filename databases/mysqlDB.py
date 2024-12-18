@@ -167,8 +167,7 @@ class MySQL:
             cursor = self.mydb.cursor()
             query = """INSERT INTO Salary (employee_id, salary_month, salary_amount)
                        VALUES (%s, %s, %s)"""
-            print(
-                f"Executing query: {query} with params: {salary.get_employee_id()}, {salary.get_month()}, {salary.get_salary()}")
+
             cursor.execute(
                 query, (salary.get_employee_id(), salary.get_month(), salary.get_salary())
             )
@@ -313,6 +312,21 @@ class MySQL:
         finally:
             cursor.close()
 
+    def get_all_salaries_with_names(self):
+        query = """
+            SELECT e.full_name, s.salary_month, s.salary_amount
+            FROM Salary s
+            JOIN Employee e ON s.employee_id = e.employee_id
+            ORDER BY s.salary_month DESC
+        """
+        try:
+            self.cursor.execute(query)
+            results = self.cursor.fetchall()
+            return results
+        except Exception as e:
+            print(f"Error fetching salaries: {e}")
+            return []
+
     def get_employee_leaves(self, employee_id, salary_month):
         query = """
                     SELECT leave_type, duration
@@ -324,10 +338,8 @@ class MySQL:
         start_date = f"{salary_month}-01"
         end_date = f"{salary_month}-{last_day:02d}"
         try:
-            print(f"Executing query: {query} with params: {employee_id}, {start_date}, {end_date}")
             self.cursor.execute(query, (employee_id, start_date, end_date))
             result = self.cursor.fetchall()
-            print(f"Query result: {result}")
             return [{'leave_type': row[0], 'duration': row[1]} for row in result]
         except Exception as e:
             print(f"Error fetching employee leaves: {e}")
