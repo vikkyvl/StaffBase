@@ -6,6 +6,8 @@ from classes.department import Department
 from classes.employee import Employee
 from classes.general_info import GeneralInfo
 from classes.personal_info import PersonalInfo
+from classes.salary import Salary
+
 
 class MySQL:
     def __init__(self, host="localhost", port=3306, user="root", password="root-pw", database="staff_base", use_pure=True):
@@ -155,6 +157,16 @@ class MySQL:
                    VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(
             query,( personal_info.get_employee_id(), personal_info.get_birth_date(), personal_info.get_sex(), personal_info.get_number_of_children(), personal_info.get_phone_number(), personal_info.get_marital_status(), personal_info.get_email())
+        )
+        self.mydb.commit()
+        cursor.close()
+
+    def add_employee_salary(self, salary: Salary):
+        cursor = self.mydb.cursor()
+        query = """INSERT INTO Salary (employee_id, salary_month, salary_amount)
+                      VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        cursor.execute(
+            query, (salary.get_employee_id(), salary.get_month(), salary.get_salary())
         )
         self.mydb.commit()
         cursor.close()

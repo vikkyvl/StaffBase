@@ -6,6 +6,7 @@ from design.add_page_main import *
 from design.edit_leave_page_main import *
 from design.edit_page_main import *
 from classes.calculation_salary import CalculationSalary
+from classes.salary import Salary
 
 class AdminPage(QtWidgets.QWidget):
     def __init__(self, redis_connection, mysql_connection):
@@ -26,6 +27,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.view_leave_pushButton: 10,
             self.ui.edit_leave_pushButton: 11,
             self.ui.delete_leave_pushButton: 12,
+            self.ui.calculate_pushButton: 13,
         }
 
         self.redis_connection = redis_connection
@@ -69,6 +71,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.load_workers_into_combobox()
             case 12:
                 self.delete_leave_request()
+            case 13:
+                self.calculate_salary()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -323,7 +327,5 @@ class AdminPage(QtWidgets.QWidget):
         employee_leave_info = self.mysql_connection.get_employee_leaves(employee_id, salary_month)
 
         calculated_salary = CalculationSalary.calculation_salary(month, year, premium_text, employee_position_info, employee_position_info, employee_leave_info)
-
-
-
-
+        salary = Salary(employee_id, salary_month, calculated_salary)
+        self.mysql_connection.add_employee_salary(salary)
