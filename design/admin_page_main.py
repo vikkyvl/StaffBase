@@ -310,14 +310,11 @@ class AdminPage(QtWidgets.QWidget):
 
 
     def calculate_salary(self):
-        employee_id = self.ui.worker_salary_comboBox.currentText()
-        month = self.ui.month_comboBox.currentText()
+        worker_name = self.ui.worker_salary_comboBox.currentText()
+        month = self.ui.month_comboBox.currentIndex()
         year = self.ui.year_dateEdit.date().year()
         premium_text = self.ui.premium_lineEdit.text()
 
-        month_mapping = {
-            "January": "1", "February": "2", "March": "3", "April": "4",
-            "May": "5", "June": "6", "July": "7", "August": "8",
-            "September": "9", "October": "10", "November": "11", "December": "12"
-        }
+        employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+
 

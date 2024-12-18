@@ -294,7 +294,20 @@ class MySQL:
         finally:
             cursor.close()
 
-    def get_employee_info_for_calculation_salary(self, cursor, employee_id):
+    def get_employee_leaves(self, employee_id, salary_month):
+        query = """
+                SELECT leave_type, start_date, end_date, duration
+                FROM Leaves
+                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
+            """
+        try:
+            self.cursor.execute(query, (employee_id, salary_month))
+            return self.cursor.fetchall()
+        except Exception as e:
+            print(f"Error fetching employee leaves: {e}")
+            return []
+
+    def get_employee_info_for_calculation_salary(self, employee_id):
         query = """
             SELECT E.full_name, P.salary_amount, GI.total_experience
             FROM Employee E
@@ -302,25 +315,12 @@ class MySQL:
             JOIN Positions P ON GI.position_id = P.position_id
             WHERE E.employee_id = %s
         """
-        cursor.execute(query, (employee_id,))
-        return cursor.fetchone()
-
-    def get_employee_leaves(self, cursor, employee_id, salary_month):
-        query = """
-                SELECT leave_type, start_date, end_date, duration
-                FROM Leaves
-                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
-            """
-        cursor.execute(query, (employee_id, salary_month))
-        return cursor.fetchall()
-    def get_employee_leaves(self, cursor, employee_id, salary_month):
-        query = """
-                SELECT leave_type, start_date, end_date, duration
-                FROM Leaves
-                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
-            """
-        cursor.execute(query, (employee_id, salary_month))
-        return cursor.fetchall()
+        try:
+            self.cursor.execute(query, (employee_id,))
+            return self.cursor.fetchone()
+        except Exception as e:
+            print(f"Error fetching employee info for salary calculation: {e}")
+            return None
 
     def check_and_insert_departments(self, json_path='databases/departments.json'):
         with open(json_path, 'r') as file:
