@@ -92,8 +92,13 @@ class AddPage:
     def load_departments(self):
         departments = self.mysql_connection.get_departments()
         self.ui.department_comboBox.clear()
+
         for department_id, department_name in departments:
             self.ui.department_comboBox.addItem(department_name, department_id)
+
+        if departments:
+            first_department_id = departments[0][0]
+            self.load_positions(first_department_id)
 
     def load_positions(self, department_id):
         positions = self.mysql_connection.get_positions(department_id)

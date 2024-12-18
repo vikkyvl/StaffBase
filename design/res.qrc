@@ -1,8 +1,8 @@
 <RCC>
   <qresource prefix="img">
     <file>src/image/Email.png</file>
-    <file>src/image/question_mark.png</file>
     <file>src/image/chevron_up.png</file>
+    <file>src/image/question_mark.png</file>
     <file>src/image/Left_Dark.png</file>
     <file>src/image/Right_Dark.png</file>
     <file>src/image/profile.png</file>

@@ -428,6 +428,51 @@ class Ui_Form(object):
         self.hint_label.setStyleSheet("image: url(:/img/src/image/question_mark.png);")
         self.hint_label.setText("")
         self.hint_label.setObjectName("hint_label")
+        tooltip_text = """
+        <html>
+        <body>
+        <h3>Salary Calculation Process</h3>
+        <p>This procedure calculates an employee's monthly salary, considering work experience, types of leave, and additional premiums.</p>
+        <h4>Step 1: Base Components</h4>
+        <ul>
+            <li><b>Base Salary</b>: The salary specified in the employee's data.</li>
+            <li><b>Experience Bonus</b>: A percentage of the base salary is added based on total years of work experience.<br>
+                <i>Formula:</i> <br>
+                <code>Experience Bonus = Base Salary × (Experience / 100)</code>
+            </li>
+            <li><b>Gross Salary</b>: The sum of the base salary and the experience bonus.<br>
+                <i>Formula:</i> <br>
+                <code>Gross Salary = Base Salary + Experience Bonus</code>
+            </li>
+        </ul>
+        <h4>Step 2: Leave Adjustments</h4>
+        <ul>
+            <li><b>Sick Leave</b>: Payment for sick leave depends on the employee's experience:
+                <ul>
+                    <li>Less than 2 years: 50% of the daily rate</li>
+                    <li>2 to 4 years: 80% of the daily rate</li>
+                    <li>More than 4 years: 100% of the daily rate</li>
+                </ul>
+                <i>Formula:</i> <br>
+                <code>Deduction = Daily Rate × Sick Days × (1 - Sick Pay Rate)</code>
+            </li>
+            <li><b>Vacation Leave</b>: Salary is calculated only for the days worked.<br>
+                <i>Formula:</i> <br>
+                <code>Adjusted Gross Salary = (Gross Salary / Days in Month) × Worked Days</code>
+            </li>
+        </ul>
+        <h4>Step 3: Tax Deductions</h4>
+        <ul>
+            <li><b>Personal Income Tax (18%)</b>: <code>Income Tax = Gross Salary × 0.18</code></li>
+            <li><b>Military Tax (5%)</b>: <code>Military Tax = Gross Salary × 0.05</code></li>
+        </ul>
+        <p><b>Net Salary:</b> Calculated by subtracting taxes and adding premiums.<br>
+        <i>Formula:</i> <br>
+        <code>Net Salary = Gross Salary - Income Tax - Military Tax + Premium</code></p>
+        </body>
+        </html>
+        """
+        self.hint_label.setToolTip(tooltip_text)
         self.gridLayout_10.addWidget(self.hint_label, 0, 1, 1, 1)
         self.frame_14 = QtWidgets.QFrame(self.frame_11)
         self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
