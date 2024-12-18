@@ -28,16 +28,13 @@ class CalculationSalary:
                 vacation_days += leave['duration']
 
         if not leaves:
-            net_salary = self.calculate_net_salary(gross_salary, premium)
-            return net_salary
+            return self.calculate_net_salary(gross_salary, premium)
 
         if sick_days:
-            net_salary = self.calculate_sick_leave_salary(gross_salary, sick_days, experience, month_days, premium)
-            return net_salary
+            return self.calculate_sick_leave_salary(gross_salary, sick_days, experience, month_days, premium)
 
         if vacation_days:
-            net_salary = self.calculate_vacation_salary(gross_salary, vacation_days, month_days, premium)
-            return net_salary
+            return self.calculate_vacation_salary(gross_salary, vacation_days, month_days, premium)
 
     def calculate_net_salary(self, gross_salary, premium):
         tax_pdf = (gross_salary * Decimal('0.18')).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)

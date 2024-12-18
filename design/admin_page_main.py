@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
@@ -312,20 +314,30 @@ class AdminPage(QtWidgets.QWidget):
             except Exception as e:
                 QtWidgets.QMessageBox.critical(self, "Error", f"Failed to delete leave request: {e}")
 
-
     def calculate_salary(self):
         worker_name = self.ui.worker_salary_comboBox.currentText()
         month = self.ui.month_comboBox.currentIndex()
         year = self.ui.year_dateEdit.date().year()
         salary_month = f"{year}-{month:02d}"
 
-        premium_text = self.ui.premium_lineEdit.text()
+        try:
+            premium = Decimal(self.ui.premium_lineEdit.text().strip() or "0")
+        except Exception as e:
+            raise ValueError("Invalid premium value") from e
 
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+        if not employee_id:
+            raise ValueError(f"No employee found with name {worker_name}")
 
         employee_position_info = self.mysql_connection.get_employee_info_for_calculation_salary(employee_id)
+        if not employee_position_info:
+            raise ValueError(f"No employee position info found for employee_id {employee_id}")
+
         employee_leave_info = self.mysql_connection.get_employee_leaves(employee_id, salary_month)
 
-        calculated_salary = CalculationSalary.calculation_salary(month, year, premium_text, employee_position_info, employee_position_info, employee_leave_info)
+        calculated_salary = CalculationSalary().calculation_salary(
+            month, year, premium, employee_position_info, employee_leave_info
+        )
+
         salary = Salary(employee_id, salary_month, calculated_salary)
         self.mysql_connection.add_employee_salary(salary)

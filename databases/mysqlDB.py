@@ -1,3 +1,4 @@
+import calendar
 import json
 import mysql.connector
 
@@ -93,7 +94,7 @@ class MySQL:
             "Salary": """
                 CREATE TABLE IF NOT EXISTS Salary (
                     employee_id VARCHAR(36),
-                    salary_month DATE NOT NULL,
+                    salary_month VARCHAR(7) NOT NULL,
                     salary_amount DECIMAL(10, 2) NOT NULL,
                     PRIMARY KEY (employee_id, salary_month),
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
@@ -156,20 +157,26 @@ class MySQL:
         query = """INSERT INTO PersonalInfo (employee_id, birth_date, sex, number_of_children, phone_number, marital_status, email)
                    VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(
-            query,( personal_info.get_employee_id(), personal_info.get_birth_date(), personal_info.get_sex(), personal_info.get_number_of_children(), personal_info.get_phone_number(), personal_info.get_marital_status(), personal_info.get_email())
+            query,(personal_info.get_employee_id(), personal_info.get_birth_date(), personal_info.get_sex(), personal_info.get_number_of_children(), personal_info.get_phone_number(), personal_info.get_marital_status(), personal_info.get_email())
         )
         self.mydb.commit()
         cursor.close()
 
     def add_employee_salary(self, salary: Salary):
-        cursor = self.mydb.cursor()
-        query = """INSERT INTO Salary (employee_id, salary_month, salary_amount)
-                      VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        cursor.execute(
-            query, (salary.get_employee_id(), salary.get_month(), salary.get_salary())
-        )
-        self.mydb.commit()
-        cursor.close()
+        try:
+            cursor = self.mydb.cursor()
+            query = """INSERT INTO Salary (employee_id, salary_month, salary_amount)
+                       VALUES (%s, %s, %s)"""
+            print(
+                f"Executing query: {query} with params: {salary.get_employee_id()}, {salary.get_month()}, {salary.get_salary()}")
+            cursor.execute(
+                query, (salary.get_employee_id(), salary.get_month(), salary.get_salary())
+            )
+            self.mydb.commit()
+            cursor.close()
+        except Exception as e:
+            print(f"Error adding employee salary: {e}")
+            raise
 
     def get_worker_details(self, employee_id):
         query = """
@@ -308,13 +315,20 @@ class MySQL:
 
     def get_employee_leaves(self, employee_id, salary_month):
         query = """
-                SELECT leave_type, start_date, end_date, duration
-                FROM Leaves
-                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
-            """
+                    SELECT leave_type, duration
+                    FROM Leaves
+                    WHERE employee_id = %s AND start_date BETWEEN %s AND %s
+                """
+        year, month = map(int, salary_month.split("-"))
+        last_day = calendar.monthrange(year, month)[1]
+        start_date = f"{salary_month}-01"
+        end_date = f"{salary_month}-{last_day:02d}"
         try:
-            self.cursor.execute(query, (employee_id, salary_month))
-            return self.cursor.fetchall()
+            print(f"Executing query: {query} with params: {employee_id}, {start_date}, {end_date}")
+            self.cursor.execute(query, (employee_id, start_date, end_date))
+            result = self.cursor.fetchall()
+            print(f"Query result: {result}")
+            return [{'leave_type': row[0], 'duration': row[1]} for row in result]
         except Exception as e:
             print(f"Error fetching employee leaves: {e}")
             return []
@@ -329,7 +343,16 @@ class MySQL:
         """
         try:
             self.cursor.execute(query, (employee_id,))
-            return self.cursor.fetchone()
+            result = self.cursor.fetchone()
+            # Формування словника
+            if result:
+                return {
+                    'employee_id': employee_id,
+                    'full_name': result[0],
+                    'salary_amount': result[1],
+                    'total_experience': result[2]
+                }
+            return None
         except Exception as e:
             print(f"Error fetching employee info for salary calculation: {e}")
             return None
