@@ -84,12 +84,15 @@ class AdminPage(QtWidgets.QWidget):
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
+        self.load_workers_data()
 
     def edit_info_worker(self):
         edit_worker = EditPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_table=self.ui.worker_tableView)
+        self.load_workers_data()
 
     def edit_leave_request(self):
         edit_leave_page = EditLeavePage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_leaves_tableView=self.ui.worker_leaves_tableView)
+        self.view_leave_requests()
 
     def confirm_exit(self):
         reply = QMessageBox.question(
@@ -351,6 +354,7 @@ class AdminPage(QtWidgets.QWidget):
 
         salary = Salary(employee_id, salary_month, calculated_salary)
         self.mysql_connection.add_employee_salary(salary)
+        self.view_salaries()
 
     def view_salaries(self):
         try:
