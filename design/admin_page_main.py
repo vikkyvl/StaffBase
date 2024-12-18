@@ -31,6 +31,7 @@ class AdminPage(QtWidgets.QWidget):
             self.ui.delete_leave_pushButton: 12,
             self.ui.calculate_pushButton: 13,
             self.ui.view_salary_pushButton: 14,
+            self.ui.generate_report_pushButton_2: 15,
         }
 
         self.redis_connection = redis_connection
@@ -78,6 +79,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.calculate_salary()
             case 14:
                 self.view_salaries()
+            case 15:
+                self.generate_report()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
@@ -368,3 +371,130 @@ class AdminPage(QtWidgets.QWidget):
 
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load salaries: {e}")
+
+    def generate_report(self):
+        selected_report = self.ui.number_report_comboBox.currentIndex()
+
+        if selected_report == 1:
+            results = self.mysql_connection.get_retirement_age_employees()
+            if not results:
+                self.ui.report_results_textEdit.setText("No employees of retirement age found.")
+                return
+
+            report_text = "Employees of Retirement Age with Work Experience:\n\n"
+            for row in results:
+                report_text += f"Name: {row['full_name']}\n" f"Age: {row['age']}\n" f"Experience: {row['experience']} years\n" "-------------------------\n"
+
+            self.ui.report_results_textEdit.setText(report_text)
+
+        elif selected_report == 2:
+            results = self.mysql_connection.get_employees_below_average_salary()
+            if not results:
+                self.ui.report_results_textEdit.setText(
+                    "No employees found with earnings below the department average.")
+                return
+
+            report_text = "Employees by Department with Earnings Below Average:\n\n"
+            for row in results:
+                report_text += (f"Department: {row['department_name']}\n"
+                                f"Department Average Salary: {row['average_salary']}\n"
+                                f"Name: {row['full_name']}\n"
+                                f"Salary: {row['salary_amount']}\n"
+                                "-------------------------\n")
+
+            self.ui.report_results_textEdit.setText(report_text)
+
+        elif selected_report == 3:
+            department_results, company_result = self.mysql_connection.get_average_age_by_department_and_company()
+
+            if not department_results:
+                self.ui.report_results_textEdit.setText(
+                    "No department data found for calculating average age."
+                )
+                return
+
+            if not company_result or company_result['average_age_company'] is None:
+                self.ui.report_results_textEdit.setText(
+                    "No company data found for calculating average age."
+                )
+                return
+
+            report_text = "Average Age of Employees in Departments:\n\n"
+            for row in department_results:
+                report_text += (f"Department: {row['department_name']}\n"
+                                f"Average Age: {row['average_age']:.2f} years\n"
+                                "-------------------------\n")
+
+            report_text += f"\nAverage Age Across the Company: {company_result['average_age_company']:.2f} years"
+
+            self.ui.report_results_textEdit.setText(report_text)
+
+        elif selected_report == 4:
+            total_results, monthly_results = self.mysql_connection.get_sick_leave_duration_by_department()
+
+            if total_results and monthly_results:
+                month_names = {
+                    1: "January", 2: "February", 3: "March", 4: "April",
+                    5: "May", 6: "June", 7: "July", 8: "August",
+                    9: "September", 10: "October", 11: "November", 12: "December"
+                }
+
+                report_text = "Total Duration of Sick Leaves by Departments:\n\n"
+                for row in total_results:
+                    report_text += f"Department: {row['department_name']}, Total Sick Leave Duration: {row['total_leave_duration']} days\n"
+
+                report_text += "\nMonthly Duration of Sick Leaves by Departments:\n\n"
+                department_monthly_data = {}
+
+                for row in monthly_results:
+                    department_name = row['department_name']
+                    month = month_names.get(row['leave_month'], f"Month {row['leave_month']}")
+                    duration = row['total_leave_duration']
+
+                    if department_name not in department_monthly_data:
+                        department_monthly_data[department_name] = []
+
+                    department_monthly_data[department_name].append((month, duration))
+
+                for department, monthly_data in department_monthly_data.items():
+                    report_text += f"\nDepartment: {department}\n"
+                    monthly_data.sort(key=lambda x: list(month_names.values()).index(x[0]))
+                    for month, duration in monthly_data:
+                        report_text += f"  Month: {month}, Monthly Sick Leave Duration: {duration} days\n"
+
+                self.ui.report_results_textEdit.setPlainText(report_text)
+        elif selected_report == 5:
+            results = self.mysql_connection.get_average_experience_by_department()
+            if results:
+                report_text = "Average Work Experience in Departments:\n\n"
+                for row in results:
+                    report_text += (f"Department: {row['department_name']}, "
+                                    f"Average Experience: {row['average_experience']} years\n")
+                self.ui.report_results_textEdit.setPlainText(report_text)
+        elif selected_report == 6:
+            department_results, company_results = self.mysql_connection.get_average_earnings_by_gender_and_department()
+
+            if department_results and company_results:
+                report_text = "Average Earnings of Men and Women by Departments:\n\n"
+
+                current_department = None
+                for row in department_results:
+                    department_name = row['department_name']
+                    sex = row['sex']
+                    average_salary = row['average_salary']
+
+                    if current_department != department_name:
+                        report_text += f"\nDepartment: {department_name}\n"
+                        current_department = department_name
+
+                    report_text += f"  {sex}: {average_salary} UAH\n"
+
+                report_text += "\nAverage Earnings Across the Company:\n\n"
+                for row in company_results:
+                    sex = row['sex']
+                    average_salary_company = row['average_salary_company']
+                    report_text += f"{sex}: {average_salary_company} UAH\n"
+
+                self.ui.report_results_textEdit.setPlainText(report_text)
+        else:
+            self.ui.report_results_textEdit.setText("Please select a valid report option.")

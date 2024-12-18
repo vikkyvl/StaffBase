@@ -83,11 +83,11 @@ class MySQL:
                 CREATE TABLE IF NOT EXISTS PersonalInfo (
                     employee_id VARCHAR(36) PRIMARY KEY,
                     birth_date DATE NOT NULL,
-                    sex ENUM('Male', 'Female'),
+                    sex ENUM('', 'Male', 'Female'),
                     number_of_children INT DEFAULT 0,
                     phone_number VARCHAR(15),
                     marital_status ENUM('Single', 'Married'),
-                    email VARCHAR(255) UNIQUE,
+                    email VARCHAR(255),
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
                 )
             """,
@@ -356,7 +356,6 @@ class MySQL:
         try:
             self.cursor.execute(query, (employee_id,))
             result = self.cursor.fetchone()
-            # Формування словника
             if result:
                 return {
                     'employee_id': employee_id,
@@ -368,6 +367,172 @@ class MySQL:
         except Exception as e:
             print(f"Error fetching employee info for salary calculation: {e}")
             return None
+
+    def get_retirement_age_employees(self):
+        cursor = self.mydb.cursor(dictionary=True)
+        query = """
+            SELECT 
+                e.employee_id,
+                e.full_name,
+                TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()) AS age,
+                g.total_experience AS experience
+            FROM 
+                Employee e
+            JOIN 
+                PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN 
+                GeneralInfo g ON e.employee_id = g.employee_id
+            WHERE 
+                TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()) >= 60;
+        """
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            return results
+        except Exception as e:
+            print(f"Error fetching retirement age employees: {e}")
+            return []
+        finally:
+            cursor.close()
+
+    def get_employees_below_average_salary(self):
+        cursor = self.mydb.cursor(dictionary=True)
+        query = """
+            SELECT 
+                d.department_name,
+                d.average_salary, 
+                e.full_name,
+                p.salary_amount
+            FROM 
+                Employee e
+            JOIN 
+                GeneralInfo g ON e.employee_id = g.employee_id
+            JOIN 
+                Departments d ON g.department_id = d.department_id
+            JOIN 
+                Positions p ON g.position_id = p.position_id
+            WHERE 
+                p.salary_amount < d.average_salary;
+        """
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            return results
+        except Exception as e:
+            print(f"Error fetching employees with earnings below department average: {e}")
+            return []
+        finally:
+            cursor.close()
+
+    def get_average_age_by_department_and_company(self):
+        cursor = self.mydb.cursor(dictionary=True)
+
+        try:
+            department_query = """
+                SELECT 
+                    d.department_name,
+                    ROUND(AVG(TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()))) AS average_age
+                FROM 
+                    Employee e
+                JOIN 
+                    PersonalInfo p ON e.employee_id = p.employee_id
+                JOIN 
+                    GeneralInfo g ON e.employee_id = g.employee_id
+                JOIN 
+                    Departments d ON g.department_id = d.department_id
+                GROUP BY 
+                    d.department_name
+            """
+            cursor.execute(department_query)
+            department_results = cursor.fetchall()
+
+            company_query = """
+                SELECT 
+                    ROUND(AVG(TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()))) AS average_age_company
+                FROM 
+                    PersonalInfo p
+            """
+            cursor.execute(company_query)
+            company_result = cursor.fetchone()
+
+            return department_results, company_result
+
+        except Exception as e:
+            print(f"Error fetching average age: {e}")
+            return None, None
+
+        finally:
+            cursor.close()
+
+    def get_sick_leave_duration_by_department(self):
+        cursor = self.mydb.cursor(dictionary=True)
+        try:
+            total_query = """
+                SELECT 
+                    d.department_name,
+                    SUM(l.duration) AS total_leave_duration
+                FROM 
+                    Leaves l
+                JOIN 
+                    GeneralInfo g ON l.employee_id = g.employee_id
+                JOIN 
+                    Departments d ON g.department_id = d.department_id
+                WHERE 
+                    l.leave_type = 'Sick'
+                GROUP BY 
+                    d.department_name
+            """
+            cursor.execute(total_query)
+            total_results = cursor.fetchall()
+
+            monthly_query = """
+                SELECT 
+                    d.department_name,
+                    MONTH(l.start_date) AS leave_month,
+                    SUM(l.duration) AS total_leave_duration
+                FROM 
+                    Leaves l
+                JOIN 
+                    GeneralInfo g ON l.employee_id = g.employee_id
+                JOIN 
+                    Departments d ON g.department_id = d.department_id
+                WHERE 
+                    l.leave_type = 'Sick'
+                GROUP BY 
+                    d.department_name, leave_month
+            """
+            cursor.execute(monthly_query)
+            monthly_results = cursor.fetchall()
+
+            return total_results, monthly_results
+
+        except Exception as e:
+            print(f"Error fetching sick leave duration: {e}")
+            return None, None
+        finally:
+            cursor.close()
+
+    def get_average_experience_by_department(self):
+        query = """
+            SELECT 
+                d.department_name,
+                ROUND(AVG(g.total_experience), 2) AS average_experience
+            FROM 
+                GeneralInfo g
+            JOIN 
+                Departments d ON g.department_id = d.department_id
+            GROUP BY 
+                d.department_name
+        """
+        try:
+            cursor = self.mydb.cursor(dictionary=True)
+            cursor.execute(query)
+            results = cursor.fetchall()
+            cursor.close()
+            return results
+        except Exception as e:
+            print(f"Error retrieving average work experience by department: {e}")
+            return []
 
     def check_and_insert_departments(self, json_path='databases/departments.json'):
         with open(json_path, 'r') as file:
@@ -407,6 +572,56 @@ class MySQL:
             print("Departments, positions, and average salaries inserted successfully!")
         else:
             print("Company data already exists. No insertion required.")
+
+    def get_average_earnings_by_gender_and_department(self):
+        department_query = """
+            SELECT 
+                d.department_name,
+                p.sex,
+                ROUND(AVG(s.salary_amount), 2) AS average_salary
+            FROM 
+                Employee e
+            JOIN 
+                PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN 
+                GeneralInfo g ON e.employee_id = g.employee_id
+            JOIN 
+                Departments d ON g.department_id = d.department_id
+            JOIN 
+                Salary s ON e.employee_id = s.employee_id
+            GROUP BY 
+                d.department_name, p.sex
+        """
+
+        company_query = """
+            SELECT 
+                p.sex,
+                ROUND(AVG(s.salary_amount), 2) AS average_salary_company
+            FROM 
+                Employee e
+            JOIN 
+                PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN 
+                Salary s ON e.employee_id = s.employee_id
+            GROUP BY 
+                p.sex
+        """
+
+        try:
+            cursor = self.mydb.cursor(dictionary=True)
+
+            cursor.execute(department_query)
+            department_results = cursor.fetchall()
+
+            cursor.execute(company_query)
+            company_results = cursor.fetchall()
+
+            cursor.close()
+            return department_results, company_results
+
+        except Exception as e:
+            print(f"Error retrieving average earnings by gender: {e}")
+            return [], []
 
     def get_departments(self):
         query = "SELECT department_id, department_name FROM Departments"
