@@ -83,10 +83,10 @@ class MySQL:
                 CREATE TABLE IF NOT EXISTS PersonalInfo (
                     employee_id VARCHAR(36) PRIMARY KEY,
                     birth_date DATE NOT NULL,
-                    sex ENUM('', 'Male', 'Female'),
+                    sex ENUM('Male', 'Female'),
                     number_of_children INT DEFAULT 0,
                     phone_number VARCHAR(15),
-                    marital_status ENUM('Single', 'Married'),
+                    marital_status ENUM('', 'Single', 'Married'),
                     email VARCHAR(255),
                     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id) ON DELETE CASCADE
                 )
