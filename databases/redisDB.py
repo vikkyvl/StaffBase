@@ -12,9 +12,22 @@ class Redis(Admin, User):
             username=username,
             password=password
         )
+    # def __init__(self, host='localhost', port=6379, db=0): # для локального користування
+    #     super().__init__()
+    #     self.r = redis.Redis(
+    #         host=host,
+    #         port=port,
+    #         decode_responses=True,
+    #         db=db
+    #     )
+        self.is_admin_password()
 
     def __del__(self):
         del self.r
+
+    def is_admin_password(self):
+        if not self.r.exists("admin:password"):
+            self.r.set("admin:password", "1234")
 
     def get_admin_password(self):
         return self.r.get(self.get_password_key())
