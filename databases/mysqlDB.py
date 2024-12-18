@@ -375,3 +375,25 @@ class MySQL:
             print(f"Error updating email: {e}")
             self.mydb.rollback()
 
+    def get_info_for_request(self, employee_id):
+        query = """
+            SELECT e.full_name, c.company_name, p.email
+            FROM Employee e
+            JOIN PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN Company c
+            WHERE e.employee_id = %s
+        """
+        try:
+            self.cursor.execute(query, (employee_id,))
+            result = self.cursor.fetchone()
+            if result:
+                return {
+                    "full_name": result[0],
+                    "company_name": result[1],
+                    "email": result[2]
+                }
+            else:
+                return None
+        except Exception as e:
+            return None
+

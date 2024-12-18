@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from PyQt5.QtCore import QDateTime
 
 # Form implementation generated from reading ui file 'user_page.ui'
 #
@@ -10,7 +11,6 @@
 
 import design.res
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDateTime
 
 
 class Ui_Form(object):
@@ -60,6 +60,7 @@ class Ui_Form(object):
         self.user_full_name_textEdit.setMinimumSize(QtCore.QSize(0, 50))
         self.user_full_name_textEdit.setMaximumSize(QtCore.QSize(16777215, 50))
         self.user_full_name_textEdit.setStyleSheet("border: 0px solid;\n"
+"font: 87 24pt \"Caros Black\";\n"
 "border-radius: 0px;\n"
 "color: rgb(0, 31, 63);")
         self.user_full_name_textEdit.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
@@ -682,8 +683,8 @@ class Ui_Form(object):
         self.user_full_name_textEdit.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><title>Text Alignment</title><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Caros Black\'; font-size:24pt; font-weight:80; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400;\"><br /></p></body></html>"))
         self.label_2.setText(_translate("Form", "YOUR PERSONAL INFORMATION"))
         self.edit_pushButton.setText(_translate("Form", "EDIT"))
         self.label_5.setText(_translate("Form", "SALARY HISTORY"))
