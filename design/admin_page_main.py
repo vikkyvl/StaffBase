@@ -69,14 +69,15 @@ class AdminPage(QtWidgets.QWidget):
                 self.load_workers_into_combobox()
             case 12:
                 self.delete_leave_request()
-            case 13:
-                self.edit_leave_request()
 
     def add_info_worker(self):
         add_new_worker = AddPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection)
 
     def edit_info_worker(self):
         edit_worker = EditPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_table=self.ui.worker_tableView)
+
+    def edit_leave_request(self):
+        edit_leave_page = EditLeavePage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_leaves_tableView=self.ui.worker_leaves_tableView)
 
     def confirm_exit(self):
         reply = QMessageBox.question(
@@ -169,10 +170,7 @@ class AdminPage(QtWidgets.QWidget):
 
     def load_workers_into_combobox(self):
         try:
-            query = "SELECT employee_id, full_name FROM Employee"
-            self.mysql_connection.cursor.execute(query)
-            workers = self.mysql_connection.cursor.fetchall()
-
+            workers = self.mysql_connection.get_all_workers()
             self.ui.worker_leave_comboBox.clear()
 
             for worker_id, full_name in workers:
@@ -184,11 +182,18 @@ class AdminPage(QtWidgets.QWidget):
     def add_leave_request(self):
         worker_name = self.ui.worker_leave_comboBox.currentText()
         leave_type = self.ui.type_leave_comboBox.currentText()
-        start_date = self.ui.start_date_dateEdit.date().toString("yyyy-MM-dd")
-        end_date = self.ui.end_date_dateEdit.date().toString("yyyy-MM-dd")
+        start_date_qt = self.ui.start_date_dateEdit.date()
+        end_date_qt = self.ui.end_date_dateEdit.date()
+
+        start_date = start_date_qt.toString("yyyy-MM-dd")
+        end_date = end_date_qt.toString("yyyy-MM-dd")
 
         if not worker_name or not leave_type:
             QtWidgets.QMessageBox.warning(self, "Warning", "Please select a worker and leave type.")
+            return
+
+        if start_date_qt > end_date_qt:
+            QtWidgets.QMessageBox.critical(self, "Error", "Start date cannot be later than end date.")
             return
 
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
@@ -205,8 +210,6 @@ class AdminPage(QtWidgets.QWidget):
                 model.setHorizontalHeaderLabels(["Worker", "Leave Type", "Start Date", "End Date", "Duration"])
                 self.ui.worker_leaves_tableView.setModel(model)
 
-            start_date_qt = self.ui.start_date_dateEdit.date()
-            end_date_qt = self.ui.end_date_dateEdit.date()
             duration = start_date_qt.daysTo(end_date_qt) + 1
 
             row = [worker_name, leave_type, start_date, end_date, str(duration)]
@@ -241,21 +244,6 @@ class AdminPage(QtWidgets.QWidget):
 
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load leave requests: {e}")
-
-    def edit_leave_request(self):
-        edit_leave_worker = EditLeavePage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection,
-                               worker_leaves_tableView=self.ui.worker_leaves_tableView)
-        # selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()
-        # if not selected_indexes:
-        #     QtWidgets.QMessageBox.warning(self, "Warning", "Please select a leave request to edit.")
-        #     return
-        #
-        # self.ui.worker_leaves_tableView.setEditTriggers(
-        #     QtWidgets.QAbstractItemView.DoubleClicked | QtWidgets.QAbstractItemView.EditKeyPressed
-        # )
-        # QtWidgets.QMessageBox.information(
-        #     self, "Info", "You can now edit the selected leave request. Press Enter to save changes."
-        # )
 
     def save_leave_request_changes(self):
         selected_indexes = self.ui.worker_leaves_tableView.selectionModel().selectedRows()

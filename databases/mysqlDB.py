@@ -21,6 +21,7 @@ class MySQL:
             self.create_tables()
             self.check_and_insert_departments()
             self.create_trigger_calculate_experience_generalinfo()
+            self.create_update_duration_trigger()
 
     def __del__(self):
         try:
@@ -232,6 +233,20 @@ class MySQL:
             self.mydb.rollback()
             return False
 
+    def update_leave_request(self, employee_id, leave_type, start_date, end_date):
+        cursor = self.mydb.cursor()
+        query = """UPDATE Leaves 
+                   SET leave_type = %s, start_date = %s, end_date = %s 
+                   WHERE employee_id = %s"""
+        try:
+            cursor.execute(query, (leave_type, start_date, end_date, employee_id))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"Error updating leave request: {e}")
+            self.mydb.rollback()
+        finally:
+            cursor.close()
+
     def add_leave_request(self, employee_id, leave_type, start_date, end_date):
         cursor = self.mydb.cursor()
         query = """INSERT INTO Leaves (employee_id, leave_type, start_date, end_date)
@@ -242,6 +257,19 @@ class MySQL:
         except Exception as e:
             print(f"Error adding leave request: {e}")
             self.mydb.rollback()
+        finally:
+            cursor.close()
+
+    def get_all_workers(self):
+        query = "SELECT employee_id, full_name FROM Employee"
+        try:
+            cursor = self.mydb.cursor()
+            cursor.execute(query)
+            workers = cursor.fetchall()
+            return workers
+        except Exception as e:
+            print(f"Error fetching workers: {e}")
+            return []
         finally:
             cursor.close()
 
@@ -355,6 +383,26 @@ class MySQL:
                 print("Trigger 'calculate_experience_generalinfo_before_update' already exists.")
             else:
                 print(f"Error while creating UPDATE trigger: {e}")
+
+    def create_update_duration_trigger(self):
+        cursor = self.mydb.cursor()
+        trigger_query = """
+            CREATE TRIGGER IF NOT EXISTS update_duration_on_update
+            BEFORE UPDATE ON Leaves
+            FOR EACH ROW
+            BEGIN
+                SET NEW.duration = DATEDIFF(NEW.end_date, NEW.start_date) + 1;
+            END;
+        """
+        try:
+            cursor.execute(trigger_query)
+            self.mydb.commit()
+            print("Trigger 'update_duration_on_update' created successfully.")
+        except Exception as e:
+            print(f"Error creating trigger: {e}")
+            self.mydb.rollback()
+        finally:
+            cursor.close()
 
     def check_user_email(self, worker_id):
         query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
