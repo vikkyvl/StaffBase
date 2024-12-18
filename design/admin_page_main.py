@@ -5,7 +5,7 @@ from design.admin_page import Ui_Form
 from design.add_page_main import *
 from design.edit_leave_page_main import *
 from design.edit_page_main import *
-
+from classes.calculation_salary import CalculationSalary
 
 class AdminPage(QtWidgets.QWidget):
     def __init__(self, redis_connection, mysql_connection):
@@ -313,8 +313,17 @@ class AdminPage(QtWidgets.QWidget):
         worker_name = self.ui.worker_salary_comboBox.currentText()
         month = self.ui.month_comboBox.currentIndex()
         year = self.ui.year_dateEdit.date().year()
+        salary_month = f"{year}-{month:02d}"
+
         premium_text = self.ui.premium_lineEdit.text()
 
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
+
+        employee_position_info = self.mysql_connection.get_employee_info_for_calculation_salary(employee_id)
+        employee_leave_info = self.mysql_connection.get_employee_leaves(employee_id, salary_month)
+
+        calculated_salary = CalculationSalary.calculation_salary(month, year, premium_text, employee_position_info, employee_position_info, employee_leave_info)
+
+
 
 

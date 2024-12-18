@@ -1,13 +1,13 @@
 from classes.employee import Employee
 
 class Salary:
-    def __init__(self, employee: Employee, month: str, salary: float):
-        self._employee = employee
+    def __init__(self, employee_id: str, month: str, salary: float):
+        self._employee_id = employee_id
         self._month = month
         self._salary = salary
 
     def get_employee_id(self) -> str:
-        return self._employee.get_employee_ID()
+        return self._employee_id
 
     def get_month(self) -> str:
         return self._month
