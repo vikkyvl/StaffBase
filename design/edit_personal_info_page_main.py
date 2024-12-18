@@ -13,6 +13,9 @@ class EditPersonalInformationPage:
         self.edit_personal_info_page.setWindowFlags(self.edit_personal_info_page.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self.edit_personal_info_page)
-        # self.ui.update_pushButton.clicked.connect(self.save_leave_request_changes)
+        # self.ui.update_pushButton.clicked.connect(self.update_employee_personal_info())
 
         self.edit_personal_info_page.exec_()
+
+
+

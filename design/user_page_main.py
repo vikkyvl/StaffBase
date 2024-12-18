@@ -54,6 +54,10 @@ class UserPage(QtWidgets.QWidget):
                 self.edit_personal_information()
 
 
+    def edit_personal_information(self):
+        edit_personal_information = EditPersonalInformationPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_info_tableView=self.ui.worker_info_tableView)
+
+
     def load_worker_info(self):
         worker_info = self.mysql_connection.get_employee_full_info(self.worker_id)
         self.ui.user_full_name_textEdit.setText(worker_info['full_name'])
@@ -118,9 +122,6 @@ class UserPage(QtWidgets.QWidget):
 
         QMessageBox.warning(self, "Error", "Worker information not found.")
         return None
-
-    def edit_personal_information(self):
-        edit_personal_information = EditPersonalInformationPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_info_tableView=self.ui.worker_info_tableView)
 
     def send_request_leave(self, full_name, leave_type, body):
         try:
