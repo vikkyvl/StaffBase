@@ -294,6 +294,34 @@ class MySQL:
         finally:
             cursor.close()
 
+    def get_employee_info_for_calculation_salary(self, cursor, employee_id):
+        query = """
+            SELECT E.full_name, P.salary_amount, GI.total_experience
+            FROM Employee E
+            JOIN GeneralInfo GI ON E.employee_id = GI.employee_id
+            JOIN Positions P ON GI.position_id = P.position_id
+            WHERE E.employee_id = %s
+        """
+        cursor.execute(query, (employee_id,))
+        return cursor.fetchone()
+
+    def get_employee_leaves(self, cursor, employee_id, salary_month):
+        query = """
+                SELECT leave_type, start_date, end_date, duration
+                FROM Leaves
+                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
+            """
+        cursor.execute(query, (employee_id, salary_month))
+        return cursor.fetchall()
+    def get_employee_leaves(self, cursor, employee_id, salary_month):
+        query = """
+                SELECT leave_type, start_date, end_date, duration
+                FROM Leaves
+                WHERE employee_id = %s AND DATE_FORMAT(start_date, '%%Y-%%m') = %s
+            """
+        cursor.execute(query, (employee_id, salary_month))
+        return cursor.fetchall()
+
     def check_and_insert_departments(self, json_path='databases/departments.json'):
         with open(json_path, 'r') as file:
             data = json.load(file)

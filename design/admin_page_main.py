@@ -171,10 +171,12 @@ class AdminPage(QtWidgets.QWidget):
     def load_workers_into_combobox(self):
         try:
             workers = self.mysql_connection.get_all_workers()
+            self.ui.worker_salary_comboBox.clear()
             self.ui.worker_leave_comboBox.clear()
 
             for worker_id, full_name in workers:
                 self.ui.worker_leave_comboBox.addItem(full_name, worker_id)
+                self.ui.worker_salary_comboBox.addItem(full_name, worker_id)
 
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load workers: {e}")
@@ -264,7 +266,6 @@ class AdminPage(QtWidgets.QWidget):
             return
 
         try:
-            # Оновлення запису у базі даних
             self.mysql_connection.update_leave_request(employee_id, leave_type, start_date, end_date)
             QtWidgets.QMessageBox.information(self, "Success", "Leave request updated successfully!")
         except Exception as e:
@@ -307,4 +308,16 @@ class AdminPage(QtWidgets.QWidget):
             except Exception as e:
                 QtWidgets.QMessageBox.critical(self, "Error", f"Failed to delete leave request: {e}")
 
+
+    def calculate_salary(self):
+        employee_id = self.ui.worker_salary_comboBox.currentText()
+        month = self.ui.month_comboBox.currentText()
+        year = self.ui.year_dateEdit.date().year()
+        premium_text = self.ui.premium_lineEdit.text()
+
+        month_mapping = {
+            "January": "1", "February": "2", "March": "3", "April": "4",
+            "May": "5", "June": "6", "July": "7", "August": "8",
+            "September": "9", "October": "10", "November": "11", "December": "12"
+        }
 
