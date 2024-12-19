@@ -200,5 +200,3 @@ class UserPage(QtWidgets.QWidget):
 
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load leave history: {e}")
-
-

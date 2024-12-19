@@ -129,19 +129,6 @@ class MySQL:
         self.mydb.commit()
         cursor.close()
 
-    def get_employee_id_by_name(self, full_name):
-        cursor = self.mydb.cursor()
-        query = "SELECT employee_id FROM Employee WHERE full_name = %s"
-        try:
-            cursor.execute(query, (full_name,))
-            result = cursor.fetchone()
-            return result[0] if result else None
-        except Exception as e:
-            print(f"Error fetching employee ID: {e}")
-            return None
-        finally:
-            cursor.close()
-
     def add_general_info(self, general_info: GeneralInfo):
         cursor = self.mydb.cursor()
         query = """INSERT INTO GeneralInfo (employee_id, department_id, position_id, hire_date, previous_experience)
@@ -176,21 +163,18 @@ class MySQL:
         except Exception as e:
             print(f"Error adding employee salary: {e}")
             raise
-
-    def get_worker_details(self, employee_id):
-        query = """
-            SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
-                   g.hire_date, g.previous_experience, g.total_experience, p.birth_date, 
-                   p.phone_number, p.marital_status, p.email
-            FROM Employee e
-            LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
-            LEFT JOIN Departments d ON g.department_id = d.department_id
-            LEFT JOIN Positions pos ON g.position_id = pos.position_id
-            LEFT JOIN PersonalInfo p ON e.employee_id = p.employee_id
-            WHERE e.employee_id = %s
-        """
-        self.cursor.execute(query, (employee_id,))
-        return self.cursor.fetchone()
+    def add_leave_request(self, employee_id, leave_type, start_date, end_date):
+        cursor = self.mydb.cursor()
+        query = """INSERT INTO Leaves (employee_id, leave_type, start_date, end_date)
+                   VALUES (%s, %s, %s, %s)"""
+        try:
+            cursor.execute(query, (employee_id, leave_type, start_date, end_date))
+            self.mydb.commit()
+        except Exception as e:
+            print(f"Error adding leave request: {e}")
+            self.mydb.rollback()
+        finally:
+            cursor.close()
 
     def delete_worker_by_id(self, employee_id):
         delete_query = "DELETE FROM Employee WHERE employee_id = %s"
@@ -281,18 +265,42 @@ class MySQL:
         finally:
             cursor.close()
 
-    def add_leave_request(self, employee_id, leave_type, start_date, end_date):
-        cursor = self.mydb.cursor()
-        query = """INSERT INTO Leaves (employee_id, leave_type, start_date, end_date)
-                   VALUES (%s, %s, %s, %s)"""
+    def update_user_email(self, worker_id, email):
+        query = "UPDATE PersonalInfo SET email = %s WHERE employee_id = %s"
         try:
-            cursor.execute(query, (employee_id, leave_type, start_date, end_date))
+            self.cursor.execute(query, (email, worker_id))
             self.mydb.commit()
         except Exception as e:
-            print(f"Error adding leave request: {e}")
+            print(f"Error updating email: {e}")
             self.mydb.rollback()
+
+    def get_employee_id_by_name(self, full_name):
+        cursor = self.mydb.cursor()
+        query = "SELECT employee_id FROM Employee WHERE full_name = %s"
+        try:
+            cursor.execute(query, (full_name,))
+            result = cursor.fetchone()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error fetching employee ID: {e}")
+            return None
         finally:
             cursor.close()
+
+    def get_worker_details(self, employee_id):
+        query = """
+            SELECT e.full_name, p.sex, d.department_name, pos.position_name, 
+                   g.hire_date, g.previous_experience, g.total_experience, p.birth_date, 
+                   p.phone_number, p.marital_status, p.email
+            FROM Employee e
+            LEFT JOIN GeneralInfo g ON e.employee_id = g.employee_id
+            LEFT JOIN Departments d ON g.department_id = d.department_id
+            LEFT JOIN Positions pos ON g.position_id = pos.position_id
+            LEFT JOIN PersonalInfo p ON e.employee_id = p.employee_id
+            WHERE e.employee_id = %s
+        """
+        self.cursor.execute(query, (employee_id,))
+        return self.cursor.fetchone()
 
     def get_all_workers(self):
         query = "SELECT employee_id, full_name FROM Employee"
@@ -360,6 +368,75 @@ class MySQL:
         except Exception as e:
             print(f"Error fetching employee leaves: {e}")
             return []
+
+
+    def get_info_for_request(self, employee_id):
+        query = """
+            SELECT e.full_name, c.company_name, p.email
+            FROM Employee e
+            JOIN PersonalInfo p ON e.employee_id = p.employee_id
+            JOIN Company c
+            WHERE e.employee_id = %s
+        """
+        try:
+            self.cursor.execute(query, (employee_id,))
+            result = self.cursor.fetchone()
+            if result:
+                return {
+                    "full_name": result[0],
+                    "company_name": result[1],
+                    "email": result[2]
+                }
+            else:
+                return None
+        except Exception as e:
+            return None
+
+    def get_employee_full_info(self, employee_id):
+        query = """
+            SELECT 
+                e.full_name,
+                d.department_name,
+                p.position_name,
+                g.hire_date,
+                g.total_experience,
+                pi.birth_date,
+                pi.sex,
+                pi.number_of_children,
+                pi.phone_number,
+                pi.marital_status,
+                pi.email
+            FROM Employee e
+            JOIN GeneralInfo g ON e.employee_id = g.employee_id
+            JOIN Departments d ON g.department_id = d.department_id
+            JOIN Positions p ON g.position_id = p.position_id
+            JOIN PersonalInfo pi ON e.employee_id = pi.employee_id
+            WHERE e.employee_id = %s
+        """
+        try:
+            self.cursor.execute(query, (employee_id,))
+            result = self.cursor.fetchone()
+
+            if result:
+                return {
+                    "full_name": result[0],
+                    "department_name": result[1],
+                    "position_name": result[2],
+                    "hire_date": result[3],
+                    "total_experience": result[4],
+                    "birth_date": result[5],
+                    "sex": result[6],
+                    "number_of_children": result[7],
+                    "phone_number": result[8],
+                    "marital_status": result[9],
+                    "email": result[10]
+                }
+            else:
+                print("No data found for the given employee ID.")
+                return None
+        except Exception as e:
+            print(f"Error fetching employee information: {e}")
+            return None
 
     def get_employee_info_for_calculation_salary(self, employee_id):
         query = """
@@ -596,45 +673,6 @@ class MySQL:
             print(f"Error retrieving average work experience by department: {e}")
             return []
 
-    def check_and_insert_departments(self, json_path='databases/departments.json'):
-        with open(json_path, 'r') as file:
-            data = json.load(file)
-
-        self.cursor.execute("SELECT COUNT(*) FROM Company")
-        company_count = self.cursor.fetchone()[0]
-
-        if company_count == 0:
-            num_of_departments = len(data['departments'])
-            self.cursor.execute(
-                "INSERT INTO Company (company_name, num_of_departments) VALUES (%s, %s)",
-                ("IT Academy", num_of_departments)
-            )
-            print("Company IT Academy inserted successfully!")
-
-            for department_data in data['departments']:
-                department_name = department_data['name']
-                department_positions = len(department_data['positions'])
-
-                total_salary = sum(position['salary'] for position in department_data['positions'])
-                average_salary = total_salary / department_positions if department_positions > 0 else 0
-
-                self.cursor.execute(
-                    "INSERT INTO Departments (department_name, department_positions, average_salary) VALUES (%s, %s, %s)",
-                    (department_name, department_positions, average_salary)
-                )
-                department_id = self.cursor.lastrowid
-
-                for position in department_data['positions']:
-                    self.cursor.execute(
-                        "INSERT INTO Positions (department_id, position_name, salary_amount) VALUES (%s, %s, %s)",
-                        (department_id, position['name'], position['salary'])
-                    )
-
-            self.mydb.commit()
-            print("Departments, positions, and average salaries inserted successfully!")
-        else:
-            print("Company data already exists. No insertion required.")
-
     def get_average_earnings_by_gender_and_department(self):
         department_query = """
             SELECT 
@@ -699,6 +737,55 @@ class MySQL:
         self.cursor.execute(query, (department_id,))
         return self.cursor.fetchall()
 
+    def check_user_email(self, worker_id):
+        query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
+        try:
+            self.cursor.execute(query, (worker_id,))
+            result = self.cursor.fetchone()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error checking user email: {e}")
+            return None
+
+    def check_and_insert_departments(self, json_path='databases/departments.json'):
+        with open(json_path, 'r') as file:
+            data = json.load(file)
+
+        self.cursor.execute("SELECT COUNT(*) FROM Company")
+        company_count = self.cursor.fetchone()[0]
+
+        if company_count == 0:
+            num_of_departments = len(data['departments'])
+            self.cursor.execute(
+                "INSERT INTO Company (company_name, num_of_departments) VALUES (%s, %s)",
+                ("IT Academy", num_of_departments)
+            )
+            print("Company IT Academy inserted successfully!")
+
+            for department_data in data['departments']:
+                department_name = department_data['name']
+                department_positions = len(department_data['positions'])
+
+                total_salary = sum(position['salary'] for position in department_data['positions'])
+                average_salary = total_salary / department_positions if department_positions > 0 else 0
+
+                self.cursor.execute(
+                    "INSERT INTO Departments (department_name, department_positions, average_salary) VALUES (%s, %s, %s)",
+                    (department_name, department_positions, average_salary)
+                )
+                department_id = self.cursor.lastrowid
+
+                for position in department_data['positions']:
+                    self.cursor.execute(
+                        "INSERT INTO Positions (department_id, position_name, salary_amount) VALUES (%s, %s, %s)",
+                        (department_id, position['name'], position['salary'])
+                    )
+
+            self.mydb.commit()
+            print("Departments, positions, and average salaries inserted successfully!")
+        else:
+            print("Company data already exists. No insertion required.")
+
     def create_trigger_calculate_experience_generalinfo(self):
         trigger_insert_query = """
             CREATE TRIGGER calculate_experience_generalinfo_before_insert
@@ -755,90 +842,3 @@ class MySQL:
             self.mydb.rollback()
         finally:
             cursor.close()
-
-    def check_user_email(self, worker_id):
-        query = "SELECT email FROM PersonalInfo WHERE employee_id = %s"
-        try:
-            self.cursor.execute(query, (worker_id,))
-            result = self.cursor.fetchone()
-            return result[0] if result else None
-        except Exception as e:
-            print(f"Error checking user email: {e}")
-            return None
-
-    def update_user_email(self, worker_id, email):
-        query = "UPDATE PersonalInfo SET email = %s WHERE employee_id = %s"
-        try:
-            self.cursor.execute(query, (email, worker_id))
-            self.mydb.commit()
-        except Exception as e:
-            print(f"Error updating email: {e}")
-            self.mydb.rollback()
-
-    def get_info_for_request(self, employee_id):
-        query = """
-            SELECT e.full_name, c.company_name, p.email
-            FROM Employee e
-            JOIN PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN Company c
-            WHERE e.employee_id = %s
-        """
-        try:
-            self.cursor.execute(query, (employee_id,))
-            result = self.cursor.fetchone()
-            if result:
-                return {
-                    "full_name": result[0],
-                    "company_name": result[1],
-                    "email": result[2]
-                }
-            else:
-                return None
-        except Exception as e:
-            return None
-
-    def get_employee_full_info(self, employee_id):
-        query = """
-            SELECT 
-                e.full_name,
-                d.department_name,
-                p.position_name,
-                g.hire_date,
-                g.total_experience,
-                pi.birth_date,
-                pi.sex,
-                pi.number_of_children,
-                pi.phone_number,
-                pi.marital_status,
-                pi.email
-            FROM Employee e
-            JOIN GeneralInfo g ON e.employee_id = g.employee_id
-            JOIN Departments d ON g.department_id = d.department_id
-            JOIN Positions p ON g.position_id = p.position_id
-            JOIN PersonalInfo pi ON e.employee_id = pi.employee_id
-            WHERE e.employee_id = %s
-        """
-        try:
-            self.cursor.execute(query, (employee_id,))
-            result = self.cursor.fetchone()
-
-            if result:
-                return {
-                    "full_name": result[0],
-                    "department_name": result[1],
-                    "position_name": result[2],
-                    "hire_date": result[3],
-                    "total_experience": result[4],
-                    "birth_date": result[5],
-                    "sex": result[6],
-                    "number_of_children": result[7],
-                    "phone_number": result[8],
-                    "marital_status": result[9],
-                    "email": result[10]
-                }
-            else:
-                print("No data found for the given employee ID.")
-                return None
-        except Exception as e:
-            print(f"Error fetching employee information: {e}")
-            return None
