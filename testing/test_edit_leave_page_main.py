@@ -4,7 +4,6 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from design.edit_leave_page_main import EditLeavePage
 
-
 class TestEditLeavePage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

@@ -1,5 +1,4 @@
 from decimal import Decimal, InvalidOperation
-
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication

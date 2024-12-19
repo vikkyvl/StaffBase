@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
 from design.edit_page_main import EditPage
 
-
 class TestEditPage(unittest.TestCase):
     @patch('design.edit_page_main.Redis')
     @patch('design.edit_page_main.MySQL')

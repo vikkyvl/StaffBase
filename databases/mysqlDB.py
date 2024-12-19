@@ -1,7 +1,6 @@
 import calendar
 import json
 import mysql.connector
-
 from classes.leaves import Leaves
 from classes.department import Department
 from classes.employee import Employee

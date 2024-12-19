@@ -4,7 +4,6 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from design.edit_leave_page_main import EditLeavePage
 
-
 class TestEditLeavePage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -19,7 +18,6 @@ class TestEditLeavePage(unittest.TestCase):
         self.model = QStandardItemModel()
         self.worker_leaves_tableView.setModel(self.model)
 
-        # Додаємо дані для тестування
         data = [
             ("John Doe", "Sick Leave", "2024-05-01", "2024-05-05")
         ]
@@ -42,7 +40,6 @@ class TestEditLeavePage(unittest.TestCase):
                 worker_leaves_tableView=self.worker_leaves_tableView
             )
 
-        # Додаємо значення до комбобоксу
         self.edit_page.ui.type_leave_comboBox.addItems(["Sick Leave", "Vacation", "Unpaid Leave"])
 
     def test_populate_fields(self):
@@ -54,7 +51,6 @@ class TestEditLeavePage(unittest.TestCase):
     def test_save_leave_request_changes_success(self):
         self.mysql_mock.get_employee_id_by_name.return_value = 1
 
-        # Встановлюємо значення для type_leave_comboBox перед викликом
         self.edit_page.ui.type_leave_comboBox.setCurrentText("Sick Leave")
 
         with patch.object(QtWidgets.QMessageBox, 'information') as mock_info:

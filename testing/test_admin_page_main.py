@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
-
 from design.admin_page_main import AdminPage
 
 

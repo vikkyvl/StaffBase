@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from design.auth_pages_main import MainPage
-
 import sys
 
 app = QApplication(sys.argv)

@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
 from design.enter_email_page_main import EnterEmailPage
 
-
 class TestEnterEmailPage(unittest.TestCase):
     @patch('design.enter_email_page_main.QtWidgets.QMessageBox')
     @patch('design.enter_email_page_main.EnterEmailPage.show')

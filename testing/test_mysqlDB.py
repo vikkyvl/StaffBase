@@ -11,7 +11,6 @@ from datetime import date
 import json
 
 class TestMySQL(unittest.TestCase):
-
     @patch('databases.mysqlDB.mysql.connector.connect')
     def setUp(self, mock_connect):
         self.mock_connection = MagicMock()

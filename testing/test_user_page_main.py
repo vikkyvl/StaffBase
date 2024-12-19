@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5.QtWidgets import QApplication
 from design.user_page_main import UserPage
-
 import sys
 
 class TestUserPage(unittest.TestCase):

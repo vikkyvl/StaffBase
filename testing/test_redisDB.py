@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 from databases.redisDB import Redis
 
-
 class TestRedis(unittest.TestCase):
 
     def setUp(self):

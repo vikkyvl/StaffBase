@@ -111,4 +111,3 @@ class AddPage:
 
         if selected_department_id:
             self.load_positions(selected_department_id)
-
