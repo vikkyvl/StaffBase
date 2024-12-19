@@ -350,6 +350,19 @@ class MySQL:
             print(f"Error fetching salaries: {e}")
             return []
 
+    def get_employee_salary_by_month(self, employee_id, salary_month):
+        query = """
+            SELECT salary_amount
+            FROM Salary
+            WHERE employee_id = %s AND salary_month = %s
+        """
+        try:
+            self.cursor.execute(query, (employee_id, salary_month))
+            return self.cursor.fetchone()
+        except Exception as e:
+            print(f"Error checking salary for {employee_id} in {salary_month}: {e}")
+            return None
+
     def get_employee_leaves(self, employee_id, salary_month):
         query = """
                     SELECT leave_type, duration

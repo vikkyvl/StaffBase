@@ -329,6 +329,19 @@ class TestMySQL(unittest.TestCase):
             ("Jane Smith", "2024-04", 4500.50)
         ])
 
+    def test_get_employee_salary_by_month(self):
+        self.mock_cursor.fetchone.return_value = (5000.75,)
+
+        result = self.mysql.get_employee_salary_by_month(1, "2024-05")
+
+        self.mock_cursor.execute.assert_called_once_with("""
+            SELECT salary_amount
+            FROM Salary
+            WHERE employee_id = %s AND salary_month = %s
+        """, (1, "2024-05"))
+
+        self.assertEqual(result, (5000.75,))
+
     def test_get_employee_leaves(self):
         self.mock_cursor.fetchall.return_value = [
             ("Sick", 3),

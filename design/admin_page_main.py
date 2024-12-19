@@ -360,6 +360,11 @@ class AdminPage(QtWidgets.QWidget):
         if not employee_id:
             raise ValueError(f"No employee found with name {worker_name}")
 
+        existing_salary = self.mysql_connection.get_employee_salary_by_month(employee_id, salary_month)
+        if existing_salary:
+            QtWidgets.QMessageBox.critical(self, "Error",f"Salary for {worker_name} for {salary_month} has already been calculated.")
+            return
+
         employee_position_info = self.mysql_connection.get_employee_info_for_calculation_salary(employee_id)
         if not employee_position_info:
             raise ValueError(f"No employee position info found for employee_id {employee_id}")
