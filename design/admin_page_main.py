@@ -43,13 +43,15 @@ class AdminPage(QtWidgets.QWidget):
         self.setup_worker_table()
         self.load_workers_into_combobox()
         self.ui.worker_leaves_tableView.doubleClicked.connect(self.save_leave_request_changes)
+        self. load_workers_data()
+        self.view_leave_requests()
+        self.view_salaries()
 
     def create_switch_page_handler(self, page):
         def handler():
             self.switch_page(page)
 
         return handler
-
 
     def switch_page(self, index):
         self.ui.stackedWidget.setCurrentIndex(index)
@@ -333,6 +335,10 @@ class AdminPage(QtWidgets.QWidget):
         year = self.ui.year_dateEdit.date().year()
         salary_month = f"{year}-{month:02d}"
         premium_text = self.ui.premium_lineEdit.text().strip()
+
+        if not worker_name or not month:
+            QtWidgets.QMessageBox.critical(self, "Error", "Please fill in all required fields.")
+            return
 
         if not premium_text:
             premium_text = "0"

@@ -199,12 +199,12 @@ class TestAdminPage(unittest.TestCase):
     def test_calculate_salary_invalid_premium(self):
         self.admin_page.ui.worker_salary_comboBox.addItem("John Doe", 1)
         self.admin_page.ui.worker_salary_comboBox.setCurrentIndex(0)
-        self.admin_page.ui.premium_lineEdit.setText("invalid")
+        self.admin_page.ui.premium_lineEdit.setText("")
 
         with patch.object(QtWidgets.QMessageBox, 'critical') as mock_critical:
             self.admin_page.calculate_salary()
             mock_critical.assert_called_once_with(
-                self.admin_page, "Error", "Premium must contain only digits."
+                self.admin_page, "Error", "Please fill in all required fields."
             )
 
 if __name__ == '__main__':

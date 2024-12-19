@@ -1,14 +1,7 @@
 from datetime import date
 
 class GeneralInfo:
-    def __init__(
-        self,
-        employee_id: str,
-        department_id: int,
-        position_id: int,
-        hire_date: date,
-        experience: int
-    ):
+    def __init__(self, employee_id: str, department_id: int, position_id: int, hire_date: date, experience: int):
         self._employee_id = employee_id
         self._department_id = department_id
         self._position_id = position_id
