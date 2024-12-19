@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
-from design.admin_page_main import AdminPage
+from design.admin_page.admin_page_main import AdminPage
 
 
 class TestAdminPage(unittest.TestCase):
-    @patch('design.admin_page_main.Redis')
-    @patch('design.admin_page_main.MySQL')
+    @patch('design.admin_page.admin_page_main.Redis')
+    @patch('design.admin_page.admin_page_main.MySQL')
     def setUp(self, mock_redis, mock_mysql):
         self.app = QtWidgets.QApplication([])
 
@@ -48,14 +48,14 @@ class TestAdminPage(unittest.TestCase):
             mock_edit_info_worker.assert_called_once()
 
     def test_add_info_worker_calls_AddPage(self):
-        with patch('design.admin_page_main.AddPage') as mock_add_page:
+        with patch('design.admin_page.admin_page_main.AddPage') as mock_add_page:
             self.admin_page.add_info_worker()
             mock_add_page.assert_called_once_with(
                 redis_connection=self.mock_redis, mysql_connection=self.mock_mysql
             )
 
     def test_edit_info_worker_calls_EditPage(self):
-        with patch('design.admin_page_main.EditPage') as mock_edit_page:
+        with patch('design.admin_page.admin_page_main.EditPage') as mock_edit_page:
             self.admin_page.edit_info_worker()
             mock_edit_page.assert_called_once_with(
                 redis_connection=self.mock_redis, mysql_connection=self.mock_mysql,

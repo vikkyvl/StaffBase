@@ -1,6 +1,5 @@
-import re
-from design.edit_leave_page import *
-from imports import *
+from design.edit_leave_page.edit_leave_page import *
+
 
 class EditLeavePage:
     def __init__(self, redis_connection, mysql_connection, parent=None, worker_leaves_tableView=None):

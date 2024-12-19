@@ -2,14 +2,14 @@ import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from design.edit_leave_page_main import EditLeavePage
+from design.edit_leave_page.edit_leave_page_main import EditLeavePage
 
 class TestEditLeavePage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QtWidgets.QApplication([])
 
-    @patch('design.edit_leave_page_main.QtWidgets.QDialog.exec_', return_value=None)
+    @patch('design.edit_leave_page.edit_leave_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec):
         self.redis_mock = MagicMock()
         self.mysql_mock = MagicMock()
@@ -65,11 +65,11 @@ class TestEditLeavePage(unittest.TestCase):
             1, "Sick Leave", "2024-05-01", "2024-05-05"
         )
 
-    @patch('design.edit_leave_page_main.QtWidgets.QMessageBox.warning')
+    @patch('design.edit_leave_page.edit_leave_page_main.QtWidgets.QMessageBox.warning')
     def test_init_without_selected_row(self, mock_warning):
         self.worker_leaves_tableView.clearSelection()
 
-        with patch('design.edit_leave_page_main.QtWidgets.QDialog.exec_', return_value=None):
+        with patch('design.edit_leave_page.edit_leave_page_main.QtWidgets.QDialog.exec_', return_value=None):
             edit_page = EditLeavePage(
                 redis_connection=self.redis_mock,
                 mysql_connection=self.mysql_mock,

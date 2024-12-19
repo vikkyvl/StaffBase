@@ -1,4 +1,4 @@
-from design.auth_pages_main import run_application
+from design.auth_page.auth_pages_main import run_application
 
 def run():
     run_application()

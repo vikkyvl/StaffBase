@@ -1,18 +1,30 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, mock_open
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from design.auth_pages_main import MainPage
+from design.auth_page.auth_pages_main import MainPage
 import sys
 
-app = QApplication(sys.argv)
 
 class TestMainPage(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Ініціалізація QApplication
+        if not QApplication.instance():
+            cls.app = QApplication(sys.argv)
+        else:
+            cls.app = QApplication.instance()
+
     def setUp(self):
-        with patch('design.auth_pages_main.MySQL') as MockMySQL:
-            self.mock_mysql = MockMySQL.return_value
-            self.main_page = MainPage()
-            self.main_page.redis_connection = MagicMock()
-            self.main_page.auth_process = MagicMock()
+        # Мокаємо MySQL і файл departments.json
+        with patch('builtins.open', new_callable=mock_open, read_data='{}') as mock_file:
+            self.mock_file = mock_file
+            with patch('design.auth_page.auth_pages_main.MySQL') as MockMySQL:
+                self.mock_mysql = MockMySQL.return_value
+
+                # Ініціалізація MainPage
+                self.main_page = MainPage()
+                self.main_page.redis_connection = MagicMock()
+                self.main_page.auth_process = MagicMock()
 
     def test_switch_page(self):
         self.main_page.switch_page(2)
@@ -77,5 +89,7 @@ class TestMainPage(unittest.TestCase):
         for line_edit in line_edits:
             self.assertEqual(line_edit.text(), "")
 
+
 if __name__ == '__main__':
     unittest.main()
+

@@ -1,11 +1,11 @@
 from decimal import Decimal, InvalidOperation
-from PyQt5 import QtWidgets
+from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QStandardItemModel
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
-from design.admin_page import Ui_Form
-from design.add_page_main import *
-from design.edit_leave_page_main import *
-from design.edit_page_main import *
+from PyQt5.QtWidgets import QMessageBox, QApplication
+from design.admin_page.admin_page import Ui_Form
+from design.add_page.add_page_main import *
+from design.edit_leave_page.edit_leave_page_main import *
+from design.edit_page.edit_page_main import *
 from classes.calculation_salary import CalculationSalary
 from classes.salary import Salary
 
@@ -74,6 +74,8 @@ class AdminPage(QtWidgets.QWidget):
                 self.edit_leave_request()
             case 2:
                 self.load_workers_into_combobox()
+                self.view_salaries()
+                self.view_leave_requests()
             case 12:
                 self.delete_leave_request()
             case 13:
@@ -241,6 +243,11 @@ class AdminPage(QtWidgets.QWidget):
 
             self.ui.worker_leaves_tableView.resizeColumnsToContents()
             QtWidgets.QMessageBox.information(self, "Success", "Leave request added successfully!")
+            self.ui.type_leave_comboBox.setCurrentIndex(-1)
+            today = QDate.currentDate()
+            self.ui.start_date_dateEdit.setDate(today)
+            self.ui.end_date_dateEdit.setDate(today)
+
 
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to add leave request: {e}")
@@ -377,6 +384,10 @@ class AdminPage(QtWidgets.QWidget):
         salary = Salary(employee_id, salary_month, calculated_salary)
         self.mysql_connection.add_employee_salary(salary)
         self.view_salaries()
+        self.ui.month_comboBox.setCurrentIndex(-1)
+        current_year = QDate.currentDate().year()
+        self.ui.year_dateEdit.setDate(QDate(current_year, 1, 1))
+        self.ui.premium_lineEdit.setText("")
 
     def view_salaries(self):
         try:

@@ -1,16 +1,19 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from PyQt5 import QtWidgets, QtCore
-from design.enter_email_page_main import EnterEmailPage
+from PyQt5 import QtWidgets
+from design.enter_email_page.enter_email_page_main import EnterEmailPage
 
 class TestEnterEmailPage(unittest.TestCase):
-    @patch('design.enter_email_page_main.QtWidgets.QMessageBox')
-    @patch('design.enter_email_page_main.EnterEmailPage.show')
+    @patch('design.enter_email_page.enter_email_page_main.QtWidgets.QMessageBox')
+    @patch('design.enter_email_page.enter_email_page_main.EnterEmailPage.show')
     def setUp(self, mock_show, mock_messagebox):
-        self.app = QtWidgets.QApplication([])
+        if not QtWidgets.QApplication.instance():
+            self.app = QtWidgets.QApplication([])
+        else:
+            self.app = QtWidgets.QApplication.instance()
+
         self.mock_mysql = MagicMock()
         self.worker_id = "123"
-
         self.enter_email_page = EnterEmailPage(mysql_connection=self.mock_mysql, worker_id=self.worker_id)
 
     def tearDown(self):

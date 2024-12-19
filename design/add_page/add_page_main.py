@@ -1,5 +1,5 @@
 import re
-from design.add_page import *
+from design.add_page.add_page import *
 from imports import *
 
 class AddPage:

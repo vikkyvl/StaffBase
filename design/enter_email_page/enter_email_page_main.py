@@ -1,6 +1,4 @@
-import re
-from design.enter_email_page import *
-from imports import *
+from design.enter_email_page.enter_email_page import *
 
 
 class EnterEmailPage(QtWidgets.QDialog):

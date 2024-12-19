@@ -1,8 +1,7 @@
-from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
-from design.user_page import Ui_Form
-from design.edit_personal_info_page_main import *
+from PyQt5.QtWidgets import QMessageBox, QApplication
+from design.user_page.user_page import Ui_Form
+from design.edit_personal_info_page.edit_personal_info_page_main import *
 from classes.authorization import Authorization
 
 

@@ -1,10 +1,9 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from design.auth_pages import Ui_MainWindow
-from design.admin_page_main import *
-from design.user_page_main import *
+from PyQt5.QtWidgets import QMainWindow
+from design.auth_page.auth_pages import Ui_MainWindow
+from design.admin_page.admin_page_main import *
+from design.user_page.user_page_main import *
 from classes.authorization import Authorization
-from design.enter_email_page_main import EnterEmailPage
+from design.enter_email_page.enter_email_page_main import EnterEmailPage
 from imports import *
 import sys
 
@@ -48,7 +47,6 @@ class MainPage(QMainWindow):
 
     def switch_page(self, index):
         self.ui.stackedWidget.setCurrentIndex(index)
-        print(f"Перемикання на сторінку: {index}")
 
         match index:
             case 6:

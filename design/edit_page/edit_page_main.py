@@ -1,5 +1,5 @@
 import re
-from design.edit_page import *
+from design.edit_page.edit_page import *
 from imports import *
 
 class EditPage:

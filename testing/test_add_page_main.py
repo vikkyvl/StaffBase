@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from PyQt5 import QtWidgets, QtCore
-from design.add_page_main import AddPage
+from design.add_page.add_page_main import AddPage
 
 class TestAddPage(unittest.TestCase):
-    @patch('design.add_page_main.Redis')
-    @patch('design.add_page_main.MySQL')
-    @patch('design.add_page_main.QtWidgets.QDialog.exec_', return_value=None)
+    @patch('design.add_page.add_page_main.Redis')
+    @patch('design.add_page.add_page_main.MySQL')
+    @patch('design.add_page.add_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec, mock_mysql, mock_redis):
         self.app = QtWidgets.QApplication([])
 
@@ -87,7 +87,7 @@ class TestAddPage(unittest.TestCase):
         self.mock_mysql.add_personal_info = MagicMock()
         self.mock_mysql.add_general_info = MagicMock()
 
-        with patch('design.add_page_main.QtWidgets.QMessageBox.information') as mock_info:
+        with patch('design.add_page.add_page_main.QtWidgets.QMessageBox.information') as mock_info:
             self.add_page.add_date()
 
             self.mock_redis.add_employee.assert_called_once()

@@ -1,14 +1,17 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from PyQt5 import QtWidgets, QtCore
-from design.edit_page_main import EditPage
+from PyQt5 import QtWidgets
+from design.edit_page.edit_page_main import EditPage
 
 class TestEditPage(unittest.TestCase):
-    @patch('design.edit_page_main.Redis')
-    @patch('design.edit_page_main.MySQL')
-    @patch('design.edit_page_main.QtWidgets.QDialog.exec_', return_value=None)
+    @patch('design.edit_page.edit_page_main.Redis')
+    @patch('design.edit_page.edit_page_main.MySQL')
+    @patch('design.edit_page.edit_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec, mock_mysql, mock_redis):
-        self.app = QtWidgets.QApplication([])
+        if not QtWidgets.QApplication.instance():
+            self.app = QtWidgets.QApplication([])
+        else:
+            self.app = QtWidgets.QApplication.instance()
 
         self.mock_redis = mock_redis.return_value
         self.mock_mysql = mock_mysql.return_value

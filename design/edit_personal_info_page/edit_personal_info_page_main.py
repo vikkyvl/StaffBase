@@ -1,6 +1,5 @@
-import re
-from design.edit_personal_info_page import *
-from imports import *
+from design.edit_personal_info_page.edit_personal_info_page import *
+
 
 class EditPersonalInformationPage:
     def __init__(self, redis_connection, mysql_connection, worker_id, parent=None, worker_info_tableView=None):

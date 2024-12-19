@@ -215,8 +215,8 @@ class TestMySQL(unittest.TestCase):
         self.mysql.update_leave_request("123", "Vacation", date(2024, 5, 1), date(2024, 5, 10))
 
         expected_query = self.normalize_sql("""
-            UPDATE Leaves 
-            SET leave_type = %s, start_date = %s, end_date = %s 
+            UPDATE Leaves
+            SET leave_type = %s, start_date = %s, end_date = %s
             WHERE employee_id = %s
         """)
 
@@ -402,7 +402,7 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_employee_full_info("123")
 
         expected_query = """
-            SELECT 
+            SELECT
                 e.full_name,
                 d.department_name,
                 p.position_name,
@@ -473,14 +473,14 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_salary_history("123")
 
         expected_query = """
-            SELECT 
-                salary_month, 
-                salary_amount 
-            FROM 
+            SELECT
+                salary_month,
+                salary_amount
+            FROM
                 Salary
-            WHERE 
+            WHERE
                 employee_id = %s
-            ORDER BY 
+            ORDER BY
                 salary_month DESC
         """
 
@@ -502,14 +502,14 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_leaves_history("123")
 
         expected_query = """
-            SELECT 
+            SELECT
                 leave_type,
                 start_date,
                 end_date,
                 duration
-            FROM 
+            FROM
                 Leaves
-            WHERE 
+            WHERE
                 employee_id = %s
         """
 
@@ -531,18 +531,18 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_retirement_age_employees()
 
         expected_query = """
-            SELECT 
+            SELECT
                 e.employee_id,
                 e.full_name,
                 TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()) AS age,
                 g.total_experience AS experience
-            FROM 
+            FROM
                 Employee e
-            JOIN 
+            JOIN
                 PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN 
+            JOIN
                 GeneralInfo g ON e.employee_id = g.employee_id
-            WHERE 
+            WHERE
                 TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()) >= 60;
         """
 
@@ -565,20 +565,20 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_employees_below_average_salary()
 
         expected_query = """
-            SELECT 
+            SELECT
                 d.department_name,
-                d.average_salary, 
+                d.average_salary,
                 e.full_name,
                 p.salary_amount
-            FROM 
+            FROM
                 Employee e
-            JOIN 
+            JOIN
                 GeneralInfo g ON e.employee_id = g.employee_id
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            JOIN 
+            JOIN
                 Positions p ON g.position_id = p.position_id
-            WHERE 
+            WHERE
                 p.salary_amount < d.average_salary;
         """
 
@@ -603,25 +603,25 @@ class TestMySQL(unittest.TestCase):
         department_result, company_result = self.mysql.get_average_age_by_department_and_company()
 
         expected_department_query = """
-            SELECT 
+            SELECT
                 d.department_name,
                 ROUND(AVG(TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()))) AS average_age
-            FROM 
+            FROM
                 Employee e
-            JOIN 
+            JOIN
                 PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN 
+            JOIN
                 GeneralInfo g ON e.employee_id = g.employee_id
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            GROUP BY 
+            GROUP BY
                 d.department_name
         """
 
         expected_company_query = """
-            SELECT 
+            SELECT
                 ROUND(AVG(TIMESTAMPDIFF(YEAR, p.birth_date, CURDATE()))) AS average_age_company
-            FROM 
+            FROM
                 PersonalInfo p
         """
 
@@ -649,35 +649,35 @@ class TestMySQL(unittest.TestCase):
         total_result, monthly_result = self.mysql.get_sick_leave_duration_by_department()
 
         expected_total_query = """
-            SELECT 
+            SELECT
                 d.department_name,
                 SUM(l.duration) AS total_leave_duration
-            FROM 
+            FROM
                 Leaves l
-            JOIN 
+            JOIN
                 GeneralInfo g ON l.employee_id = g.employee_id
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            WHERE 
+            WHERE
                 l.leave_type = 'Sick'
-            GROUP BY 
+            GROUP BY
                 d.department_name
         """
 
         expected_monthly_query = """
-            SELECT 
+            SELECT
                 d.department_name,
                 MONTH(l.start_date) AS leave_month,
                 SUM(l.duration) AS total_leave_duration
-            FROM 
+            FROM
                 Leaves l
-            JOIN 
+            JOIN
                 GeneralInfo g ON l.employee_id = g.employee_id
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            WHERE 
+            WHERE
                 l.leave_type = 'Sick'
-            GROUP BY 
+            GROUP BY
                 d.department_name, leave_month
         """
 
@@ -707,14 +707,14 @@ class TestMySQL(unittest.TestCase):
         result = self.mysql.get_average_experience_by_department()
 
         expected_query = """
-            SELECT 
+            SELECT
                 d.department_name,
                 ROUND(AVG(g.total_experience), 2) AS average_experience
-            FROM 
+            FROM
                 GeneralInfo g
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            GROUP BY 
+            GROUP BY
                 d.department_name
         """
 
@@ -744,35 +744,35 @@ class TestMySQL(unittest.TestCase):
         department_result, company_result = self.mysql.get_average_earnings_by_gender_and_department()
 
         expected_department_query = """
-            SELECT 
+            SELECT
                 d.department_name,
                 p.sex,
                 ROUND(AVG(s.salary_amount), 2) AS average_salary
-            FROM 
+            FROM
                 Employee e
-            JOIN 
+            JOIN
                 PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN 
+            JOIN
                 GeneralInfo g ON e.employee_id = g.employee_id
-            JOIN 
+            JOIN
                 Departments d ON g.department_id = d.department_id
-            JOIN 
+            JOIN
                 Salary s ON e.employee_id = s.employee_id
-            GROUP BY 
+            GROUP BY
                 d.department_name, p.sex
         """
 
         expected_company_query = """
-            SELECT 
+            SELECT
                 p.sex,
                 ROUND(AVG(s.salary_amount), 2) AS average_salary_company
-            FROM 
+            FROM
                 Employee e
-            JOIN 
+            JOIN
                 PersonalInfo p ON e.employee_id = p.employee_id
-            JOIN 
+            JOIN
                 Salary s ON e.employee_id = s.employee_id
-            GROUP BY 
+            GROUP BY
                 p.sex
         """
 
