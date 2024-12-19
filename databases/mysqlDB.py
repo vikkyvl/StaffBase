@@ -116,7 +116,6 @@ class MySQL:
         for table_name, table_query in tables.items():
             try:
                 self.cursor.execute(table_query)
-                print(f"Table '{table_name}' is successfully created.")
             except mysql.connector.Error as e:
                 print(f"Error while creating table '{table_name}':", e)
 
