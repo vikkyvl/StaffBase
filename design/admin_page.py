@@ -431,6 +431,12 @@ class Ui_Form(object):
         tooltip_text = """
         <html>
         <body>
+        <p><i><b>Note:</b> For leave management, if the leave period spans across multiple months (e.g., sick leave from 11.11 to 02.12), 
+        each month's portion should be recorded separately. For example, record as:</i></p>
+        <ul>
+            <li><i>11.11 to 30.11 (November)</i></li>
+            <li><i>01.12 to 02.12 (December)</i></li>
+        </ul>
         <h3>Salary Calculation Process</h3>
         <p>This procedure calculates an employee's monthly salary, considering work experience, types of leave, and additional premiums.</p>
         <h4>Step 1: Base Components</h4>
