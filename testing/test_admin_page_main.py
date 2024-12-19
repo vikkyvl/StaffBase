@@ -108,8 +108,8 @@ class TestAdminPage(unittest.TestCase):
         self.admin_page.ui.worker_leave_comboBox.addItem("John Doe", 1)
         self.admin_page.ui.worker_leave_comboBox.setCurrentIndex(0)
 
-        self.admin_page.ui.type_leave_comboBox.addItem("Sick Leave")
-        self.admin_page.ui.type_leave_comboBox.setCurrentIndex(0)
+        self.admin_page.ui.type_leave_comboBox.addItem("Sick")
+        self.admin_page.ui.type_leave_comboBox.setCurrentIndex(1)
 
         start_date = QtCore.QDate(2024, 5, 1)
         end_date = QtCore.QDate(2024, 5, 5)
@@ -118,11 +118,14 @@ class TestAdminPage(unittest.TestCase):
         self.admin_page.ui.end_date_dateEdit.setDate(end_date)
 
         self.mock_mysql.get_employee_id_by_name.return_value = 1
-
         self.mock_mysql.add_leave_request.return_value = None
 
         with patch.object(QtWidgets.QMessageBox, 'information') as mock_info:
             self.admin_page.add_leave_request()
+            self.mock_mysql.get_employee_id_by_name.assert_called_once_with("John Doe")
+            self.mock_mysql.add_leave_request.assert_called_once_with(
+                1, "Sick", "2024-05-01", "2024-05-05"
+            )
             mock_info.assert_called_once_with(
                 self.admin_page, "Success", "Leave request added successfully!"
             )
