@@ -1,11 +1,15 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from PyQt5 import QtWidgets, QtCore
-from design.edit_personal_info_page_main import EditPersonalInformationPage
+from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-
+from design.edit_personal_info_page_main import EditPersonalInformationPage
+import sys
 
 class TestEditPersonalInformationPage(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.app = QtWidgets.QApplication(sys.argv)
+
     @patch('design.edit_personal_info_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec):
         self.redis_mock = MagicMock()
@@ -72,6 +76,16 @@ class TestEditPersonalInformationPage(unittest.TestCase):
                 "Failed to update personal information."
             )
 
+    def test_update_personal_info_exception(self):
+        self.mysql_mock.update_personal_info.side_effect = Exception("Database error")
+
+        with patch.object(QtWidgets.QMessageBox, 'critical') as mock_critical:
+            self.edit_page.update_personal_info()
+            mock_critical.assert_called_once_with(
+                self.edit_page.edit_personal_info_page,
+                "Error",
+                "Failed to update personal information: Database error"
+            )
 
 if __name__ == '__main__':
     unittest.main()
