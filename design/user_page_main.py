@@ -43,6 +43,10 @@ class UserPage(QtWidgets.QWidget):
         self.ui.stackedWidget.setCurrentIndex(index)
 
         match index:
+            case 1:
+                self.load_salary_history()
+            case 2:
+                self.load_leave_history()
             case 4:
                 self.confirm_exit()
             case 5:
@@ -55,8 +59,8 @@ class UserPage(QtWidgets.QWidget):
 
 
     def edit_personal_information(self):
-        edit_personal_information = EditPersonalInformationPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_info_tableView=self.ui.worker_info_tableView)
-
+        edit_personal_information = EditPersonalInformationPage(redis_connection=self.redis_connection, mysql_connection=self.mysql_connection, worker_id=self.worker_id, worker_info_tableView=self.ui.worker_info_tableView)
+        self.load_worker_info()
 
     def load_worker_info(self):
         worker_info = self.mysql_connection.get_employee_full_info(self.worker_id)
@@ -85,6 +89,9 @@ class UserPage(QtWidgets.QWidget):
 
         self.ui.worker_info_tableView.setModel(model)
         self.ui.worker_info_tableView.resizeColumnsToContents()
+
+        self.ui.worker_info_tableView.horizontalHeader().setStretchLastSection(True)
+        self.ui.worker_info_tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
     def request_leave(self):
         start_date_leave = self.ui.start_date_calendarWidget.selectedDate().toString('yyyy-MM-dd')
@@ -145,3 +152,53 @@ class UserPage(QtWidgets.QWidget):
             QApplication.instance().quit()
         else:
             pass
+
+    def load_salary_history(self):
+        salary_history = self.mysql_connection.get_salary_history(self.worker_id)
+
+        if not salary_history:
+            QtWidgets.QMessageBox.warning(self, "Warning", "No salary history found for this employee.")
+            return
+
+        model = QStandardItemModel()
+        model.setHorizontalHeaderLabels(["Date", "Salary"])
+
+        for record in salary_history:
+            date_item = QStandardItem(record["salary_month"])
+            salary_item = QStandardItem(f"{record['salary_amount']:.2f}")
+            model.appendRow([date_item, salary_item])
+
+        self.ui.salary_history_tableView.setModel(model)
+        self.ui.salary_history_tableView.resizeColumnsToContents()
+
+        self.ui.salary_history_tableView.horizontalHeader().setStretchLastSection(True)
+        self.ui.salary_history_tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
+    def load_leave_history(self):
+        try:
+            leaves = self.mysql_connection.get_leaves_history(self.worker_id)
+
+            if not leaves:
+                QtWidgets.QMessageBox.warning(self, "Warning", "No leave history found for this employee.")
+                return
+
+            model = QStandardItemModel()
+            model.setHorizontalHeaderLabels(["Type", "Start Date", "End Date", "Duration"])
+
+            for leave in leaves:
+                type_item = QStandardItem(leave["leave_type"])
+                start_date_item = QStandardItem(str(leave["start_date"]))
+                end_date_item = QStandardItem(str(leave["end_date"]))
+                duration_item = QStandardItem(str(leave["duration"]))
+
+                model.appendRow([type_item, start_date_item, end_date_item, duration_item])
+
+            self.ui.leave_history_tableView.setModel(model)
+            self.ui.leave_history_tableView.resizeColumnsToContents()
+            self.ui.leave_history_tableView.horizontalHeader().setStretchLastSection(True)
+            self.ui.leave_history_tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load leave history: {e}")
+
+

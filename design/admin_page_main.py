@@ -373,6 +373,9 @@ class AdminPage(QtWidgets.QWidget):
 
             table.resizeColumnsToContents()
 
+            table.horizontalHeader().setStretchLastSection(True)
+            table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to load salaries: {e}")
 

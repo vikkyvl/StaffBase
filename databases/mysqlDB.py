@@ -251,6 +251,22 @@ class MySQL:
             self.mydb.rollback()
             return False
 
+    def update_personal_info(self, data):
+        try:
+            query = """
+                UPDATE PersonalInfo
+                SET number_of_children = %s, marital_status = %s, phone_number = %s, email = %s
+                WHERE employee_id = %s
+            """
+            self.cursor.execute(query, (data["number_of_children"], data["marital_status"], data["phone_number"], data["email"], data["employee_id"]))
+
+            self.mydb.commit()
+            return True
+        except mysql.connector.Error as e:
+            print(f"Error updating personal info: {e}")
+            self.mydb.rollback()
+            return False
+
     def update_leave_request(self, employee_id, leave_type, start_date, end_date):
         cursor = self.mydb.cursor()
         query = """UPDATE Leaves 
@@ -367,6 +383,52 @@ class MySQL:
         except Exception as e:
             print(f"Error fetching employee info for salary calculation: {e}")
             return None
+
+    def get_salary_history(self, employee_id):
+        query = """
+            SELECT 
+                salary_month, 
+                salary_amount 
+            FROM 
+                Salary
+            WHERE 
+                employee_id = %s
+            ORDER BY 
+                salary_month DESC
+        """
+        try:
+            cursor = self.mydb.cursor(dictionary=True)
+            cursor.execute(query, (employee_id,))
+            results = cursor.fetchall()
+            return results
+        except Exception as e:
+            print(f"Error fetching salary history: {e}")
+            return []
+        finally:
+            cursor.close()
+
+    def get_leaves_history(self, employee_id):
+        query = """
+            SELECT 
+                leave_type,
+                start_date,
+                end_date,
+                duration
+            FROM 
+                Leaves
+            WHERE 
+                employee_id = %s
+        """
+        try:
+            cursor = self.mydb.cursor(dictionary=True)
+            cursor.execute(query, (employee_id,))
+            results = cursor.fetchall()
+            return results
+        except Exception as e:
+            print(f"Error fetching leaves: {e}")
+            return []
+        finally:
+            cursor.close()
 
     def get_retirement_age_employees(self):
         cursor = self.mydb.cursor(dictionary=True)
