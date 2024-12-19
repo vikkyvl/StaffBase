@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel
@@ -332,11 +332,23 @@ class AdminPage(QtWidgets.QWidget):
         month = self.ui.month_comboBox.currentIndex()
         year = self.ui.year_dateEdit.date().year()
         salary_month = f"{year}-{month:02d}"
+        premium_text = self.ui.premium_lineEdit.text().strip()
+
+        if not premium_text:
+            premium_text = "0"
+
+        if not premium_text.isdigit():
+            QtWidgets.QMessageBox.critical(self, "Error", "Premium must contain only digits.")
+            return
 
         try:
-            premium = Decimal(self.ui.premium_lineEdit.text().strip() or "0")
-        except Exception as e:
-            raise ValueError("Invalid premium value") from e
+            premium = Decimal(premium_text)
+            if premium > 1000:
+                QtWidgets.QMessageBox.critical(self, "Error", "Premium cannot exceed 1000.")
+                return
+        except InvalidOperation:
+            QtWidgets.QMessageBox.critical(self, "Error", "Invalid premium value.")
+            return
 
         employee_id = self.mysql_connection.get_employee_id_by_name(worker_name)
         if not employee_id:
