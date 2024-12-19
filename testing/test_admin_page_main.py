@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
+
 from design.admin_page_main import AdminPage
 
 
@@ -92,6 +93,116 @@ class TestAdminPage(unittest.TestCase):
         self.assertEqual(model.rowCount(), 1)
         self.assertEqual(model.index(0, 1).data(), "john_doe")
 
+    def test_load_workers_into_combobox(self):
+        self.mock_mysql.get_all_workers.return_value = [
+            (1, "John Doe"),
+            (2, "Jane Smith"),
+        ]
+
+        self.admin_page.load_workers_into_combobox()
+
+        self.assertEqual(self.admin_page.ui.worker_salary_comboBox.count(), 2)
+        self.assertEqual(self.admin_page.ui.worker_leave_comboBox.count(), 2)
+
+    def test_add_leave_request_success(self):
+        self.admin_page.ui.worker_leave_comboBox.addItem("John Doe", 1)
+        self.admin_page.ui.worker_leave_comboBox.setCurrentIndex(0)
+
+        self.admin_page.ui.type_leave_comboBox.addItem("Sick Leave")
+        self.admin_page.ui.type_leave_comboBox.setCurrentIndex(0)
+
+        start_date = QtCore.QDate(2024, 5, 1)
+        end_date = QtCore.QDate(2024, 5, 5)
+
+        self.admin_page.ui.start_date_dateEdit.setDate(start_date)
+        self.admin_page.ui.end_date_dateEdit.setDate(end_date)
+
+        self.mock_mysql.get_employee_id_by_name.return_value = 1
+
+        self.mock_mysql.add_leave_request.return_value = None
+
+        with patch.object(QtWidgets.QMessageBox, 'information') as mock_info:
+            self.admin_page.add_leave_request()
+            mock_info.assert_called_once_with(
+                self.admin_page, "Success", "Leave request added successfully!"
+            )
+
+    def test_view_leave_requests(self):
+        self.mock_mysql.get_all_leave_requests.return_value = [
+            ("John Doe", "Sick Leave", "2024-05-01", "2024-05-05", 5)
+        ]
+
+        self.admin_page.view_leave_requests()
+
+        model = self.admin_page.ui.worker_leaves_tableView.model()
+        self.assertEqual(model.rowCount(), 1)
+        self.assertEqual(model.index(0, 0).data(), "John Doe")
+        self.assertEqual(model.index(0, 1).data(), "Sick Leave")
+
+    def test_save_leave_request_changes(self):
+        self.admin_page.ui.worker_leaves_tableView.selectionModel = MagicMock()
+        selected_indexes = [MagicMock()]
+        self.admin_page.ui.worker_leaves_tableView.selectionModel().selectedRows.return_value = selected_indexes
+
+        mock_model = MagicMock()
+        self.admin_page.ui.worker_leaves_tableView.model = MagicMock(return_value=mock_model)
+
+        mock_index = MagicMock()
+        mock_model.index.return_value = mock_index
+        mock_index.data.side_effect = [
+            "John Doe",
+            "Sick Leave",
+            "2024-05-01",
+            "2024-05-05"
+        ]
+
+        self.mock_mysql.get_employee_id_by_name.return_value = 1
+
+        with patch.object(QtWidgets.QMessageBox, 'information') as mock_info:
+            self.admin_page.save_leave_request_changes()
+            mock_info.assert_called_once_with(
+                self.admin_page, "Success", "Leave request updated successfully!"
+            )
+            self.mock_mysql.update_leave_request.assert_called_once_with(1, "Sick Leave", "2024-05-01", "2024-05-05")
+
+    def test_delete_leave_request(self):
+        self.admin_page.ui.worker_leaves_tableView.selectionModel = MagicMock()
+        selected_indexes = [MagicMock()]
+        self.admin_page.ui.worker_leaves_tableView.selectionModel().selectedRows.return_value = selected_indexes
+
+        mock_model = MagicMock()
+        self.admin_page.ui.worker_leaves_tableView.model = MagicMock(return_value=mock_model)
+
+        mock_index = MagicMock()
+        mock_model.index.return_value = mock_index
+        mock_index.data.side_effect = [
+            "John Doe",
+            "Sick Leave",
+            "2024-05-01",
+            "2024-05-05"
+        ]
+
+        self.mock_mysql.get_employee_id_by_name.return_value = 1
+
+        with patch.object(QtWidgets.QMessageBox, 'question', return_value=QtWidgets.QMessageBox.Yes), \
+                patch.object(QtWidgets.QMessageBox, 'information') as mock_info:
+            self.admin_page.delete_leave_request()
+            mock_info.assert_called_once_with(
+                self.admin_page, "Success", "Leave request deleted successfully!"
+            )
+            self.mock_mysql.delete_leave_request.assert_called_once_with(1, "Sick Leave", "2024-05-01", "2024-05-05")
+            mock_model.removeRow.assert_called_once_with(selected_indexes[0].row())
+
+    def test_calculate_salary_invalid_premium(self):
+        self.admin_page.ui.worker_salary_comboBox.addItem("John Doe", 1)
+        self.admin_page.ui.worker_salary_comboBox.setCurrentIndex(0)
+        self.admin_page.ui.premium_lineEdit.setText("invalid")
+
+        with patch.object(QtWidgets.QMessageBox, 'critical') as mock_critical:
+            self.admin_page.calculate_salary()
+            mock_critical.assert_called_once_with(
+                self.admin_page, "Error", "Premium must contain only digits."
+            )
 
 if __name__ == '__main__':
     unittest.main()
