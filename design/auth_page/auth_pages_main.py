@@ -165,7 +165,8 @@ class MainPage(QMainWindow):
                 self.clear_line_edits(line_edits)
                 self.ui.stackedWidget.setCurrentIndex(0)
 
-    def clear_line_edits(self, line_edits):
+    @staticmethod
+    def clear_line_edits(line_edits):
         for line_edit in line_edits:
             line_edit.clear()
 
