@@ -9,6 +9,10 @@ class TestEditLeavePage(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QtWidgets.QApplication([])
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.app.quit()
+
     @patch('design.edit_leave_page.edit_leave_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec):
         self.redis_mock = MagicMock()

@@ -10,6 +10,10 @@ class TestEditPersonalInformationPage(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QtWidgets.QApplication(sys.argv)
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.app.quit()
+
     @patch('design.edit_personal_info_page.edit_personal_info_page_main.QtWidgets.QDialog.exec_', return_value=None)
     def setUp(self, mock_exec):
         self.redis_mock = MagicMock()
