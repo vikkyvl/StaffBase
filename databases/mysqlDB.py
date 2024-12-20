@@ -161,6 +161,7 @@ class MySQL:
         except Exception as e:
             print(f"Error adding employee salary: {e}")
             raise
+
     def add_leave_request(self, employee_id, leave_type, start_date, end_date):
         cursor = self.mydb.cursor()
         query = """INSERT INTO Leaves (employee_id, leave_type, start_date, end_date)
@@ -318,7 +319,9 @@ class MySQL:
         self.cursor.execute(query, (employee_id,))
         result = self.cursor.fetchone()
 
-        return result[0] if result and "@" in result[0] else 0
+        if not result or result[0] is None:
+            return None
+        return result[0] if "@" in result[0] else 0
 
     def get_all_leave_requests(self):
         cursor = self.mydb.cursor()

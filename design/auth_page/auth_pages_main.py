@@ -101,6 +101,8 @@ class MainPage(QMainWindow):
                 self.open_user_page(user_id)
             else:
                 QMessageBox.warning(self, "Error", "Incorrect password. Please try again or click 'Forgot your password'.")
+                self.ui.user_login_lineEdit.clear()
+                self.ui.user_password_lineEdit.clear()
         else:
             QMessageBox.warning(
                 self,
@@ -196,12 +198,12 @@ class MainPage(QMainWindow):
                 self.ui.login_for_pass_lineEdit.clear()
                 self.ui.stackedWidget.setCurrentIndex(0)
         else:
-            self.ui.login_for_pass_lineEdit.clear()
             QMessageBox.warning(
                 self,
                 "User Not Found",
                 "The user does not exist, or you have entered an incorrect login. Please try again."
             )
+            self.ui.login_for_pass_lineEdit.clear()
 
     def user_send_code_page(self, user_login, user_email):
         self.verification_code = self.auth_process.send_code(user_email)
