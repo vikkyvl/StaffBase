@@ -3,23 +3,23 @@ from classes.admin import *
 from classes.user import *
 
 class Redis(Admin, User):
-    # def __init__(self, host='redis-13066.c124.us-central1-1.gce.redns.redis-cloud.com', port=13066, username="default", password="5i0VNFZWaNcR9oPNzHdrO2ZSPKHUDdXe"):
-    #     super().__init__()
-    #     self.r = redis.Redis(
-    #         host=host,
-    #         port=port,
-    #         decode_responses=True,
-    #         username=username,
-    #         password=password
-    #     )
-    def __init__(self, host='localhost', port=6379, db=0): # для локального користування
+    def __init__(self, host='redis-13066.c124.us-central1-1.gce.redns.redis-cloud.com', port=13066, username="default", password="5i0VNFZWaNcR9oPNzHdrO2ZSPKHUDdXe"):
         super().__init__()
         self.r = redis.Redis(
             host=host,
             port=port,
             decode_responses=True,
-            db=db
+            username=username,
+            password=password
         )
+    # def __init__(self, host='localhost', port=6379, db=0): # для локального користування
+    #     super().__init__()
+    #     self.r = redis.Redis(
+    #         host=host,
+    #         port=port,
+    #         decode_responses=True,
+    #         db=db
+    #     )
         self.is_admin_password()
 
     def __del__(self):
