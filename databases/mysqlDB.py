@@ -11,19 +11,29 @@ from classes.salary import Salary
 
 class MySQL:
     def __init__(self, host="localhost", port=3306, user="root", password="root-pw", database="staff_base", use_pure=True):
-            self.mydb = mysql.connector.connect(
-                host=host,
-                port=port,
-                user=user,
-                password=password,
-                database=database,
-                use_pure=use_pure
-            )
-            self.cursor = self.mydb.cursor()
-            self.create_tables()
-            self.check_and_insert_departments()
-            self.create_trigger_calculate_experience_generalinfo()
-            self.create_update_duration_trigger()
+        self.mydb = mysql.connector.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database,
+            use_pure=use_pure
+        )
+    # def __init__(self, host="35.223.180.129", port=3306, user="root", password="v-7@", database="staff_control",
+    #              use_pure=True):
+    #     self.mydb = mysql.connector.connect(
+    #         host=host,
+    #         port=port,
+    #         user=user,
+    #         password=password,
+    #         database=database,
+    #         use_pure=use_pure
+    #     )
+        self.cursor = self.mydb.cursor()
+        self.create_tables()
+        self.check_and_insert_departments()
+        self.create_trigger_calculate_experience_generalinfo()
+        self.create_update_duration_trigger()
 
     def __del__(self):
         try:
